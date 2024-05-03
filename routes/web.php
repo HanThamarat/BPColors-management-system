@@ -47,25 +47,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified',]
     Route::get('/reportCarstatus', function() {
         return view('manageBP.report.reportCarstatus');
     })->name('reportCarstatus');
-
-    //Controller
-    // Route::get('/getExcel', [App\Http\Controllers\report::class, 'reportExcel']);
-
-    // Route::get('/dereport', [App\Http\Controllers\reportController::class, 'dereport']);
-    // Route::get('/billreport', [App\Http\Controllers\reportController::class, 'billreport']);
-    // Route::get('/expectreport', [App\Http\Controllers\reportController::class, 'expectreport']);
-    // Route::get('/reportCarstatus', [App\Http\Controllers\reportController::class, 'reportCarstatus']); 
-    // Route::get('/jobreport', [App\Http\Controllers\reportController::class, 'jobreport']); 
-    // Route::get('/pivotclaim', [App\Http\Controllers\reportController::class, 'pivotclaim']); 
-    // Route::get('/pivotservice', [App\Http\Controllers\reportController::class, 'pivotservice']); 
-    // Route::get('/pivotsend', [App\Http\Controllers\reportController::class, 'pivotsend']); 
-    // Route::get('/pivottotalwork', [App\Http\Controllers\reportController::class, 'pivottotalwork']); 
-    // Route::get('/todayreport', [App\Http\Controllers\reportController::class, 'todayreport']); 
-    // Route::get('/todayservice', [App\Http\Controllers\reportController::class, 'todayservice']); 
-    // Route::get('/monthreport', [App\Http\Controllers\reportController::class, 'monthreport']); 
-    // Route::get('/reportStatus', [App\Http\Controllers\reportController::class, 'reportStatus']); 
-    // Route::get('/reportEvaluate', [App\Http\Controllers\reportController::class, 'reportEvaluate']); 
-    // Route::get('/pivotamont', [App\Http\Controllers\reportController::class, 'pivotamont']); 
+    Route::get('/manage-user', function() {
+        return view('manageBP.manage-user');
+    })->name('manage-user');
 
     Route::resource('report', App\Http\Controllers\reportController::class);
 });

@@ -21,6 +21,9 @@
                     <x-nav-link href="{{ route('postreport') }}" :active="request()->routeIs('postreport')">
                         {{ __('Report') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('manage-user') }}" :active="request()->routeIs('manage-user')">
+                        {{ __('Manage User') }}
+                    </x-nav-link>
                 </div>
             </div>
 

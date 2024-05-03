@@ -169,6 +169,7 @@ class CustomerScreen extends Component
             'date_repair' => 'required:min:3',
             'date_send_next' => 'required:min:3',
             'firm_doit' => 'required:min:3',
+            'cost_doit' => 'max:10'
         ],
         [
             'date_cliam.required' => "กรุณากรอกวันที่เข้าเคลม",
@@ -177,6 +178,7 @@ class CustomerScreen extends Component
             'date_repair.required' => "กรุณากรอกข้อมูล",
             'date_send_next.required' => "กรุณากรอกข้อมูล",
             'firm_doit.required' => "กรุณากรอกข้อมูล",
+            'cost_doit.max:10' => 'กรุใส่ไม่เกิน 10 ตัวอักษร',
         ]);
 
         $response = DB::table('tbl_claim')->where(['id' => $this->userId])->get()[0];
