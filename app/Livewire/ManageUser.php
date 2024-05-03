@@ -31,10 +31,27 @@ class ManageUser extends Component
             $this->role,
         ]);
 
-        dd($response);
+        if ($response == 'true') {
+            $this->reset('name', 'email', 'password', 'username', 'role');
+            $this->dispatch('alert',
+                position: 'center',
+                type: 'success',
+                title: 'เพิ่มผู้ใช้งานสำเร็จ',
+                timer: 1500
+            );
+        } else {
+            $this->dispatch('alert',
+                position: 'center',
+                type: 'error',
+                title: 'เพิ่มผู้ใช้งานไม่สำเร็จ',
+                timer: 1500
+            );
+        }
     }
     public function render()
     {
-        return view('livewire.manage-user');
+        return view('livewire.manage-user', [
+            "userData" => DB::table("users")->get(),
+        ]);
     }
 }
