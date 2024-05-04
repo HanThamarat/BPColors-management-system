@@ -275,24 +275,25 @@ class CustomerScreen extends Component
 
     public function formRepair() {
         $response = DB::table('tbl_claim')->where(['id' => $this->userId])->get()[0];
-        // $job[] = $response
-        $res_job = DB::table('job_cal')->get()[0]->job_ptc;
+        // $job[] = $response;
+        // $res_job = DB::table('job_cal')->get()[0]->job_ptc;
 
-        // $validateform = $this->validate([
-        //     'type_doit.*' => 'required:min:1',
-        //     'respon_name.*' => 'required:min:1',
-        //     'date_start.*' => 'required:min:1',
-        //     'date_stop.*' => 'required:min:1',
-        // ]);
+        $validateform = $this->validate([
+            'type_doit.*' => 'required:min:1',
+            'respon_name.*' => 'required:min:1',
+            'date_start.*' => 'required:min:1',
+            'date_stop.*' => 'required:min:1',
+        ]);
 
-        $job['ถอด']	= 0.0233;
-        $job['เคาะ']	= 0.0301;
-        $job['เตรียมพื้น']	= 0.0619;
-        $job['ผสมสี']	= 0.0172;
-        $job['ติดกระดาษ']	= 0.0036;
+        $job['ถอด']	= 0.0267;
+        $job['เคาะ']	= 0.0237;
+        $job['เตรียมพื้น']	= 0.0622;
+        $job['ผสมสี']	= 0.0200;
+        $job['ติดกระดาษ']	= 0.0006;
         $job['พ่นสี']	= 0.0258;
-        $job['ประกอบ']	= 0.0207;
+        $job['ประกอบ']	= 0.0237;
         $job['ขัดสี']	= 0.0175;    
+
 
         // dd($job);
 
@@ -398,6 +399,39 @@ class CustomerScreen extends Component
 
 
         $this->popupForm = false;
+    }
+
+    public function updatajobCal() {
+        $job['ถอด']	= 0.0267;
+        $job['เคาะ']	= 0.0237;
+        $job['เตรียมพื้น']	= 0.0622;
+        $job['ผสมสี']	= 0.0200;
+        $job['ติดกระดาษ']	= 0.0006;
+        $job['พ่นสี']	= 0.0258;
+        $job['ประกอบ']	= 0.0237;
+        $job['ขัดสี']	= 0.0175;    
+
+
+        $response = DB::table('tbl_claim')->whereRaw("date_dms between '2024-04-01' AND '2024-04-30'")->get();
+
+        foreach ($response as $row) {
+            $res_wip = DB::table("tbl_claim")
+            ->selectRaw('tbl_wip.*')
+            ->join('tbl_wip','tbl_claim.no_claim','=','tbl_wip.no_claimex')
+            ->whereRaw("no_claimex = '". $row->no_claim ."'")->get();
+            for ($i=0; $i < count($res_wip); $i++) { 
+                if($row->firm_doit !== 0.00) {
+                    $firm_doit = $row->firm_doit;
+                    $cal_job = ((floatval($firm_doit)*floatval($job[$res_wip[$i]->type_doit]))/floatval(count(array($res_wip[$i]->type_doit))));
+    
+                    DB::table('tbl_wip')->where(['no' => intval($res_wip[$i]->no)])->update([
+                        'cal_doit' => $cal_job,
+                        'date_create' => now(),
+                    ]);
+                }
+            }
+        }
+        
     }
 
     public function getDataservice() {

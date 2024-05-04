@@ -16,9 +16,8 @@
                 <span>Name</span>
                 <span class="block">Thamarat Loasen</span>
             </div>
-            <div class="flex gap-x-2">
-                <button class="border px-2 py-2"><i class="fa-solid fa-trash"></i></button>
-                <button><i class="fa-solid fa-trash"></i></button>
+            <div class="flex gap-x-2 items-center">
+                <button class="w-10 h-10 rounded bg-white drop-shadow text-blue-500"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>
     @endforeach
