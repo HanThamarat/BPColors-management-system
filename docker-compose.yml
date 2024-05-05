@@ -5,6 +5,7 @@ services:
     # PHP
     php:
         build: .docker/php
+        container_name: mitsuBp_php
         ports:
             - 5173:5173
         volumes:
@@ -17,6 +18,7 @@ services:
     # Nginx
     nginx:
         image: nginx
+        container_name: mitsuBp_nginx
         ports:
             - 80:80
         volumes:
@@ -30,16 +32,18 @@ services:
 
     # DATABASE (MySQL)
     db:
-      image: mysql:latest
-      container_name: mitsuBp_mysql_db
+      image: mysql:8.0.19
+      container_name: mysql_mitsuBP
       command: --default-authentication-plugin=mysql_native_password
       environment:
         MYSQL_ROOT_PASSWORD: root
-        MYSQL_DATABASE: manageBP
+        MYSQL_DATABASE: manageBP 
+        MYSQL_USER: HanThamarat
+        MYSQL_PASSWORD: root
       ports:
-        - "3307:3306"
+        - "3306:3306"
       volumes:
-        - .docker/db/:/var/lib/mysql
+        - "./.docker/db:/var/lib/mysql:rw"
       networks:
         - my_network
 
