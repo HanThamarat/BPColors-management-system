@@ -48,6 +48,26 @@ class ManageUser extends Component
             );
         }
     }
+
+    public function deleteUser($userId) {
+        $res = DB::table('users')->where('id', $userId)->delete();
+
+        if($res == '1') {
+            $this->dispatch('alert',
+                position: 'center',
+                type: 'success',
+                title: 'ลบข้อมูลสำเร็จ',
+                timer: 1500
+            );
+        } else {
+            $this->dispatch('alert',
+                position: 'center',
+                type: 'success',
+                title: 'ลบข้อมูลไม่สำเร็จ',
+                timer: 1500
+            );
+        }
+    }
     public function render()
     {
         return view('livewire.manage-user', [
