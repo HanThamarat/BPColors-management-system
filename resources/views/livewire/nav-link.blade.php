@@ -12,6 +12,9 @@
         <x-nav-link href="{{ route('manage-user') }}" :active="request()->routeIs('manage-user')">
             {{ __('Manage User') }}
         </x-nav-link>
+        <x-nav-link href="{{ route('manage-job') }}" :active="request()->routeIs('manage-job')">
+            {{ __('Manage Job') }}
+        </x-nav-link>
     @else
         <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
             {{ __('บันทึกข้อมูล BP') }}

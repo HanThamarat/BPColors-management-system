@@ -13,6 +13,7 @@ class ManageUser extends Component
     public $password;
     public $email;
     public $role;
+    public $Formopen;
 
     public function create() {
 
@@ -68,6 +69,17 @@ class ManageUser extends Component
             );
         }
     }
+
+    public function openForm($userId) {
+        $this->Formopen = true;
+
+    }
+
+    public function closeForm() {
+        $this->Formopen = false;
+
+    }
+
     public function render()
     {
         return view('livewire.manage-user', [

@@ -194,16 +194,9 @@
                                             <select name="type_doit[]" id="type_doit" wire:model="type_doit.{{ $index }}" class="w-full py-1 px-2 rounded mr-2">
                                         @endif
                                             <option value="">--ประเภทงาน--</option>
-                                            <option value="ถอด">ถอด</option>
-                                            <option value="เคาะ">เคาะ</option>
-                                            <option value="เตรียมพื้น">เตรียมพื้น</option>
-                                            <option value="ผสมสี">ผสมสี</option>
-                                            <option value="ติดกระดาษ">ติดกระดาษ</option>
-                                            <option value="พ่นสี">พ่นสี</option>
-                                            <option value="ประกอบ">ประกอบ</option>
-                                            <option value="ขัดสี">ขัดสี</option>
-                                            <option value="PDI">PDI</option>
-                                            <option value="ซ่อมทั่วไป">ซ่อมทั่วไป</option>
+                                            @foreach ($getJob as $res_job)
+                                                <option value="{{ $res_job->job_name }}">{{ $res_job->job_name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="w-full mx-2">
@@ -249,16 +242,9 @@
                                 <label>ประเภทงาน</label>
                                 <select name="type_doit[]" id="type_doit" wire:model="type_doit.{{ $index }}" class="w-full py-1 px-2 rounded mr-2">
                                     <option value="">--ประเภทงาน--</option>
-                                    <option value="ถอด">ถอด</option>
-                                    <option value="เคาะ">เคาะ</option>
-                                    <option value="เตรียมพื้น">เตรียมพื้น</option>
-                                    <option value="ผสมสี">ผสมสี</option>
-                                    <option value="ติดกระดาษ">ติดกระดาษ</option>
-                                    <option value="พ่นสี">พ่นสี</option>
-                                    <option value="ประกอบ">ประกอบ</option>
-                                    <option value="ขัดสี">ขัดสี</option>
-                                    <option value="PDI">PDI</option>
-                                    <option value="ซ่อมทั่วไป">ซ่อมทั่วไป</option>
+                                    @foreach ($getJob as $res_job)
+                                        <option value="{{ $res_job->job_name }}">{{ $res_job->job_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="w-full mx-2">

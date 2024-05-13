@@ -41,7 +41,7 @@ services:
         MYSQL_USER: HanThamarat
         MYSQL_PASSWORD: root
       ports:
-        - "3306:3306"
+        - "3307:3306"
       volumes:
         - "./.docker/db:/var/lib/mysql:rw"
       networks:

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\claimController;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,8 +49,19 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified',]
         return view('manageBP.report.reportCarstatus');
     })->name('reportCarstatus');
     Route::get('/manage-user', function() {
-        return view('manageBP.manage-user');
+        if(Gate::allows('isVerifyrole')) { 
+            return view('manageBP.manage-user');
+        } else {
+            return view('AuthorizeCheck');
+        }
     })->name('manage-user');
+    Route::get('/manage-job', function() {
+        if(Gate::allows('isVerifyrole')) { 
+            return view('manageBP.manage-job');
+        } else {
+            return view('AuthorizeCheck');
+        }
+    })->name('manage-job');   
 
     Route::resource('report', App\Http\Controllers\reportController::class);
 });

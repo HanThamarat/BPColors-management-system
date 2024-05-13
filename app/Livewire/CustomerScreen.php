@@ -261,13 +261,6 @@ class CustomerScreen extends Component
             $this->getDataservice();
         } else {
             $this->formType = $btn_id;
-            
-            // $this->type_doit = $this->wipData;
-            // for ($i=0; $i < count($this->wipData); $i++) { 
-            //     $test = $this->wipData[$i]->type_doit;
-            // }
-            // dd($test->toArray());
-            // $this->formRepair();
         }
         
         $this->popupForm = true;
@@ -285,17 +278,11 @@ class CustomerScreen extends Component
             'date_stop.*' => 'required:min:1',
         ]);
 
-        $job['ถอด']	= 0.0267;
-        $job['เคาะ']	= 0.0237;
-        $job['เตรียมพื้น']	= 0.0622;
-        $job['ผสมสี']	= 0.0200;
-        $job['ติดกระดาษ']	= 0.0006;
-        $job['พ่นสี']	= 0.0258;
-        $job['ประกอบ']	= 0.0237;
-        $job['ขัดสี']	= 0.0175;    
+        $res_job = DB::table('job_cal')->get();
 
-
-        // dd($job);
+        foreach ($res_job as $res) {
+            $job["{$res->job_name}"] = $res->job_ptc;
+        }
 
         $user_id = Auth::user()->id;
         
@@ -402,14 +389,12 @@ class CustomerScreen extends Component
     }
 
     public function updatajobCal() {
-        $job['ถอด']	= 0.0267;
-        $job['เคาะ']	= 0.0237;
-        $job['เตรียมพื้น']	= 0.0622;
-        $job['ผสมสี']	= 0.0200;
-        $job['ติดกระดาษ']	= 0.0006;
-        $job['พ่นสี']	= 0.0258;
-        $job['ประกอบ']	= 0.0237;
-        $job['ขัดสี']	= 0.0175;    
+
+        $res_job = DB::table('job_cal')->get();
+
+        foreach ($res_job as $res) {
+            $job["{$res->job_name}"] = $res->job_ptc;
+        }
 
 
         $response = DB::table('tbl_claim')->whereRaw("date_dms between '2024-04-01' AND '2024-04-30'")->get();
@@ -537,6 +522,7 @@ class CustomerScreen extends Component
         return view('livewire.customer-screen', [
             'getUserData' => DB::table('tbl_claim')->where(['id' => session()->get('userID')])->get()[0],
             'wipData' => DB::table('tbl_wip')->whereRaw("no_claimex = '". $no_claim ."'")->get(),
+            'getJob' => DB::table('job_cal')->get(),
         ]);
     }
 }
