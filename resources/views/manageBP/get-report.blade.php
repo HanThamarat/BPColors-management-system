@@ -51,7 +51,7 @@
             <div class="flex justify-end">
                 <button class="mt-4 h-10 px-4 rounded bg-blue-500 text-white hover:bg-blue-600 duration-100 ease-in-out" id="ExportReport">Export Report</button>
                 <button class="hidden mt-4 h-10 px-10 rounded bg-blue-400 text-white" id="spinner">
-                    @component('components.content-loading.spinner')@endcomponent
+                    @component('components.content-Loading.spinner')@endcomponent
                 </button>
             </div>
         </form>
