@@ -1,9 +1,9 @@
 <div>
-    @include('ManageBP.components.content-popup.user-manage')
+    @include('manageBP.components.content-popup.user-manage')
     <x-fullcard>
-        @include('ManageBP.components.content-manage.Form-Usermanage')
+        @include('manageBP.components.content-manage.Form-Usermanage')
     </x-fullcard>
     <x-fullcard>
-        @include('ManageBP.components.content-manage.Show-Userdata')
+        @include('manageBP.components.content-manage.Show-Userdata')
     </x-fullcard>
 </div>
