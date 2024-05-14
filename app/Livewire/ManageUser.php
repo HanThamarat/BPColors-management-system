@@ -13,6 +13,7 @@ class ManageUser extends Component
     public $password;
     public $email;
     public $role;
+    public $userId;
     public $Formopen;
 
     public function create() {
@@ -73,11 +74,53 @@ class ManageUser extends Component
     public function openForm($userId) {
         $this->Formopen = true;
 
+        $response = DB::table('users')->whereRaw("id = '". $userId ."'")->get()[0]; 
+
+        $this->name =  $response->name;
+        $this->username = $response->username;
+        $this->email = $response->email;
+        $this->role = $response->role;
+        $this->userId = $userId;
     }
 
     public function closeForm() {
         $this->Formopen = false;
+    }
 
+    public function saveUser() {
+        
+        $validate = $this->validate([
+            "name"=> "required",
+            "email"=> "required",
+            "password"=> "required",
+            "username"=> "required",
+        ]);
+
+        $res_up = DB::table("users")->where("id", $this->userId)->update([
+            "name" => $this->name,
+            "username" => $this->username,
+            "email" => $this->email,
+            "role" => $this->role,
+            "password" => Hash::make($this->password)
+        ]);
+
+        if($res_up == '1') {
+            $this->dispatch('alert',
+                position: 'center',
+                type: 'success',
+                title: 'ลบข้อมูลสำเร็จ',
+                timer: 1500
+            );
+            $this->Formopen = false;
+        } else {
+            $this->dispatch('alert',
+                position: 'center',
+                type: 'success',
+                title: 'ลบข้อมูลไม่สำเร็จ',
+                timer: 1500
+            );
+            $this->Formopen = false;
+        }
     }
 
     public function render()

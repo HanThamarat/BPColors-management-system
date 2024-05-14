@@ -206,7 +206,7 @@
                                         @else
                                             <select name="respon_name[]" id="type_doit" wire:model="respon_name.{{ $index }}" class="w-full py-1 px-2 rounded">
                                         @endif
-                                            <option value="">--ประเภทงาน--</option>
+                                            <option value="">--ช่าง--</option>
                                             @foreach ($technician as $item)
                                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                                             @endforeach
@@ -250,7 +250,7 @@
                             <div class="w-full mx-2">
                                 <label>ช่างผู้รับผิดชอบ</label>
                                 <select name="respon_name[]" id="type_doit" wire:model="respon_name.{{ $index }}" class="w-full py-1 px-2 rounded">
-                                    <option value="">--ประเภทงาน--</option>
+                                    <option value="">--ช่าง--</option>
                                     @foreach ($technician as $item)
                                         <option value="{{ $item->name }}">{{ $item->name }}</option>
                                     @endforeach

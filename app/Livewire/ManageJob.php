@@ -11,6 +11,8 @@ class ManageJob extends Component
     public $job_ptc;
     public $edit = false;
     public $jobId;
+    public $job_name_edit;
+    public $job_cal_edit;
 
     public function create() {
         $validate = $this->validate([
@@ -44,6 +46,40 @@ class ManageJob extends Component
     public function manage($jobId) {
         $this->edit = true;
         $this->jobId = $jobId;
+
+        $res_job = DB::table('job_cal')->whereRaw("id = '". $jobId ."' ")->get()[0];
+
+        $this->job_name_edit = $res_job->job_name;
+        $this->job_cal_edit = $res_job->job_ptc;
+    }
+
+    public function saveEdit() {
+        $res_up = DB::table('job_cal')->whereRaw("id = '". $this->jobId ."' ")->update([
+            "job_name" => $this->job_name_edit,
+            "job_ptc" => $this->job_cal_edit,
+        ]);
+
+        if($res_up == '1') {
+            $this->dispatch('alert',
+                position: 'center',
+                type: 'success',
+                title: 'อัพเดทข้อมูลสำเร็จ',
+                timer: 1500
+            );
+            $this->edit = false;
+        } else {
+            $this->dispatch('alert',
+                position: 'center',
+                type: 'success',
+                title: 'อัพเดทข้อมูลไม่สำเร็จ',
+                timer: 1500
+            );
+            $this->edit = false;
+        }
+    }
+
+    public function closeManage() {
+        $this->edit = false;
     }
 
     public function delete($jobId) {
@@ -70,7 +106,6 @@ class ManageJob extends Component
     {
         return view('livewire.manage-job', [
             'getJob' => DB::table('job_cal')->get(),
-            // 'edit' => $this->edit,
         ]);
     }
 }

@@ -11,7 +11,7 @@
                 </div>
                 <div>
                     <span class="text-blue-600"><i class="fa-solid fa-percent mr-2"></i>JOB PTC</span>
-                        <span class="block">{{ @$res->job_ptc }}</span>
+                    <span class="block">{{ @$res->job_ptc }}</span>
                 </div>
                 <div class="flex gap-x-2 items-center">
                     <button class="w-10 h-10 rounded bg-white hover:drop-shadow text-blue-500" wire:click.prevent="manage({{ @$res->id }})"><i class="fa-solid fa-pen"></i></button>
@@ -21,3 +21,4 @@
         @endforeach
     </div>
 </x-fullcard>
+@include('ManageBP.components.content-popup.jobcal_popup')

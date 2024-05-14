@@ -194,7 +194,7 @@
                     Create Customer
                 </button>
                 <button wire:loading class="px-4 h-10 rounded text-sm bg-blue-400 text-white" disabled>
-                        @component('components.content-Loading.spinner') @endcomponent
+                        @component('components.content-loading.spinner') @endcomponent
                 </button>
             </div>
         </form>
