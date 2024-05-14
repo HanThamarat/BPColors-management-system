@@ -75,7 +75,8 @@ class ShowBp extends Component
                 ]);
             }
             return view('livewire.show-bp', [
-                'GetClaim' => DB::table('tbl_claim')->whereRaw("no_claim like '%". $this->search ."%' ORDER BY id DESC")->paginate(5)
+                // 'GetClaim' => DB::table('tbl_claim')->whereRaw("no_claim like '%". $this->search ."%' ORDER BY id DESC")->paginate(5)
+                'GetClaim' => DB::table('tbl_claim')->whereRaw("no_claim like '%". $this->search ."%'")->paginate(5)
             ]);
         }
     }
