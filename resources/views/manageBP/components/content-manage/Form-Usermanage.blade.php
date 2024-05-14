@@ -31,6 +31,7 @@
                     <span>Role</span>
                     <select name="" id="" class="rounded w-full py-1 rounded block" wire:model="role">
                         <option value="BP">--select--</option>
+                        <option value="superadmin">Super Admin</option>
                         <option value="admin">Admin</option>
                         <option value="BP">BP employee</option>
                     </select>

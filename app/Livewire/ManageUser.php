@@ -108,7 +108,7 @@ class ManageUser extends Component
             $this->dispatch('alert',
                 position: 'center',
                 type: 'success',
-                title: 'ลบข้อมูลสำเร็จ',
+                title: 'แก้ไขข้อมูลสำเร็จ',
                 timer: 1500
             );
             $this->Formopen = false;
@@ -116,7 +116,7 @@ class ManageUser extends Component
             $this->dispatch('alert',
                 position: 'center',
                 type: 'success',
-                title: 'ลบข้อมูลไม่สำเร็จ',
+                title: 'แก้ไขข้อมูลไม่สำเร็จ',
                 timer: 1500
             );
             $this->Formopen = false;

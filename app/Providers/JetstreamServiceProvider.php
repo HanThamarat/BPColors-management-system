@@ -31,7 +31,7 @@ class JetstreamServiceProvider extends ServiceProvider
             $user = User::where('username', $request->username)->first();
     
                     if ($user && Hash::check($request->password, $user->password)) {
-                        if($user->role === 'admin' || $user->role === 'BP') {
+                        if($user->role === 'admin' || $user->role === 'BP' || $user->role === 'superadmin') {
                             return $user;
                         } else {
                             dd('authentication fiale');
