@@ -19,7 +19,7 @@
             <button id="submit_id" wire:loading.class.remove="hover bg-blue-500" wire:loading.class="bg-blue-400" type="submit" class="rounded bg-blue-500 px-5 py-2 text-white mt-5 hover:bg-blue-400 duration-100 ease-in-out" wire:click.prevent="create">
                 <span wire:loading.class="hidden" class="">Create Job</span>
                 <div wire:loading>
-                    @component('components.content-loading.spinner') @endcomponent
+                    @component('components.content-Loading.spinner') @endcomponent
                 </div>
             </button>
         </div>

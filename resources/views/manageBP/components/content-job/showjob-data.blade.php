@@ -21,4 +21,4 @@
         @endforeach
     </div>
 </x-fullcard>
-@include('ManageBP.components.content-popup.jobcal_popup')
+@include('manageBP.components.content-popup.jobcal_popup')
