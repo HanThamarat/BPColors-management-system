@@ -15,6 +15,13 @@ class ManageUser extends Component
     public $role;
     public $userId;
     public $Formopen;
+    public $userStatus;
+
+    public $edit_name;
+    public $edit_username;
+    public $edit_password;
+    public $edit_email;
+    public $edit_role;
 
     public function create() {
 
@@ -76,10 +83,11 @@ class ManageUser extends Component
 
         $response = DB::table('users')->whereRaw("id = '". $userId ."'")->get()[0]; 
 
-        $this->name =  $response->name;
-        $this->username = $response->username;
-        $this->email = $response->email;
-        $this->role = $response->role;
+        $this->edit_name =  $response->name;
+        $this->edit_username = $response->username;
+        $this->edit_email = $response->email;
+        $this->edit_role = $response->role;
+        $this->userStatus = $response->status;
         $this->userId = $userId;
     }
 
@@ -90,18 +98,19 @@ class ManageUser extends Component
     public function saveUser() {
         
         $validate = $this->validate([
-            "name"=> "required",
-            "email"=> "required",
-            "password"=> "required",
-            "username"=> "required",
+            "edit_name"=> "required",
+            "edit_email"=> "required",
+            "edit_password"=> "required",
+            "edit_username"=> "required",
         ]);
 
         $res_up = DB::table("users")->where("id", $this->userId)->update([
-            "name" => $this->name,
-            "username" => $this->username,
-            "email" => $this->email,
-            "role" => $this->role,
-            "password" => Hash::make($this->password)
+            "name" => $this->edit_email,
+            "username" => $this->edit_username,
+            "email" => $this->edit_email,
+            "role" => $this->edit_role,
+            "status" => $this->userStatus,
+            "password" => Hash::make($this->edit_password),
         ]);
 
         if($res_up == '1') {
@@ -122,6 +131,7 @@ class ManageUser extends Component
             $this->Formopen = false;
         }
     }
+
 
     public function render()
     {

@@ -5,7 +5,7 @@
     <div id="popup-modal" tabindex="-1" class="popup__style {{ $popupForm ? '' : 'hidden' }} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 flex">
         <div class="relative p-4 w-5/6">
             <div class="relative bg-white rounded-lg shad py-8 px-4">
-                @if ($u_role == 'admin')
+                @if ($u_role == 'admin' || $u_role == 'superadmin')
                     <form>
                         <div class="text-blue-600 border-b pb-4 flex justify-between items-center">
                             <div>

@@ -32,7 +32,12 @@ class JetstreamServiceProvider extends ServiceProvider
     
                     if ($user && Hash::check($request->password, $user->password)) {
                         if($user->role === 'admin' || $user->role === 'BP' || $user->role === 'superadmin') {
-                            return $user;
+                            if ($user->status === 'active') {
+                                return $user;
+                            } else {
+                                // view('error-page.auth-blockAcc');
+                                dd('authentication fiale', 'your not access to system');
+                            }
                         } else {
                             dd('authentication fiale');
                         }
