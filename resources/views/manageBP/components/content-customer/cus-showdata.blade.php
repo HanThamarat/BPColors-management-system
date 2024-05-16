@@ -122,7 +122,7 @@
           <div wire:loading.class="hidden">
                 <div class="detail__bp  {{ $cus_tail ? '' : 'hidden' }}">
                     @if ($getUserData->date_cliam !== null)
-                        <div class="mt-5 py-4 px-4 rounded bg-gray-100 text-sm">
+                        <div class="mt-0 py-4 px-4 rounded bg-gray-100 text-sm">
                             <div class="flex justify-end">
                                 <button class="w-10 h-10 flex justify-center items-center rounded-full bg-white mb-5" wire:click.prevent="openPopup({{ 0 }})"><i class="fa-solid fa-pen-to-square text-sm"></i></button>
                             </div>

@@ -56,6 +56,8 @@ class ManageUser extends Component
                 timer: 1500
             );
         }
+
+
     }
 
     public function deleteUser($userId) {
@@ -105,7 +107,7 @@ class ManageUser extends Component
 
         if($this->edit_password != '') {
             $res_up = DB::table("users")->where("id", $this->userId)->update([
-                "name" => $this->edit_email,
+                "name" => $this->edit_name,
                 "username" => $this->edit_username,
                 "email" => $this->edit_email,
                 "role" => $this->edit_role,
@@ -114,7 +116,7 @@ class ManageUser extends Component
             ]);
         } else {
             $res_up = DB::table("users")->where("id", $this->userId)->update([
-                "name" => $this->edit_email,
+                "name" => $this->edit_name,
                 "username" => $this->edit_username,
                 "email" => $this->edit_email,
                 "role" => $this->edit_role,
@@ -123,6 +125,7 @@ class ManageUser extends Component
         }
 
         if($res_up == '1') {
+            $this->reset('edit_name', 'edit_email', 'edit_username', 'edit_password', 'edit_role', 'userStatus');
             $this->dispatch('alert',
                 position: 'center',
                 type: 'success',
@@ -131,6 +134,7 @@ class ManageUser extends Component
             );
             $this->Formopen = false;
         } else {
+            $this->reset('edit_name', 'edit_email', 'edit_username', 'edit_password', 'edit_role', 'userStatus');
             $this->dispatch('alert',
                 position: 'center',
                 type: 'success',

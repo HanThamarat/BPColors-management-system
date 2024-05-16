@@ -23,7 +23,10 @@
         </div>
 
         @livewireScripts
-        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+        @include('sweetalert::alert')
         <script>
             //    $(document).ready(function () {
             //     $('#submitForm').click(function(e) {

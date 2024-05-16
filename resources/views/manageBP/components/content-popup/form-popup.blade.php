@@ -24,6 +24,13 @@
                                     <div class="w-full mr-1">
                                         <div class="text-sm w-full my-2 mr-2">
                                             <label for="">วันที่เข้าเคลม</label>
+                                            {{-- @php
+                                                $wirename = 'date_cliam';
+                                                $placeholderValue = 'date_cliam';
+                                                $input_name = 'date_cliam';
+                                            @endphp
+                                            <x-datepicker :wirename="$wirename" :placeholderValue="$placeholderValue" :inputname="$input_name">
+                                            </x-datepicker> --}}
                                             <input type="date" class="block w-full py-1 px-2 rounded" wire:model="date_cliam">
                                             @error('date_cliam') <span class="error text-red-500">{{ $message }}</span> @enderror
                                         </div>
