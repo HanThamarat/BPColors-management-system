@@ -25,8 +25,8 @@
                 <span class="block">{{ @$item->status }}</span>
             </div>
             <div class="flex gap-x-2 items-center">
+                <button class="w-10 h-10 rounded bg-white hover:drop-shadow text-blue-500" wire:click.prevent="openForm({{ $item->id }})"><i class="fa-solid fa-pen"></i></button>
                 <button class="w-10 h-10 rounded bg-white hover:drop-shadow text-blue-500" wire:click.prevent="deleteUser({{ $item->id }})"><i class="fa-solid fa-trash"></i></button>
-                <button class="w-10 h-10 rounded bg-white hover:drop-shadow text-blue-500" wire:click.prevent="openForm({{ $item->id }})"><i class="fa-solid fa-bars"></i></button>
             </div>
         </div>
     @endforeach

@@ -100,18 +100,27 @@ class ManageUser extends Component
         $validate = $this->validate([
             "edit_name"=> "required",
             "edit_email"=> "required",
-            "edit_password"=> "required",
             "edit_username"=> "required",
         ]);
 
-        $res_up = DB::table("users")->where("id", $this->userId)->update([
-            "name" => $this->edit_email,
-            "username" => $this->edit_username,
-            "email" => $this->edit_email,
-            "role" => $this->edit_role,
-            "status" => $this->userStatus,
-            "password" => Hash::make($this->edit_password),
-        ]);
+        if($this->edit_password != '') {
+            $res_up = DB::table("users")->where("id", $this->userId)->update([
+                "name" => $this->edit_email,
+                "username" => $this->edit_username,
+                "email" => $this->edit_email,
+                "role" => $this->edit_role,
+                "status" => $this->userStatus,
+                "password" => Hash::make($this->edit_password),
+            ]);
+        } else {
+            $res_up = DB::table("users")->where("id", $this->userId)->update([
+                "name" => $this->edit_email,
+                "username" => $this->edit_username,
+                "email" => $this->edit_email,
+                "role" => $this->edit_role,
+                "status" => $this->userStatus,
+            ]);
+        }
 
         if($res_up == '1') {
             $this->dispatch('alert',
