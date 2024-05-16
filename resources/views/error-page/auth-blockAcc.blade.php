@@ -1,5 +1,5 @@
-<x-guest-layout>
-    <div>
-        <span>test</span>
-    </div>
-</x-guest-layout>
+    <x-guest-layout>
+        <div>
+            <span>test</span>
+        </div>
+    </x-guest-layout>
