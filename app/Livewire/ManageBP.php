@@ -204,6 +204,10 @@ class ManageBP extends Component
 
     public function render()
     {
-        return view('livewire.manage-b-p');
+        return view('livewire.manage-b-p', [
+            "userdata_pa" => DB::table('users')
+            ->whereRaw("role = 'PA'")
+            ->get(),
+        ]);
     }
 }

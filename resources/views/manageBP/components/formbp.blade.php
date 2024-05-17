@@ -89,9 +89,9 @@
                     <label>ผู้รับเคส</label>
                     <select name="clm_recipient" id="" class="w-full rounded" wire:model="clm_recipient">
                         <option value="">---เลือกผู้รับเคส---</option>
-                        <option value="สิทธิศักดิ์ กังสกุล">สิทธิศักดิ์ กังสกุล</option>
-                        <option value="ศุภวัฒน์ หลานเด็น" >ศุภวัฒน์ หลานเด็น</option>
-                        <option value="สิริกาญจน์ หีมเอียด" >สิริกาญจน์ หีมเอียด</option>
+                        @foreach ($userdata_pa as $item)
+                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="w-full lg:mx-2">

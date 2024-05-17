@@ -186,7 +186,7 @@ $start = intval(substr($fromdate,8,10));
 // $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow((3),($row), 'nam');
 $objPHPExcel->getActiveSheet()->setCellValue([ 3, $row ], 'Name');
 
-	
+	 
 
 
 for($i=$start;$i<=$num;$i++){
@@ -194,7 +194,12 @@ for($i=$start;$i<=$num;$i++){
 	$work_n2 = DB::table('tbl_technician')->whereRaw("active ='yes'")->get();
 	$n2 = 1;
     foreach ($work_n2 as $name) {
-        $res = DB::table('tbl_claim')->rightJoin('tbl_wip', 'tbl_claim.no_claim', '=', 'tbl_wip.no_claimex')->selectRaw("tbl_claim.date_dms , SUM(tbl_wip.cal_doit) AS sum")->whereRaw("tbl_wip.respon_name = ? AND tbl_claim.date_dms = ? GROUP BY tbl_claim.date_dms", [$name->name, substr($fromdate,0,7).'-'.sprintf("%02d",$i)])->get();
+        $res = DB::table('tbl_claim')
+		->rightJoin('tbl_wip', 'tbl_claim.no_claim', '=', 'tbl_wip.no_claimex')
+		->selectRaw("tbl_claim.date_dms , SUM(tbl_wip.cal_doit) AS sum")
+		->whereRaw("tbl_wip.respon_name = ? AND tbl_claim.date_dms = ? GROUP BY tbl_claim.date_dms", [
+			$name->name, substr($fromdate,0,7).'-'.sprintf("%02d",$i)
+		])->get();
         // $objPHPExcel->getActiveSheet()->setCellValue([($row+$t) , (3+$n2) ], $res->date_dms);
 		$n2++;
     }

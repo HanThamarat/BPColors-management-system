@@ -23,22 +23,32 @@ class ManageUser extends Component
     public $edit_email;
     public $edit_role;
 
+    public $user_original = true;
+    public $user_PA = false;
+
     public function create() {
 
-        $validate = $this->validate([
-            "name"=> "required",
-            "email"=> "required",
-            "password"=> "required",
-            "username"=> "required",
-        ]);
+        if ($this->role != "PA") {
+            $validate = $this->validate([
+                "name"=> "required",
+                "email"=> "required",
+                "password"=> "required",
+                "username"=> "required",
+            ]);
 
-        $response = DB::insert("insert into users(name, username, email, password, role) values(?,?,?,?,?)", [
-            $this->name,
-            $this->username,
-            $this->email,
-            Hash::make($this->password),
-            $this->role,
-        ]);
+            $response = DB::insert("insert into users(name, username, email, password, role) values(?,?,?,?,?)", [
+                $this->name,
+                $this->username,
+                $this->email,
+                Hash::make($this->password),
+                $this->role,
+            ]);
+        } else {
+            $response = DB::insert("insert into users(name, role) values(?,?)", [
+                $this->name,
+                $this->role,
+            ]);
+        }
 
         if ($response == 'true') {
             $this->reset('name', 'email', 'password', 'username', 'role');
@@ -48,6 +58,8 @@ class ManageUser extends Component
                 title: 'เพิ่มผู้ใช้งานสำเร็จ',
                 timer: 1500
             );
+            $this->user_PA = true;
+            $this->user_original = false;
         } else {
             $this->dispatch('alert',
                 position: 'center',
@@ -79,6 +91,17 @@ class ManageUser extends Component
             );
         }
     }
+
+    public function handledetail($tail_id) {
+        if($tail_id == 1) {
+            $this->user_PA = true;
+            $this->user_original = false;
+        } else {
+            $this->user_original = true;
+            $this->user_PA = false;
+        }
+    }
+
 
     public function openForm($userId) {
         $this->Formopen = true;
@@ -149,7 +172,20 @@ class ManageUser extends Component
     public function render()
     {
         return view('livewire.manage-user', [
-            "userData" => DB::table("users")->get(),
+            "userData" => DB::table("users")
+            ->whereRaw("role = 'admin' or role = 'superadmin' or role = 'BP'")
+            ->get(),
+            "userdata_pa" => DB::table('users')
+            ->whereRaw("role = 'PA'")
+            ->get(),
+            "count_u_original" => DB::table("users")
+            ->selectRaw("COUNT(id) AS COUNTU")
+            ->whereRaw("role = 'admin' or role = 'superadmin' or role = 'BP'")
+            ->get()[0],
+            "count_u_pa" => DB::table("users")
+            ->selectRaw("COUNT(id) AS COUNTPA")
+            ->whereRaw("role = 'PA'")
+            ->get()[0],
         ]);
     }
 }
