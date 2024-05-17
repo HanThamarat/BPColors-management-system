@@ -190,10 +190,10 @@
                 <textarea  id="" rows="7" class="w-full rounded" wire:model="note"></textarea>
             </div>
             <div class="w-full my-4 flex justify-end">
-               <button wire:loading.class.add="hidden" class="w-48 h-10 rounded bg-blue-500 text-white font-medium hover:bg-blue-600 duration-100 ease-in-out" type="submit" wire:click.prevent="createClaim">
+               <button wire:loading.class.add="hidden" wire.target="createClaim" class="w-48 h-10 rounded bg-blue-500 text-white font-medium hover:bg-blue-600 duration-100 ease-in-out" type="submit" wire:click.prevent="createClaim">
                     Create Customer
                 </button>
-                <button wire:loading class="px-4 h-10 rounded text-sm bg-blue-400 text-white" disabled>
+                <button wire:loading wire.target="createClaim" class="px-4 h-10 rounded text-sm bg-blue-400 text-white" disabled>
                         @component('components.content-Loading.spinner') @endcomponent
                 </button>
             </div>

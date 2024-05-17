@@ -39,9 +39,9 @@
                 </div>
             </div>
             <div class="w-full flex justify-end">
-                <button id="submit_id" wire:loading.class.remove="hover bg-blue-500" wire:loading.class="bg-blue-400" type="submit" class="rounded bg-blue-500 px-5 py-2 text-white mt-5 hover:bg-blue-400 duration-100 ease-in-out" wire:click.prevent="create" onclick="handleSubmit()">
-                    <span wire:loading.class="hidden" class="">Create User</span>
-                    <div wire:loading>
+                <button id="submit_id" wire:loading.class.remove="hover bg-blue-500" wire:target="create" wire:loading.class="bg-blue-400" type="submit" class="rounded bg-blue-500 px-5 py-2 text-white mt-5 hover:bg-blue-400 duration-100 ease-in-out" wire:click.prevent="create" onclick="handleSubmit()">
+                    <span wire:loading.class="hidden" wire:target="create" class="">Create User</span>
+                    <div  wire:loading wire:target="create">
                         @component('components.content-loading.spinner') @endcomponent
                     </div>
                 </button>
