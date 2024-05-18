@@ -26,6 +26,11 @@ class ManageUser extends Component
     public $user_original = true;
     public $user_PA = false;
 
+    public function placeholder() {
+        return view('components.manage-placholder');
+    }
+
+
     public function create() {
 
         if ($this->role != "PA") {

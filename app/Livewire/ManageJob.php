@@ -14,6 +14,10 @@ class ManageJob extends Component
     public $job_name_edit;
     public $job_cal_edit;
 
+    public function placeholder() {
+        return view('components.manage-placholder');
+    }
+
     public function create() {
         $validate = $this->validate([
             'job_name' => 'required|min:3',

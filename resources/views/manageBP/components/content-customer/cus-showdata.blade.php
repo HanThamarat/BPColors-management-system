@@ -138,87 +138,111 @@
                             <div class="flex w-full">
                                 <div class="w-3/6 mr-4">
                                     <div>
-                                        <div class="border-b">
-                                            <span>วันที่เคลม : {{ $getUserData->date_cliam !== null ?  $getUserData->date_cliam : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="border-b flex justify-between items-center">
+                                            <span>วันที่เคลม : </span>
+                                            <span>{{ $getUserData->date_cliam !== null ?  $getUserData->date_cliam : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>วันที่นัดหมายรับบริการ : {{ $getUserData->date_service !== null ?  $getUserData->date_service : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b  flex justify-between items-center">
+                                            <span>วันที่นัดหมายรับบริการ : </span>
+                                            <span>{{ $getUserData->date_service !== null ?  $getUserData->date_service : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>วันที่รับรถ : {{ $getUserData->date_carin !== null ?  $getUserData->date_carin : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b  flex justify-between items-center">
+                                            <span>วันที่รับรถ : </span>
+                                            <span>{{ $getUserData->date_carin !== null ?  $getUserData->date_carin : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>วันที่ซ่อม : {{ $getUserData->date_repair !== null ?  $getUserData->date_repair : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b  flex justify-between items-center">
+                                            <span>วันที่ซ่อม : </span>
+                                            <span>{{ $getUserData->date_repair !== null ?  $getUserData->date_repair : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>วันที่ส่งมอบระบบ : {{ $getUserData->date_repair !== null ?  $getUserData->date_repair : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b  flex justify-between items-center">
+                                            <span>วันที่ส่งมอบระบบ : </span>
+                                            <span>{{ $getUserData->date_repair !== null ?  $getUserData->date_repair : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>วันนัดส่งมอบจริง : {{ $getUserData->date_send_next !== null ?  $getUserData->date_send_next : 'ไม่มีข้อมูล' }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="mt-5">
-                                        <div class="mt-2 border-b">
-                                            <span>อนุมัติค่าแรง : {{ $getUserData->firm_doit !== null ?  $getUserData->firm_doit : 'ไม่มีข้อมูล' }}</span>
-                                        </div>
-                                        <div class="mt-2 border-b">
-                                            <span>อนุมัติรวม : {{ $getUserData->firm_all !== null ?  $getUserData->firm_all : 'ไม่มีข้อมูล' }}</span>
-                                        </div>
-                                        <div class="mt-2 border-b">
-                                            <span>อนุมัติค่าอะไหล่ : {{ $getUserData->firm_sparepart !== null ?  $getUserData->firm_sparepart : 'ไม่มีข้อมูล' }}</span>
-                                        </div>
-                                        <div class="mt-2 border-b">
-                                            <span>วันที่ส่งรถ : {{ $getUserData->date_send_car !== null ?  $getUserData->date_send_car : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>วันนัดส่งมอบจริง : </span>
+                                            <span>{{ $getUserData->date_send_next !== null ?  $getUserData->date_send_next : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                     </div>
                                     <div class="mt-5">
-                                        <div class="border-b">
-                                            <span>เลขที่ใบกำกับภาษี (SA): {{ $getUserData->invoice_no !== null ?  $getUserData->invoice_no : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>อนุมัติค่าแรง : </span>
+                                            <span>{{ $getUserData->firm_doit !== null ?  $getUserData->firm_doit : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>วันวางบิลตัวจริง: {{ $getUserData->date_bill !== null ?  $getUserData->date_bill : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>อนุมัติรวม : </span>
+                                            <span>{{ $getUserData->firm_all !== null ?  $getUserData->firm_all : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>จำนวนเงินรับจริง: {{ $getUserData->total_pay !== null ?  $getUserData->total_pay : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>อนุมัติค่าอะไหล่ : </span>
+                                            <span>{{ $getUserData->firm_sparepart !== null ?  $getUserData->firm_sparepart : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>เลขที่วางบิล (Cashier): {{ $getUserData->bill_no !== null ?  $getUserData->bill_no : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>วันที่ส่งรถ : </span>
+                                            <span>{{ $getUserData->date_send_car !== null ?  $getUserData->date_send_car : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>วันกำหนดจ่ายเงิน: {{ $getUserData->date_paybill !== null ?  $getUserData->date_paybill : 'ไม่มีข้อมูล' }}</span>
+                                    </div>
+                                    <div class="mt-5">
+                                        <div class="border-b flex justify-between items-center">
+                                            <span>เลขที่ใบกำกับภาษี (SA): </span>
+                                            <span>{{ $getUserData->invoice_no !== null ?  $getUserData->invoice_no : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>วันที่ได้รับเงิน: {{ $getUserData->date_transfer !== null ?  $getUserData->date_transfer : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>วันวางบิลตัวจริง: </span>
+                                            <span>{{ $getUserData->date_bill !== null ?  $getUserData->date_bill : 'ไม่มีข้อมูล' }}</span>
+                                        </div>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>จำนวนเงินรับจริง: </span>
+                                            <span>{{ $getUserData->total_pay !== null ?  $getUserData->total_pay : 'ไม่มีข้อมูล' }}</span>
+                                        </div>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>เลขที่วางบิล (Cashier): </span>
+                                            <span>{{ $getUserData->bill_no !== null ?  $getUserData->bill_no : 'ไม่มีข้อมูล' }}</span>
+                                        </div>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>วันกำหนดจ่ายเงิน: </span>
+                                            <span>{{ $getUserData->date_paybill !== null ?  $getUserData->date_paybill : 'ไม่มีข้อมูล' }}</span>
+                                        </div>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>วันที่ได้รับเงิน: </span>
+                                            <span>{{ $getUserData->date_transfer !== null ?  $getUserData->date_transfer : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="w-3/6 ml-4">
                                     <div>
-                                        <div class="border-b">
-                                            <span>ประเมินค่าแรง : {{ $getUserData->cost_doit !== null ?  $getUserData->cost_doit : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="border-b flex justify-between items-center">
+                                            <span>ประเมินค่าแรง : </span>
+                                            <span>{{ $getUserData->cost_doit !== null ?  $getUserData->cost_doit : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>ประเมินค่าอะไหล่ : {{ $getUserData->cost_sparepart !== null ?  $getUserData->cost_sparepart : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>ประเมินค่าอะไหล่ : </span>
+                                            <span>{{ $getUserData->cost_sparepart !== null ?  $getUserData->cost_sparepart : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>ประเมินรวม : {{ $getUserData->cost_totel !== null ?  $getUserData->cost_totel : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>ประเมินรวม : </span>
+                                            <span>{{ $getUserData->cost_totel !== null ?  $getUserData->cost_totel : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>ประกันอนุมัติ : {{ $getUserData->date_firmins !== null ?  $getUserData->date_firmins : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>ประกันอนุมัติ : </span>
+                                            <span>{{ $getUserData->date_firmins !== null ?  $getUserData->date_firmins : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                     </div>
                                     <div class="mt-5">
-                                        <div class="border-b">
-                                            <span>วันส่งมอบ/วันเปิดแจ้งหนี้ DMS: {{ $getUserData->date_dms !== null ?  $getUserData->date_dms : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="border-b flex justify-between items-center">
+                                            <span>วันส่งมอบ/วันเปิดแจ้งหนี้ DMS: </span>
+                                            <span>{{ $getUserData->date_dms !== null ?  $getUserData->date_dms : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>วันที่ได้อนุมัติ E-Claim: {{ $getUserData->date_fecliam !== null ?  $getUserData->date_fecliam : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>วันที่ได้อนุมัติ E-Claim: </span>
+                                            <span>{{ $getUserData->date_fecliam !== null ?  $getUserData->date_fecliam : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>วันที่ขออนุมัติใน E-Claim: {{ $getUserData->date_ecliam !== null ?  $getUserData->date_ecliam : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>วันที่ขออนุมัติใน E-Claim: </span>
+                                            <span>{{ $getUserData->date_ecliam !== null ?  $getUserData->date_ecliam : 'ไม่มีข้อมูล' }}</span>
                                         </div>
-                                        <div class="mt-2 border-b">
-                                            <span>ค่า exzept: {{ $getUserData->exzept !== null ?  $getUserData->exzept : 'ไม่มีข้อมูล' }}</span>
+                                        <div class="mt-2 border-b flex justify-between items-center">
+                                            <span>ค่า exzept: </span>
+                                            <span>{{ $getUserData->exzept !== null ?  $getUserData->exzept : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                     </div>
                                     <div class="mt-5">
