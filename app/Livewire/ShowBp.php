@@ -71,7 +71,7 @@ class ShowBp extends Component
         if($this->search !== null || $this->search == null) {
             if($this->fromdate !== null) {
                 return view('livewire.show-bp', [
-                    'GetClaim' => DB::table('tbl_claim')->whereRaw('date_cliam between ? and ? ORDER BY id DESC',[$this->fromdate, $this->todate])->paginate(5)
+                    'GetClaim' => DB::table('tbl_claim')->whereRaw('date_cliam between ? and ?',[$this->fromdate, $this->todate])->paginate(5)
                 ]);
             }
             return view('livewire.show-bp', [
