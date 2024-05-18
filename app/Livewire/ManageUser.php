@@ -111,7 +111,10 @@ class ManageUser extends Component
     public function openForm($userId) {
         $this->Formopen = true;
 
-        $response = DB::table('users')->whereRaw("id = '". $userId ."'")->get()[0]; 
+        $response = DB::table('users')
+        ->selectRaw("name, username, email, role, status")
+        ->whereRaw("id = '". $userId ."'")
+        ->get()[0]; 
 
         $this->edit_name =  $response->name;
         $this->edit_username = $response->username;
@@ -211,9 +214,11 @@ class ManageUser extends Component
     {
         return view('livewire.manage-user', [
             "userData" => DB::table("users")
+            ->selectRaw("id ,name, username, role, status")
             ->whereRaw("role = 'admin' or role = 'superadmin' or role = 'BP'")
             ->get(),
             "userdata_pa" => DB::table('users')
+            ->selectRaw("id ,name, username, role, status")
             ->whereRaw("role = 'PA'")
             ->get(),
             "count_u_original" => DB::table("users")

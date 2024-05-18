@@ -206,7 +206,8 @@ class ManageBP extends Component
     {
         return view('livewire.manage-b-p', [
             "userdata_pa" => DB::table('users')
-            ->whereRaw("role = 'PA'")
+            ->selectRaw("id ,name")
+            ->whereRaw("role = 'PA' AND status = 'active' ")
             ->get(),
         ]);
     }
