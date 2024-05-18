@@ -285,8 +285,10 @@ class CustomerScreen extends Component
         }
 
         $user_id = Auth::user()->id;
+
+        // dd($response->firm_doit);
         
-        if ($response->firm_doit !== 0) {
+        if ($response->firm_doit != '0.00') {
             if(count($this->wipDatas) === 0) {
                 for($i = 0; $i < count($this->type_doit); $i++) {
                     if($this->type_doit !== "") {
@@ -363,8 +365,15 @@ class CustomerScreen extends Component
                                 );
                             }
                         }
+                        
                     }
                 }
+                 $this->dispatch('alert',
+                    position: 'center',
+                    type: 'success',
+                    title: 'เพิ่มรายการซ่อมสำเร็จ',
+                    timer: 1500
+                );
             }
         } else {
             $this->popupForm = false; 
@@ -376,14 +385,6 @@ class CustomerScreen extends Component
                 timer: 1500
             );
         }
-
-        $this->dispatch('alert',
-            position: 'center',
-            type: 'success',
-            title: 'เพิ่มรายการซ่อมสำเร็จ',
-            timer: 1500
-        );
-
 
         $this->popupForm = false;
     }
