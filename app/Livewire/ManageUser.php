@@ -214,11 +214,11 @@ class ManageUser extends Component
     {
         return view('livewire.manage-user', [
             "userData" => DB::table("users")
-            ->selectRaw("id ,name, username, role, status")
+            ->selectRaw("id ,name, username, role, status, email")
             ->whereRaw("role = 'admin' or role = 'superadmin' or role = 'BP'")
             ->get(),
             "userdata_pa" => DB::table('users')
-            ->selectRaw("id ,name, username, role, status")
+            ->selectRaw("id ,name, username, role, status, email")
             ->whereRaw("role = 'PA'")
             ->get(),
             "count_u_original" => DB::table("users")
