@@ -126,50 +126,83 @@ class ManageUser extends Component
     }
 
     public function saveUser() {
-        
-        $validate = $this->validate([
-            "edit_name"=> "required",
-            "edit_email"=> "required",
-            "edit_username"=> "required",
-        ]);
 
-        if($this->edit_password != '') {
+        $res = DB::table("users")->selectRaw("role")->whereRaw("id = '". $this->userId ."'")->get()[0];
+
+        if($res->role != 'PA') {
+            $validate = $this->validate([
+                "edit_name"=> "required",
+                "edit_email"=> "required",
+                "edit_username"=> "required",
+            ]);
+    
+            if($this->edit_password != '') {
+                $res_up = DB::table("users")->where("id", $this->userId)->update([
+                    "name" => $this->edit_name,
+                    "username" => $this->edit_username,
+                    "email" => $this->edit_email,
+                    "role" => $this->edit_role,
+                    "status" => $this->userStatus,
+                    "password" => Hash::make($this->edit_password),
+                ]);
+            } else {
+                $res_up = DB::table("users")->where("id", $this->userId)->update([
+                    "name" => $this->edit_name,
+                    "username" => $this->edit_username,
+                    "email" => $this->edit_email,
+                    "role" => $this->edit_role,
+                    "status" => $this->userStatus,
+                ]);
+            }
+    
+            if($res_up == '1') {
+                $this->reset('edit_name', 'edit_email', 'edit_username', 'edit_password', 'edit_role', 'userStatus');
+                $this->dispatch('alert',
+                    position: 'center',
+                    type: 'success',
+                    title: 'แก้ไขข้อมูลสำเร็จ',
+                    timer: 1500
+                );
+                $this->Formopen = false;
+            } else {
+                $this->reset('edit_name', 'edit_email', 'edit_username', 'edit_password', 'edit_role', 'userStatus');
+                $this->dispatch('alert',
+                    position: 'center',
+                    type: 'success',
+                    title: 'แก้ไขข้อมูลไม่สำเร็จ',
+                    timer: 1500
+                );
+                $this->Formopen = false;
+            }
+        } else {
+            $validate = $this->validate([
+                "edit_name"=> "required",
+            ]);
+
             $res_up = DB::table("users")->where("id", $this->userId)->update([
                 "name" => $this->edit_name,
-                "username" => $this->edit_username,
-                "email" => $this->edit_email,
-                "role" => $this->edit_role,
-                "status" => $this->userStatus,
-                "password" => Hash::make($this->edit_password),
-            ]);
-        } else {
-            $res_up = DB::table("users")->where("id", $this->userId)->update([
-                "name" => $this->edit_name,
-                "username" => $this->edit_username,
-                "email" => $this->edit_email,
-                "role" => $this->edit_role,
                 "status" => $this->userStatus,
             ]);
-        }
 
-        if($res_up == '1') {
-            $this->reset('edit_name', 'edit_email', 'edit_username', 'edit_password', 'edit_role', 'userStatus');
-            $this->dispatch('alert',
-                position: 'center',
-                type: 'success',
-                title: 'แก้ไขข้อมูลสำเร็จ',
-                timer: 1500
-            );
-            $this->Formopen = false;
-        } else {
-            $this->reset('edit_name', 'edit_email', 'edit_username', 'edit_password', 'edit_role', 'userStatus');
-            $this->dispatch('alert',
-                position: 'center',
-                type: 'success',
-                title: 'แก้ไขข้อมูลไม่สำเร็จ',
-                timer: 1500
-            );
-            $this->Formopen = false;
+            if($res_up == '1') {
+                $this->reset('edit_name', 'edit_email', 'edit_username', 'edit_password', 'edit_role', 'userStatus');
+                $this->dispatch('alert',
+                    position: 'center',
+                    type: 'success',
+                    title: 'แก้ไขข้อมูลสำเร็จ',
+                    timer: 1500
+                );
+                $this->Formopen = false;
+            } else {
+                $this->reset('edit_name', 'edit_email', 'edit_username', 'edit_password', 'edit_role', 'userStatus');
+                $this->dispatch('alert',
+                    position: 'center',
+                    type: 'success',
+                    title: 'แก้ไขข้อมูลไม่สำเร็จ',
+                    timer: 1500
+                );
+                $this->Formopen = false;
+            }
         }
     }
 

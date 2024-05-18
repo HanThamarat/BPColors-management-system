@@ -17,6 +17,9 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                primary: "#161622",
+            },
             fontFamily: {
                 'prompt': 'Prompt'
             },

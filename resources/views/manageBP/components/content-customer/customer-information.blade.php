@@ -2,7 +2,7 @@
     <div class="rounded bg-gradient-to-r from-cyan-500 to-blue-500 justify-between flex drop-shadow-md">
         <div class="flex justify-center py-5 px-2">
             <span class="font-medium flex items-center text-white drop-shadow-md animate-bounce animate-infinite animate-ease-in-out">
-                Customer BP
+                BP Details
             </span>
         </div>
         <div>

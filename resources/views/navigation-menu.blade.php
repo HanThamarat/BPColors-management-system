@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-sky-700 border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-primary border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -79,7 +79,7 @@
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border-white text-sm leading-4 font-medium rounded-md text-white bg-sky-700 transition ease-in-out duration-150">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border-white text-sm leading-4 font-medium rounded-md text-white bg-primary transition ease-in-out duration-150">
                                         {{ Auth::user()->name }}
 
                                         <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
