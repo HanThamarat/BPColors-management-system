@@ -26,11 +26,6 @@
             </div>
             <div class="w-full flex justify-between">
                 <div class="w-2/6 w-full mr-2">
-                    <span>Email</span>
-                    <input type="email" class="rounded py-1 w-full rounded block" wire:model.live="edit_email">
-                    @error('edit_email') {{ $message }} @enderror
-                </div>
-                <div class="w-2/6 w-full mx-2">
                     <span>Role</span>
                     <select name="" class="rounded w-full py-1 rounded block" wire:model.live="edit_role">
                         <option value="BP">--select--</option>

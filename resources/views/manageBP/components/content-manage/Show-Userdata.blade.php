@@ -78,10 +78,6 @@
                                 <span class="block">{{ @$item->username }}</span>
                             </div>
                             <div class="w-full">
-                                <span>Email</span>
-                                <span class="block">{{ @$item->email }}</span>
-                            </div>
-                            <div class="w-full">
                                 <span>Role</span>
                                 <span class="block">{{ @$item->role }}</span>
                             </div>

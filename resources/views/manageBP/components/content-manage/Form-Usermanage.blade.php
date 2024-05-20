@@ -10,22 +10,17 @@
                     <input type="text" id="name" class="rounded py-1 w-full rounded block" wire:model="name">
                      @error('name') {{ $message }} @enderror
                 </div>
-                <div class="w-2/6 w-full mx-2">
+                <div class="w-2/6 w-full ml-2">
                     <span>Username</span>
                     <input type="text" id="username" class="role-hide rounded py-1 w-full rounded block" wire:model="username">
                     @error('username') {{ $message }} @enderror
                 </div>
-                <div class="w-2/6 w-full ml-2">
+            </div>
+            <div class="w-full flex justify-between">
+                <div class="w-2/6 w-full mr-2">
                     <span>Password</span>
                     <input type="password" id="password" class="role-hide rounded py-1 w-full rounded block" wire:model="password">
                     @error('password') {{ $message }} @enderror
-                </div>
-            </div>
-            <div class="w-full flex justify-between">
-                <div class="w-3/6 w-full mr-2">
-                    <span>Email</span>
-                    <input type="email" id="email" class="role-hide rounded py-1 w-full rounded block" wire:model="email">
-                    @error('email') {{ $message }} @enderror
                 </div>
                 <div class="w-3/6 w-full ml-2">
                     <span>Role</span>

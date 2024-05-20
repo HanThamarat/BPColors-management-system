@@ -25,7 +25,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('isVerifyrole', function ($user) {
-            return $user->role === 'admin' || $user->role === 'superadmin';
+            // return $user->role === 'admin' || $user->role === 'superadmin';
+            return $user->role === 'superadmin';
         });
     }
 }

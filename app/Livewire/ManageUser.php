@@ -36,15 +36,13 @@ class ManageUser extends Component
         if ($this->role != "PA") {
             $validate = $this->validate([
                 "name"=> "required",
-                "email"=> "required",
                 "password"=> "required",
                 "username"=> "required",
             ]);
 
-            $response = DB::insert("insert into users(name, username, email, password, role) values(?,?,?,?,?)", [
+            $response = DB::insert("insert into users(name, username, password, role) values(?,?,?,?)", [
                 $this->name,
                 $this->username,
-                $this->email,
                 Hash::make($this->password),
                 $this->role,
             ]);
@@ -135,7 +133,6 @@ class ManageUser extends Component
         if($res->role != 'PA') {
             $validate = $this->validate([
                 "edit_name"=> "required",
-                "edit_email"=> "required",
                 "edit_username"=> "required",
             ]);
     
@@ -143,7 +140,6 @@ class ManageUser extends Component
                 $res_up = DB::table("users")->where("id", $this->userId)->update([
                     "name" => $this->edit_name,
                     "username" => $this->edit_username,
-                    "email" => $this->edit_email,
                     "role" => $this->edit_role,
                     "status" => $this->userStatus,
                     "password" => Hash::make($this->edit_password),
@@ -152,14 +148,13 @@ class ManageUser extends Component
                 $res_up = DB::table("users")->where("id", $this->userId)->update([
                     "name" => $this->edit_name,
                     "username" => $this->edit_username,
-                    "email" => $this->edit_email,
                     "role" => $this->edit_role,
                     "status" => $this->userStatus,
                 ]);
             }
     
             if($res_up == '1') {
-                $this->reset('edit_name', 'edit_email', 'edit_username', 'edit_password', 'edit_role', 'userStatus');
+                $this->reset('edit_name', 'edit_username', 'edit_password', 'edit_role', 'userStatus');
                 $this->dispatch('alert',
                     position: 'center',
                     type: 'success',
@@ -168,7 +163,7 @@ class ManageUser extends Component
                 );
                 $this->Formopen = false;
             } else {
-                $this->reset('edit_name', 'edit_email', 'edit_username', 'edit_password', 'edit_role', 'userStatus');
+                $this->reset('edit_name', 'edit_username', 'edit_password', 'edit_role', 'userStatus');
                 $this->dispatch('alert',
                     position: 'center',
                     type: 'success',
