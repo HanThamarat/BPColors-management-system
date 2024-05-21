@@ -157,7 +157,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                @if ($items->no_policy !== null)
+                                @if ($items->no_policy !== null || $items->no_policy == '')
                                     {{ $items->no_policy }}
                                 @else
                                     ไม่มีข้อมูล
