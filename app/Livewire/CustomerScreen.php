@@ -322,7 +322,7 @@ class CustomerScreen extends Component
                     // $res = DB::table('tbl_wip')->where(['no' => intval($this->wipData[$i]->no)])->get()[0]->no;
                     // dump($res);
 
-                    if($response->firm_doit !== 0.00) {
+                    if($response->firm_doit !== 0.00 || $response->firm_doit !== '') {
                         $firm_doit = $response->firm_doit;
                         $cal_job = ((floatval($firm_doit)*floatval($job[$this->type_doit[$i]->type_doit]))/floatval(count(array($this->type_doit, $this->type_doit[$i]))));
     
@@ -368,6 +368,8 @@ class CustomerScreen extends Component
                         
                     }
                 }
+                $this->popupForm = false;
+
                  $this->dispatch('alert',
                     position: 'center',
                     type: 'success',
@@ -376,7 +378,7 @@ class CustomerScreen extends Component
                 );
             }
         } else {
-            $this->popupForm = false; 
+            // $this->popupForm = false; 
 
             $this->dispatch('alert',
                 position: 'center',
@@ -385,39 +387,6 @@ class CustomerScreen extends Component
                 timer: 1500
             );
         }
-
-        $this->popupForm = false;
-    }
-
-    public function updatajobCal() {
-
-        $res_job = DB::table('job_cal')->get();
-
-        foreach ($res_job as $res) {
-            $job["{$res->job_name}"] = $res->job_ptc;
-        }
-
-
-        $response = DB::table('tbl_claim')->whereRaw("date_dms between '2024-04-01' AND '2024-04-30'")->get();
-
-        foreach ($response as $row) {
-            $res_wip = DB::table("tbl_claim")
-            ->selectRaw('tbl_wip.*')
-            ->join('tbl_wip','tbl_claim.no_claim','=','tbl_wip.no_claimex')
-            ->whereRaw("no_claimex = '". $row->no_claim ."'")->get();
-            for ($i=0; $i < count($res_wip); $i++) { 
-                if($row->firm_doit !== 0.00) {
-                    $firm_doit = $row->firm_doit;
-                    $cal_job = ((floatval($firm_doit)*floatval($job[$res_wip[$i]->type_doit]))/floatval(count(array($res_wip[$i]->type_doit))));
-    
-                    DB::table('tbl_wip')->where(['no' => intval($res_wip[$i]->no)])->update([
-                        'cal_doit' => $cal_job,
-                        'date_create' => now(),
-                    ]);
-                }
-            }
-        }
-        
     }
 
     public function getDataservice() {

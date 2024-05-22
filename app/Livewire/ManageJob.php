@@ -14,8 +14,24 @@ class ManageJob extends Component
     public $job_name_edit;
     public $job_cal_edit;
 
+    public $user_PA = false;
+    public $user_original = true;
+
+    public $date_col_from;
+    public $date_col_to;
+
     public function placeholder() {
         return view('components.manage-placholder');
+    }
+
+    public function handledetail($tail_id) {
+        if($tail_id == 1) {
+            $this->user_PA = true;
+            $this->user_original = false;
+        } else {
+            $this->user_original = true;
+            $this->user_PA = false;
+        }
     }
 
     public function create() {
@@ -106,10 +122,41 @@ class ManageJob extends Component
         }
     }
 
+    public function updatajobCal() {
+
+        $res_job = DB::table('job_cal')->get();
+
+        foreach ($res_job as $res) {
+            $job["{$res->job_name}"] = $res->job_ptc;
+        }
+
+
+        $response = DB::table('tbl_claim')->whereRaw("date_dms between '2024-04-01' AND '2024-04-30'")->get();
+
+        foreach ($response as $row) {
+            $res_wip = DB::table("tbl_claim")
+            ->selectRaw('tbl_wip.*')
+            ->join('tbl_wip','tbl_claim.no_claim','=','tbl_wip.no_claimex')
+            ->whereRaw("no_claimex = '". $row->no_claim ."'")->get();
+            for ($i=0; $i < count($res_wip); $i++) { 
+                if($row->firm_doit !== 0.00) {
+                    $firm_doit = $row->firm_doit;
+                    $cal_job = ((floatval($firm_doit)*floatval($job[$res_wip[$i]->type_doit]))/floatval(count(array($res_wip[$i]->type_doit))));
+    
+                    DB::table('tbl_wip')->where(['no' => intval($res_wip[$i]->no)])->update([
+                        'cal_doit' => $cal_job,
+                        'date_create' => now(),
+                    ]);
+                }
+            }
+        }
+    }
+
     public function render()
     {
         return view('livewire.manage-job', [
             'getJob' => DB::table('job_cal')->get(),
+            'count_job' => DB::table('job_cal')->selectRaw("COUNT(id) AS COUNT_JOB")->get()[0],
         ]);
     }
 }

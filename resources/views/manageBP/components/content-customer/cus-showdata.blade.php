@@ -334,22 +334,21 @@
                                         <span class="block">{{ $item->respon_name }}</span>
                                     </div>
                                 </div>
-                                <div class="flex items-center w-full justify-center">
-                                    <div>
-                                        <i class="fa-solid fa-screwdriver-wrench mr-2"></i>
+                                <div class="w-full flex justify-around items-center bg-red-200 rounded-md py-2">
+                                    <div class="flex items-center w-full justify-center">
+                                        <div>
+                                            <span><i class="fa-regular fa-calendar-days mr-2"></i>วันที่เริ่ม</span>
+                                            <span class="block">{{ $item->date_start }}</span>
+                                        </div>
                                     </div>
                                     <div>
-                                        <span>วันที่เริ่ม</span>
-                                        <span class="block">{{ $item->date_start }}</span>
+                                        <i class="fa-solid fa-arrow-right"></i>
                                     </div>
-                                </div>
-                                <div class="flex items-center w-full justify-center">
-                                    <div>
-                                        <i class="fa-solid fa-right-to-bracket mr-2"></i>
-                                    </div>
-                                    <div>
-                                        <span>วันที่สิ้นสุด</span>
-                                        <span class="block">{{ $item->date_stop }}</span>
+                                    <div class="flex items-center w-full justify-center">
+                                        <div>
+                                            <span><i class="fa-regular fa-calendar-days mr-2"></i>วันที่สิ้นสุด</span>
+                                            <span class="block">{{ $item->date_stop }}</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="flex items-center w-full justify-center">
