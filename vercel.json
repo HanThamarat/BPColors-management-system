@@ -2,7 +2,8 @@
     "version": 2,
       "framework": null,
     "routes": [{
-        "src": "/(.*)"
+        "src": "/(.*)",
+        "dest": "/routes/web.php"
     }],
     "env": {
         "APP_ENV": "production",
