@@ -33,6 +33,33 @@
                                 var(--sb-track-color);
             }
         }
+
+        .cal_detail {
+            width: 100%;
+            overflow-x: scroll;
+            padding: 10px;
+        }
+
+        .cal_detail::-webkit-scrollbar {
+            width: var(--sb-size);
+        }
+
+        .cal_detail::-webkit-scrollbar-track {
+            background: var(--sb-track-color);
+            border-radius: 5px;
+        }
+
+        .cal_detail::-webkit-scrollbar-thumb {
+            background: var(--sb-thumb-color);
+            border-radius: 5px;
+        }
+
+        @supports not selector(::-webkit-scrollbar) {
+            .cal_detail {
+                scrollbar-color: var(--sb-thumb-color)
+                                var(--sb-track-color);
+            }
+        }
 </style>
     <div class="animate-pulse flex space-x-4">
             <div wire:loading wire:target="handledetail" class="flex-1 space-y-6 py-1 my-5">
@@ -103,6 +130,49 @@
            <div class="text-2xl font-medium text-blue-500">
                 <span>รายการปรับเปลี่ยนค่าแรง</span>
            </div>
+            <button wire:click.prevent="showdt" class="w-full bg-gray-100 rounded flex justify-around items-center mt-5">
+                <div class="w-full flex justify-around items-center bg-red-200 rounded-md py-2">
+                    <div class="flex items-center w-full justify-center">
+                        <div>
+                            <span><i class="fa-regular fa-calendar-days mr-2"></i>วันที่เริ่ม</span>
+                            <span class="block">00/00/0000</span>
+                        </div>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <div class="flex items-center w-full justify-center">
+                        <div>
+                            <span><i class="fa-regular fa-calendar-days mr-2"></i>วันที่สิ้นสุด</span>
+                            <span class="block">00/00/0000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-5 py-2">
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+            </button>
+            <div class="cal_detail flex items-center gap-x-2 {{ $showDetail ? '' : 'hidden' }}">
+                @for ($i = 0; $i < 25; $i++)
+                    <div class="w-[600px] flex justify-around items-center bg-red-200 rounded-md py-2 px-5">
+                        <div class="flex items-center w-full justify-center">
+                            <div>
+                                <span><i class="fa-regular fa-calendar-days mr-2"></i>วันที่เริ่ม</span>
+                                <span class="block">00/00/0000</span>
+                            </div>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                        <div class="flex items-center w-full justify-center">
+                            <div>
+                                <span><i class="fa-regular fa-calendar-days mr-2"></i>วันที่สิ้นสุด</span>
+                                <span class="block">00/00/0000</span>
+                            </div>
+                        </div>
+                    </div>
+                @endfor
+            </div>
         </div>
       </div>
 </x-fullcard>
