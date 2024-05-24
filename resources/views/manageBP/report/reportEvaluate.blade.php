@@ -106,7 +106,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 				$no = 1;
 				$total = 0;
                 $total2 = 0;
-				// $timeTxt = '';
+				$timeTxt = '';
 						
 
 
