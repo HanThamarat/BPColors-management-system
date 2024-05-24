@@ -381,7 +381,7 @@ for($i=1;$i<10;$i++){
     $objPHPExcel->getActiveSheet()->setCellValue('D14',$dataK2->d);
     $objPHPExcel->getActiveSheet()->setCellValue('E14',$dataK2->e);
 
-    $dataL = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_status, '%Y-%m-%d') = ? AND SUBSTRING(payment_st,1,1) IN ('L') GROUP BY payment_st", [$todate])->get();
+    $dataL = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_status, '%Y-%m-%d') = ? AND SUBSTRING(payment_st,1,1) IN ('L') GROUP BY payment_st", [$todate])->get()[0];
     // dd($dataL);
 
     $dataL2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_status, '%Y-%m') = substr('". $todate ."',0,7) AND SUBSTRING(payment_st,1,1) IN ('L') GROUP BY payment_st")->get();
@@ -391,10 +391,10 @@ for($i=1;$i<10;$i++){
     // $objPHPExcel->getActiveSheet()->setCellValue('C15',$dataL['c']);
     // $objPHPExcel->getActiveSheet()->setCellValue('D15',$dataL['d']);
     // $objPHPExcel->getActiveSheet()->setCellValue('E15',$dataL['e']);
-    $objPHPExcel->getActiveSheet()->setCellValue('B15',$dataL2->b);
-    $objPHPExcel->getActiveSheet()->setCellValue('C15',$dataL2->c);
-    $objPHPExcel->getActiveSheet()->setCellValue('D15',$dataL2->d);
-    $objPHPExcel->getActiveSheet()->setCellValue('E15',$dataL2->e);
+    $objPHPExcel->getActiveSheet()->setCellValue('B15',$dataL->b);
+    $objPHPExcel->getActiveSheet()->setCellValue('C15',$dataL->c);
+    $objPHPExcel->getActiveSheet()->setCellValue('D15',$dataL->d);
+    $objPHPExcel->getActiveSheet()->setCellValue('E15',$dataL->e);
 
 $objPHPExcel->getActiveSheet()->getStyle('A2:M15')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 $objPHPExcel->getActiveSheet()->getStyle('A2:M15')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
