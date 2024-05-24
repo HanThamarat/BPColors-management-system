@@ -197,7 +197,7 @@ $statusType = [
 
 
 for($i=1;$i<10;$i++){
-            $now = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("payment_st = ? ORDER BY date_cliam ASC", [$statusType[$i]])->get()[0];
+            $now = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("payment_st = ?  GROUP BY date_cliam ORDER BY date_cliam ASC", [$statusType[$i]])->get()[0];
             // dd($now->b);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(3+$i), $now->b);
             // $objPHPExcel->getActiveSheet()->setCellValue('C4', $qnow['c']);
