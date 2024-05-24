@@ -117,7 +117,9 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 				//  		 FROM tbl_claim WHERE  date_bill BETWEEN '".$fromdate."' AND '".$todate."' ";
 	            // $q_claims = mysql_query($claimS);
 
-                $response = DB::table('tbl_claim')->selectRaw("no_claim,date_cliam,date_firmins ,car_job,no_regiscar,insure_name,insure_type,payment_st,car_brand,car_model,date_bill,user_con")->whereRaw("date_bill BETWEEN '". $fromdate ."' AND '". $todate ."' ")->get();
+                $response = DB::table('tbl_claim')
+				->selectRaw("no_claim,date_cliam,date_firmins ,car_job,no_regiscar,insure_name,insure_type,payment_st,car_brand,car_model,date_bill,user_con,firm_doit,firm_sparepart,firm_all,exzept")
+				->whereRaw("date_bill BETWEEN '". $fromdate ."' AND '". $todate ."' ")->get();
 
                 foreach ($response as $res) {
                                        
@@ -171,10 +173,10 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 					$objPHPExcel->getActiveSheet()->setCellValue('L'.($r+2),$res->payment_st);
 					$objPHPExcel->getActiveSheet()->setCellValue('M'.($r+2),$res->date_bill);
 					$objPHPExcel->getActiveSheet()->setCellValue('N'.($r+2),$res->user_con);
-					// $objPHPExcel->getActiveSheet()->setCellValue('O'.($r+2),$res->firm_doit);
-					// $objPHPExcel->getActiveSheet()->setCellValue('P'.($r+2),$res->firm_sparepart);
-					// $objPHPExcel->getActiveSheet()->setCellValue('Q'.($r+2),$res->firm_all);
-					// $objPHPExcel->getActiveSheet()->setCellValue('R'.($r+2),$res->exzept);
+					$objPHPExcel->getActiveSheet()->setCellValue('O'.($r+2),$res->firm_doit);
+					$objPHPExcel->getActiveSheet()->setCellValue('P'.($r+2),$res->firm_sparepart);
+					$objPHPExcel->getActiveSheet()->setCellValue('Q'.($r+2),$res->firm_all);
+					$objPHPExcel->getActiveSheet()->setCellValue('R'.($r+2),$res->exzept);
 						
 			
 				
@@ -292,7 +294,9 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 
 				//for($i=1;$i<13;$i++){
 
-                 $response_02 = DB::table('tbl_claim')->selectRaw("no_job,no_claim,date_cliam,date_firmins ,date_repair,date_dms,car_job,no_regiscar,insure_name,insure_type,payment_st,car_brand,car_model,date_bill,user_con")->whereRaw("date_bill  BETWEEN '". $fromdate ."' AND '". $todate ."'")->get();
+                 $response_02 = DB::table('tbl_claim')
+				 ->selectRaw("no_job,no_claim,date_cliam,date_firmins ,date_repair,date_dms,car_job,no_regiscar,insure_name,insure_type,payment_st,car_brand,car_model,date_bill,user_con,firm_doit,firm_sparepart,firm_all,exzept")
+				 ->whereRaw("date_bill  BETWEEN '". $fromdate ."' AND '". $todate ."'")->get();
 				//  $claimS = "SELECT no_job,no_claim,date_cliam,date_firmins ,date_repair,date_dms,car_job,no_regiscar,insure_name,insure_type,payment_st,car_brand,car_model,date_bill,user_con 
 				//   			FROM tbl_claim WHERE  date_bill  BETWEEN '".$fromdate."' AND '".$todate."'";
 	            // $q_claims = mysql_query($claimS);
@@ -348,10 +352,10 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 					$objPHPExcel->getActiveSheet()->setCellValue('M'.($r+2),$res->date_bill);
 					$objPHPExcel->getActiveSheet()->setCellValue('N'.($r+2),$res->user_con);
 					$objPHPExcel->getActiveSheet()->setCellValue('O'.($r+2),$res->no_job);
-					// $objPHPExcel->getActiveSheet()->setCellValue('P'.($r+2),$res->firm_doit);
-					// $objPHPExcel->getActiveSheet()->setCellValue('Q'.($r+2),$res->firm_sparepart);
-					// $objPHPExcel->getActiveSheet()->setCellValue('R'.($r+2),$res->firm_all);
-					// $objPHPExcel->getActiveSheet()->setCellValue('S'.($r+2),$res->exzept);
+					$objPHPExcel->getActiveSheet()->setCellValue('P'.($r+2),$res->firm_doit);
+					$objPHPExcel->getActiveSheet()->setCellValue('Q'.($r+2),$res->firm_sparepart);
+					$objPHPExcel->getActiveSheet()->setCellValue('R'.($r+2),$res->firm_all);
+					$objPHPExcel->getActiveSheet()->setCellValue('S'.($r+2),$res->exzept);
 						
 			
 				
@@ -402,7 +406,7 @@ $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft(0.25); // กำหน
 $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom(0.75); // กำหนดระยะขอบ ล่าง
 // Rename sheet
 //echo date('H:i:s') . " Rename sheet\n";
-$objPHPExcel->getActiveSheet()->setTitle('StatusAuditDoc');
+$objPHPExcel->getActiveSheet()->setTitle('ระยะเวลาซ่อม');
 
 $fname = "tmp/reportEvaluate.xlsx";
 

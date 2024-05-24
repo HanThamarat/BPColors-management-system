@@ -10,35 +10,35 @@ class reportController extends Controller
         $todate = $request->todate;
         $year = $request->year;
 
-        if($request->report === '/dereport') {
+        if($request->report == 'dereport') {
             return view('manageBP.report.dereport', compact('fromdate','todate', 'year'));
-        } else if($request->report === '/billreport') { 
+        } else if($request->report == 'billreport') { 
             return view('manageBP.report.billreport', compact('fromdate', 'todate', 'year'));
-        } else if($request->report === '/expectreport') {
+        } else if($request->report == 'expectreport') {
             return view('manageBP.report.expectreport', compact('fromdate', 'todate', 'year'));
-        } else if($request->report === '/reportCarstatus') {
+        } else if($request->report == 'reportCarstatus') {
             return view('manageBP.report.reportCarstatus', compact('fromdate', 'todate', 'year'));
-        } else if ($request->report === '/jobreport') {
+        } else if ($request->report == 'jobreport') {
             return view('manageBP.report.jobreport', compact('fromdate', 'todate', 'year'));
-        } else if($request->report === '/pivotclaim') {
+        } else if($request->report == 'pivotclaim') {
             return view('manageBP.report.pivotclaim', compact('fromdate', 'todate', 'year'));
-        } else if ($request->report === '/pivotservice') {
+        } else if ($request->report == 'pivotservice') {
             return view('manageBP.report.pivotservice', compact('fromdate', 'todate', 'year'));
-        } else if($request->report === '/pivotsend') {
+        } else if($request->report == 'pivotsend') {
             return view('manageBP.report.pivotsend', compact('fromdate', 'todate', 'year'));
-        } else if( $request->report === '/pivottotalwork') {
+        } else if( $request->report == 'pivottotalwork') {
             return view('manageBP.report.pivottotalwork', compact('fromdate', 'todate', 'year'));
-        } else if( $request->report === '/todayreport') {
+        } else if( $request->report == 'todayreport') {
             return view('manageBP.report.todayreport', compact('fromdate', 'todate', 'year'));
-        } else if( $request->report === '/todayservice') {
+        } else if( $request->report == 'todayservice') {
             return view('manageBP.report.todayservice', compact('fromdate', 'todate', 'year'));
-        } else if( $request->report === '/monthreport') {
+        } else if( $request->report == 'monthreport') {
             return view('manageBP.report.monthreport', compact('fromdate', 'todate', 'year'));
-        } else if( $request->report === '/reportStatus') {
+        } else if( $request->report == 'reportStatus') {
             return view('manageBP.report.reportStatus', compact('fromdate', 'todate', 'year'));
-        } else if( $request->report === '/reportEvaluate') {
+        } else if( $request->report == 'reportEvaluate') {
             return view('manageBP.report.reportEvaluate', compact('fromdate', 'todate', 'year'));
-        } else if( $request->report === '/pivotamont') {
+        } else if( $request->report == 'pivotamont') {
             return view('manageBP.report.pivotamont', compact('fromdate', 'todate', 'year'));
         }
     }

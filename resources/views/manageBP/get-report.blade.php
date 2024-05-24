@@ -14,22 +14,22 @@
                         <label>Report</label>
                         <select name="l_report" id="l_report" onchange="getSelect()" class="block w-full rounded py-1 px-2">
                             <!-- 	<option value="report/report.php">รายงานสำหรับ Credo Lab</option> -->
-                            <option value="/pivotclaim" >Pivot รับเคลม</option>
-                            <option value="/pivotservice">Pivot รับบริการรถ</option>
-                            <option value="/pivotsend">Pivot ส่งมอบรถ</option>
+                            <option value="pivotclaim" >Pivot รับเคลม</option>
+                            <option value="pivotservice">Pivot รับบริการรถ</option>
+                            <option value="pivotsend">Pivot ส่งมอบรถ</option>
                             <!-- 	<option value="report/pivotcom.php">Pivot คอมมิสชั่น</option> -->
-                            <option value="/pivotamont">Pivot ยอดยกมา ทั้งหมด</option>
-                            <option value="/pivottotalwork">Pivot ค่าแรงช่าง</option>
-                            <option value="/todayreport">reportBP CreateDate</option>
-                            <option value="/todayservice">todayClose</option>
-                            <option value="/billreport">รายงานสรุปรายได้ประจำเดือน</option>
-                            <option value="/dereport">ลูกหนี้คงเหลือ</option>
-                            <option value="/expectreport">รถที่เป็นยอดได้</option>
-                            <option value="/monthreport">รายงานยอดรายวัน</option>
-                            <option value="/jobreport">รายงานJOB</option>
-                            <option value="/reportStatus">รายงานสถานะรถ</option>
-                            <option value="/reportCarstatus">รายงานสถานะรถซ่อม</option>
-                            <option value="/reportEvaluate">รายงานประเมิณ</option>
+                            <option value="pivotamont">Pivot ยอดยกมา ทั้งหมด</option>
+                            <option value="pivottotalwork">Pivot ค่าแรงช่าง</option>
+                            <option value="todayreport">reportBP CreateDate</option>
+                            <option value="todayservice">todayClose</option>
+                            <option value="billreport">รายงานสรุปรายได้ประจำเดือน</option>
+                            <option value="dereport">ลูกหนี้คงเหลือ</option>
+                            <option value="expectreport">รถที่เป็นยอดได้</option>
+                            <option value="monthreport">รายงานยอดรายวัน</option>
+                            <option value="jobreport">รายงานJOB</option>
+                            <option value="reportStatus">รายงานสถานะรถ</option>
+                            <option value="reportCarstatus">รายงานสถานะรถซ่อม</option>
+                            <option value="reportEvaluate">รายงานประเมิณ</option>
                         </select>
                     </div>
                     <div class="year w-full my-2">
@@ -63,7 +63,7 @@
     const spinerEl = document.querySelector("#spinner");
 
     function getSelect() {
-        if (document.getElementById('l_report').value === '/todayreport' || document.getElementById('l_report').value === '/billreport' ||  document.getElementById('l_report').value === '/jobreport' || document.getElementById('l_report').value === '/todayservice' || document.getElementById('l_report').value === '/monthreport' || document.getElementById('l_report').value === '/reportEvaluate' || document.getElementById('l_report').value === '/monthreport') {
+        if (document.getElementById('l_report').value === 'todayreport' || document.getElementById('l_report').value === 'billreport' ||  document.getElementById('l_report').value === 'jobreport' || document.getElementById('l_report').value === 'todayservice' || document.getElementById('l_report').value === 'monthreport' || document.getElementById('l_report').value === 'reportEvaluate' || document.getElementById('l_report').value === 'monthreport') {
             document.querySelector('.date').classList.remove('hidden');
             document.querySelector('.year').classList.add('hidden');
         } else {
