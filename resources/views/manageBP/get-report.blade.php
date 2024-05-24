@@ -101,9 +101,7 @@
                     success: function(res) {
                         ExpoetEl.classList.remove('hidden');
                         spinerEl.classList.add('hidden');
-                        // window.location.href = `{{ route('report.create') }}?report=${reports}&year=${fromdata.year}&fromdate=${fromdata.fromdate}&todate=${fromdata.todate}`;
-                        // window.open(`{{ route('report.create') }}?report=${reports}&year=${fromdata.year}&fromdate=${fromdata.fromdate}&todate=${fromdata.todate}`);
-                        window.location.href(`{{ route('report.create') }}?report=${reports}&year=${fromdata.year}&fromdate=${fromdata.fromdate}&todate=${fromdata.todate}`);
+                        window.open(`{{ route('report.create') }}?report=${reports}&year=${fromdata.year}&fromdate=${fromdata.fromdate}&todate=${fromdata.todate}`);
                         alert({
                             type: 'success',
                             title: 'Export report success',
