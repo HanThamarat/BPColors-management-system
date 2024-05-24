@@ -80,7 +80,7 @@
             e.preventDefault();
 
             var fromdata = {
-                reportType: $('#l_report').val(),
+                report: $('#l_report').val(),
                 year: $('#year').val(),
                 fromdate: $('#fromdate').val(),
                 todate: $('#todate').val(),
@@ -101,7 +101,8 @@
                     success: function(res) {
                         ExpoetEl.classList.remove('hidden');
                         spinerEl.classList.add('hidden');
-                        window.open(`{{ route('report.create') }}?report=${reports}&year=${fromdata.year}&fromdate=${fromdata.fromdate}&todate=${fromdata.todate}`);
+                        window.open("{{ route('report.create') }}" + "?" + new URLSearchParams(fromdata));
+                        // window.open(`{{ route('report.create') }}?report=${reports}&year=${fromdata.year}&fromdate=${fromdata.fromdate}&todate=${fromdata.todate}`);
                         alert({
                             type: 'success',
                             title: 'Export report success',
