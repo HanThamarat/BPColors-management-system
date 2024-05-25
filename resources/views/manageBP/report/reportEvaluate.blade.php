@@ -123,8 +123,8 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 
                 foreach ($response as $res) {
                                        
-					$objPHPExcel->getActiveSheet()->getStyle('E')->getNumberFormat()->setFormatCode('############');
-					$objPHPExcel->getActiveSheet()->getStyle('C:D')->getNumberFormat()->setFormatCode('yyyy-mm-dd');
+					// $objPHPExcel->getActiveSheet()->getStyle('E')->getNumberFormat()->setFormatCode('############');
+					// $objPHPExcel->getActiveSheet()->getStyle('C:D')->getNumberFormat()->setFormatCode('yyyy-mm-dd');
 					$objPHPExcel->getActiveSheet()->setCellValue('A'.($r+2),$no);
 					$objPHPExcel->getActiveSheet()->setCellValue('B'.($r+2),$res->no_claim);
 					$objPHPExcel->getActiveSheet()->setCellValue('C'.($r+2),$res->date_cliam);
@@ -302,8 +302,8 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 	            // $q_claims = mysql_query($claimS);
 	              
 	            foreach ($response_02 as $res) {
-                    $objPHPExcel->getActiveSheet()->getStyle('E')->getNumberFormat()->setFormatCode('############');
-					$objPHPExcel->getActiveSheet()->getStyle('C:D')->getNumberFormat()->setFormatCode('yyyy-mm-dd');
+                    // $objPHPExcel->getActiveSheet()->getStyle('E')->getNumberFormat()->setFormatCode('############');
+					// $objPHPExcel->getActiveSheet()->getStyle('C:D')->getNumberFormat()->setFormatCode('yyyy-mm-dd');
 					$objPHPExcel->getActiveSheet()->setCellValue('A'.($r+2),$no);
 					$objPHPExcel->getActiveSheet()->setCellValue('B'.($r+2),$res->no_claim);
 					$objPHPExcel->getActiveSheet()->setCellValue('C'.($r+2),$res->date_repair);
@@ -356,11 +356,6 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 					$objPHPExcel->getActiveSheet()->setCellValue('Q'.($r+2),$res->firm_sparepart);
 					$objPHPExcel->getActiveSheet()->setCellValue('R'.($r+2),$res->firm_all);
 					$objPHPExcel->getActiveSheet()->setCellValue('S'.($r+2),$res->exzept);
-						
-			
-				
-				
-					
 				$no++;	
 				$r++;
                 }
