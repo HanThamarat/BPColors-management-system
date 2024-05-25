@@ -95,7 +95,7 @@
                     data: {
                         report: reports,
                         year: fromdata.year,
-                        fromdata: fromdata.fromdate,
+                        fromdate: fromdata.fromdate,
                         todate: fromdata.todate
                     },
                     success: function(res) {

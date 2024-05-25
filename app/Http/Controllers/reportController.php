@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 class reportController extends Controller
 {
     public function create(Request $request) {
-        $fromdate = $request->fromdata;
+        $fromdate = $request->fromdate;
         $todate = $request->todate;
         $year = $request->year;
 
