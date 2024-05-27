@@ -175,15 +175,15 @@
                                     <div class="mt-5">
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>อนุมัติค่าแรง : </span>
-                                            <span>{{ $getUserData->firm_doit !== null ?  $getUserData->firm_doit : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->firm_doit !== null ?  number_format($getUserData->firm_doit, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>อนุมัติรวม : </span>
-                                            <span>{{ $getUserData->firm_all !== null ?  $getUserData->firm_all : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->firm_all !== null ?   number_format($getUserData->firm_all, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>อนุมัติค่าอะไหล่ : </span>
-                                            <span>{{ $getUserData->firm_sparepart !== null ?  $getUserData->firm_sparepart : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->firm_sparepart !== null ?  number_format($getUserData->firm_sparepart, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>วันที่ส่งรถ : </span>
@@ -201,7 +201,7 @@
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>จำนวนเงินรับจริง: </span>
-                                            <span>{{ $getUserData->total_pay !== null ?  $getUserData->total_pay : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->total_pay !== null ?   number_format($getUserData->total_pay, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>เลขที่วางบิล (Cashier): </span>
@@ -221,15 +221,15 @@
                                     <div>
                                         <div class="border-b flex justify-between items-center">
                                             <span>ประเมินค่าแรง : </span>
-                                            <span>{{ $getUserData->cost_doit !== null ?  $getUserData->cost_doit : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->cost_doit !== null ? number_format($getUserData->cost_doit, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>ประเมินค่าอะไหล่ : </span>
-                                            <span>{{ $getUserData->cost_sparepart !== null ?  $getUserData->cost_sparepart : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->cost_sparepart !== null ? number_format($getUserData->cost_sparepart, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>ประเมินรวม : </span>
-                                            <span>{{ $getUserData->cost_totel !== null ?  $getUserData->cost_totel : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->cost_totel !== null ? number_format($getUserData->cost_totel, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>ประกันอนุมัติ : </span>
@@ -251,7 +251,7 @@
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>ค่า exzept: </span>
-                                            <span>{{ $getUserData->exzept !== null ?  $getUserData->exzept : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->exzept !== null ?  number_format($getUserData->exzept, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                     </div>
                                     <div class="mt-5">
@@ -357,7 +357,7 @@
                                     </div>
                                     <div>
                                         <span>คำนวณค่าแรง</span>
-                                        <span class="block">{{ $item->cal_doit }}</span>
+                                        <span class="block">{{  number_format($item->cal_doit, 2) }}</span>
                                     </div>
                                 </div>
                             </div>

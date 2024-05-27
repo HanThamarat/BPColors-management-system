@@ -165,21 +165,21 @@
                             </td>
                             <td class="px-6 py-4">
                                 @if ($items->firm_sparepart !== null)
-                                    {{ $items->firm_sparepart }}
+                                    {{  number_format($items->firm_sparepart) }}
                                 @else
                                     ไม่มีข้อมูล
                                 @endif
                             </td>
                             <td class="px-6 py-4">
                                 @if ($items->firm_all !== null)
-                                    {{ $items->firm_all }}
+                                    {{ number_format($items->firm_all, 2) }}
                                 @else
                                     ไม่มีข้อมูล
                                 @endif
                             </td>
                             <td class="px-6 py-4">
                                 @if ($items->firm_all !== null)
-                                    {{ $items->firm_all }}
+                                    {{ number_format($items->firm_all, 2) }}
                                 @else
                                     ไม่มีข้อมูล
                                 @endif
