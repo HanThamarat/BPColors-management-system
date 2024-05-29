@@ -18,7 +18,7 @@ export default {
     theme: {
         extend: {
             colors: {
-                bgOb: '#caf0f8',
+                object: '#ffddd2',
                 primary: "#161622",
             },
             fontFamily: {

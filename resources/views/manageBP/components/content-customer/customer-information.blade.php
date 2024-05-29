@@ -17,14 +17,14 @@
             <i class="fa-solid fa-user text-blue-500 text-lg mr-3"></i>
             <div class="user__infor">
                 <span class="block">ชื่อ-นามสกุล</span>
-                <span class="block">{{ $getUserData->cus_name }}</span>
+                <span class="block">{{ $getUserData->cus_name != '' || null ?  $getUserData->cus_name : 'ไม่มีข้อมูล' }}</span>
             </div>
         </div>
         <div class="flex mt-2">
             <i class="fa-solid fa-mobile text-blue-500 text-lg mr-3"></i>
             <div class="user__infor">
                 <span class="block">เบอร์โทรลูกค้า</span>
-                <span class="block">{{ $getUserData->cus_tel }}</span>
+                <span class="block">{{ $getUserData->cus_tel != '' || null ? $getUserData->cus_tel : 'ไม่มีข้อมูล' }}</span>
             </div>
         </div>
     </div>

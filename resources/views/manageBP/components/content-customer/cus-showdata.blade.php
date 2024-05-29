@@ -334,7 +334,7 @@
                                         <span class="block">{{ $item->respon_name }}</span>
                                     </div>
                                 </div>
-                                <div class="w-full flex justify-around items-center bg-red-200 rounded-md py-2">
+                                <div class="w-full flex justify-around items-center bg-object rounded-md py-2">
                                     <div class="flex items-center w-full justify-center">
                                         <div>
                                             <span><i class="fa-regular fa-calendar-days mr-2"></i>วันที่เริ่ม</span>

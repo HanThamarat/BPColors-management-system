@@ -308,7 +308,7 @@ class CustomerScreen extends Component
                         ]);
                     }
                 }
-
+                $this->popupForm = false;
                 $this->dispatch('alert',
                     position: 'center',
                     type: 'success',
