@@ -77,9 +77,18 @@ class reportController extends Controller
                 }
             } else if($request->typeDisplay == 'car_nocliam') {
                 try {
-                    // $page = $request->typeDisplay;
+                    $page = $request->typeDisplay;
 
-                    // $response = DB::table('')
+                    $response = DB::table('tbl_claim')
+                    ->selectRaw("payment_st, car_job, date_cliam, no_claim, no_regiscar, car_model, insure_name, firm_doit, firm_sparepart, date_firmins")
+                    ->whereRaw("date_carin IS NULL AND payment_st NOT IN ('K ชำระเงินแล้ว','L ยกเลิกงานเคลม')")->get();
+
+                     $resView = view("manageBP.components.content-report.table" , compact('response', 'page'))->render();
+
+                     return response()->json([
+                        'message'=> 'Query data successfully',
+                        'resHtml' => $resView,
+                    ], 200);
                 } catch (\Exception $e) {
                     return response()->json([
                         'message' => 'query data error',
@@ -92,7 +101,7 @@ class reportController extends Controller
                     $response = DB::table('tbl_claim')
                     ->selectRaw("payment_st, date_cliam, no_claim, no_regiscar, car_model, insure_name, firm_doit, firm_sparepart, firm_all, date_ecliam")
                     ->whereRaw("payment_st NOT IN ('K ชำระเงินแล้ว','L ยกเลิกงานเคลม') AND (date_bill is null OR bill_no='') AND total_pay=0  ORDER BY payment_st")->get();
-
+                    
                     if(count($response) == 0) {
                         throw new \Exception("Query data error");
                     }

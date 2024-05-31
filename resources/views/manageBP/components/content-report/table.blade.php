@@ -330,5 +330,112 @@ body {
     </tbody>
     </table>
 </div>
+@elseif($page == 'car_nocliam')
+<div class="block w-full my-5 overflow-x-auto detail__repair">
+    <table class="items-center bg-transparent w-full border-collapse text-center">
+    <thead>
+        <tr>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+                สถานะ
+            </th>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+                ประเภทงาน
+            </th>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+                วันที่รับเครม
+            </th>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+                จำนวนวันประกัน
+            </th>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+                เลขที่เคลม
+            </th>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+                ป้ายทะเบียน
+            </th>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+                ประกัน
+            </th>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+                อนุมัติค่าเเรง
+            </th>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+                อนุมัติค่าอะไหล่
+            </th>
+            <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
+                อนุมัติค่าอะไหล่
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach ($response as $inex => $values)
+            @php
+                $dateFirm = "";
+                $adate = "";
+                if($values->car_job == 'L-เบา'){
+                    $adate = $values->date_cliam; 
+                    $date_cliam = date("Y-m-d", strtotime("+4 day",strtotime($adate)));
+                }else if($values->car_job == 'M-กลาง'){
+                    $adate = $values->date_cliam; 
+                    $date_cliam = date("Y-m-d", strtotime("+4 day",strtotime($adate)));
+                }else if($values->car_job == 'H-หนัก'){
+                    $adate = $values->date_cliam; 
+                    $date_cliam = date("Y-m-d", strtotime("+4 day",strtotime($adate)));
+                }
+
+
+
+                $statusCase = array('G','H','I','J','K','L');
+                if(strtotime($values->date_firmins)>0 ||  in_array($values->insure_name, array('เครมใน','เงินสด','ชูเกียรติลิสซิ่ง'))|| in_array(substr($values->payment_st,0,1), $statusCase)){
+                    $dateFirm = $values->date_firmins;
+                }else{
+                    if(strtotime($date_cliam)>strtotime("now")  ){
+                        $dateFirm = $date_cliam ."ไม่ถึงกำหนด";
+                        $styleBG4 = '';
+                    }else{
+                        $dateNow=date_create(date('Y-m-d'));
+                        $dateCli=date_create($date_cliam);
+                        $diff=date_diff($dateCli,$dateNow);									
+                        $dateFirm = "เลยกำหนด ".$diff->format("%R%a days")." วัน";
+                    }
+                }
+            @endphp
+            <tr>
+                <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {{ $values->payment_st }}
+                </th>
+                <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {{ $values->car_job }}
+                </td>
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {{ $values->date_cliam !== '' || null ? $values->date_cliam : 'ไม่มีข้อมูล' }}
+                </td>
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {{ $dateFirm }}
+                </td>
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {{ $values->no_claim }}
+                </td>
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {{ $values->no_regiscar }}
+                </td>
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {{ $values->car_model }}
+                </td>
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {{ $values->insure_name }}
+                </td>
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {{ number_format($values->firm_doit, 2) }}
+                </td>
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {{ number_format($values->firm_sparepart, 2) }}
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+    </table>
+</div>
 @endif
 </div>

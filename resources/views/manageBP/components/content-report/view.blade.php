@@ -31,7 +31,7 @@ body {
             <ul class="shrink-0">
                 <li>
                     <input type="radio" id="sendinsure" name="datatype" value="sendinsure" class="hidden peer title_export" />
-                    <label for="sendinsure" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border-2 border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
+                    <label for="sendinsure" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
                         <span>รายงานวางบิลส่งประกัน</span>
                     </label>
                 </li>
@@ -39,7 +39,7 @@ body {
             <ul class="shrink-0">
                 <li>
                     <input type="radio" id="caljob" name="datatype" value="caljob" class="hidden peer title_export" />
-                    <label for="caljob" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border-2 border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
+                    <label for="caljob" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
                         <span>ค่าแรงช่าง</span>
                     </label>
                 </li>
@@ -47,7 +47,7 @@ body {
             <ul class="shrink-0">
                 <li>
                     <input type="radio" id="car_nopay" name="datatype" value="car_nopay" class="hidden peer title_export" />
-                    <label for="car_nopay" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border-2 border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
+                    <label for="car_nopay" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
                         <span>รถประกันวางบิลแต่ยังไม่ได้รับเงิน</span>
                     </label>
                 </li>
@@ -55,7 +55,7 @@ body {
             <ul class="shrink-0">
                 <li>
                     <input type="radio" id="car_nocliam" name="datatype" value="car_nocliam" class="hidden peer title_export" />
-                    <label for="car_nocliam" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border-2 border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
+                    <label for="car_nocliam" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
                         <span>รถเปิดเคลมยังไม่เข้ารับบริการ</span>
                     </label>
                 </li>
@@ -63,7 +63,7 @@ body {
             <ul class="shrink-0">
                 <li>
                     <input type="radio" id="pase_bill" name="datatype" value="pase_bill" class="hidden peer title_export" />
-                    <label for="pase_bill" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border-2 border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
+                    <label for="pase_bill" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
                         <span>รายการวางบิล</span>
                     </label>
                 </li>
@@ -71,7 +71,7 @@ body {
             <ul class="shrink-0">
                 <li>
                     <input type="radio" id="date_send" name="datatype" value="date_send" class="hidden peer title_export" />
-                    <label for="date_send" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border-2 border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
+                    <label for="date_send" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
                         <span>วันนัดส่งมอบ</span>
                     </label>
                 </li>
@@ -79,7 +79,7 @@ body {
             <ul class="shrink-0">
                 <li>
                     <input type="radio" id="date_peak" name="datatype" value="date_peak" class="hidden peer title_export" />
-                    <label for="date_peak" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border-2 border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
+                    <label for="date_peak" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
                         <span>รถที่เป็นยอดได้</span>
                     </label>
                 </li>
@@ -87,7 +87,7 @@ body {
             <ul class="shrink-0">
                 <li>
                     <input type="radio" id="wait_bill" name="datatype" value="wait_bill" class="hidden peer title_export" />
-                    <label for="wait_bill" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border-2 border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
+                    <label for="wait_bill" class="inline-flex items-center justify-between w-full px-10 py-1 text-ttow bg-white border border-blue-500 rounded-md cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white hover:text-white hover:bg-blue-400 duration-100 ease-in-out">
                         <span>รอวางบิล</span>
                     </label>
                 </li>
@@ -203,34 +203,34 @@ body {
                     }
                 });
             } else if (selectedValue == 'car_nocliam') {
-                // $.ajax({
-                //     url: "{{ route('report.index') }}",
-                //     type: 'GET',
-                //     data: {
-                //         page: 'report',
-                //         typeDisplay: selectedValue,
-                //         _token: '{{ @csrf_token() }}',
-                //     },
-                //     success: async function(response) {
-                //         $('.loading').addClass('hidden');
-                //         $('.title_export').prop("disabled", false);
+                $.ajax({
+                    url: "{{ route('report.index') }}",
+                    type: 'GET',
+                    data: {
+                        page: 'report',
+                        typeDisplay: selectedValue,
+                        _token: '{{ @csrf_token() }}',
+                    },
+                    success: async function(response) {
+                        $('.loading').addClass('hidden');
+                        $('.title_export').prop("disabled", false);
                         
-                //         console.log(response.message);
+                        console.log(response.message);
 
-                //         $('#show-data').html(response.resHtml).slideDown('slow');
-                //     },
-                //     error: function(err) {
-                //         $('.loading').addClass('hidden');
-                //         $('.title_export').prop("disabled", false);
-                //         Swal.fire({
-                //             position: "center",
-                //             icon: "error",
-                //             text: err.responseJSON.err,
-                //             showConfirmButton: false,
-                //             timer: 1500
-                //         });
-                //     }
-                // });
+                        $('#show-data').html(response.resHtml).slideDown('slow');
+                    },
+                    error: function(err) {
+                        $('.loading').addClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            text: err.responseJSON.err,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
             } else if(selectedValue == 'date_peak') {
                 $.ajax({
                     url: "{{ route('report.index') }}",
