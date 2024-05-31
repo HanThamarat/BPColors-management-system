@@ -230,6 +230,35 @@ body {
                 //         });
                 //     }
                 // });
+            } else if(selectedValue == 'date_peak') {
+                $.ajax({
+                    url: "{{ route('report.index') }}",
+                    type: 'GET',
+                    data: {
+                        page: 'report',
+                        typeDisplay: selectedValue,
+                        _token: '{{ @csrf_token() }}',
+                    },
+                    success: async function(response) {
+                        $('.loading').addClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        
+                        console.log(response.message);
+
+                        $('#show-data').html(response.resHtml).slideDown('slow');
+                    },
+                    error: function(err) {
+                        $('.loading').addClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            text: err.responseJSON.err,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
             } else if(selectedValue == 'wait_bill') {
                 $.ajax({
                     url: "{{ route('report.index') }}",
