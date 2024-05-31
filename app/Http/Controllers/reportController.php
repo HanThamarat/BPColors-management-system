@@ -73,9 +73,9 @@ class reportController extends Controller
                 }
             } else if($request->typeDisplay == 'car_nocliam') {
                 try {
-                    $page = $request->typeDisplay;
+                    // $page = $request->typeDisplay;
 
-                    $response = DB::table('')
+                    // $response = DB::table('')
                 } catch (\Exception $e) {
                     return response()->json([
                         'message' => 'query data error',
