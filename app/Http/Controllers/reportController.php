@@ -82,6 +82,25 @@ class reportController extends Controller
                         'err' => $e->getMessage(),
                     ], 500);
                 }
+            } else if($request->typeDisplay == 'wait_bill') {
+                try {
+                    $page = $request->typeDisplay;
+                    $response = DB::table('tbl_claim')
+                    ->selectRaw("payment_st, date_status, date_cliam, no_claim, no_regiscar, car_model, insure_name, firm_doit, firm_sparepart, firm_all, date_ecliam")
+                    ->whereRaw("SUBSTR(payment_st, 1, 2) = 'I'")->get();
+
+                    $resView = view("manageBP.components.content-report.table", compact("response","page"))->render();
+
+                    return response()->json([
+                        'message'=> 'Query data successfully',
+                        'resHtml' => $resView,
+                    ], 200);
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'message' => 'query data error',
+                        'err' => $e->getMessage(),
+                    ], 500);
+                }
             }
         } else if($request->getName == 'techname') {
             try { 
