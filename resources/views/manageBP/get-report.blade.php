@@ -56,6 +56,7 @@
             </div>
         </form>
     </x-fullcard>
+    @include('manageBP.components.content-report.view')
 </x-app-layout>
 <script>
     document.title = "BP | Report";

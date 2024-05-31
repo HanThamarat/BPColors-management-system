@@ -20,6 +20,7 @@ export default {
             colors: {
                 object: '#ffddd2',
                 primary: "#161622",
+                ttow: '#212A37',
             },
             fontFamily: {
                 'prompt': 'Prompt'

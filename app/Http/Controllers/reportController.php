@@ -2,9 +2,105 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class reportController extends Controller
 {
+    public function index(Request $request) {
+        if($request->page == 'report') {
+            if($request->typeDisplay == 'sendinsure') {
+                try {
+                //    $response = DB::table('');
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'message' => 'query data error',
+                    ]);
+                }
+            } else if($request->typeDisplay == 'caljob') {
+                try {
+                    $month = Carbon::parse($request->data['month'])->format('Y-m');
+                    $mouthName = Carbon::createFromDate($month)->format('F');
+                    $year = Carbon::parse($request->data['month'])->format('Y');
+
+                    $page = $request->typeDisplay;
+
+                    $my = $mouthName. ', ' . $year;
+
+                    $response = DB::table('tbl_wip')
+                    ->leftJoin('tbl_claim','tbl_claim.no_claim','=','tbl_wip.no_claimex')
+                    ->selectRaw("respon_name, tbl_claim.no_claim, no_regiscar, date_dms, type_doit, cal_doit")
+                    ->whereRaw("DATE_FORMAT(date_start, '%Y-%m') = '". $month ."' AND respon_name = '". $request->data['techName'] ."'")->get();
+
+                    if(count($response) == 0) {
+                        throw new \Exception("query not found");
+                    }
+
+                    $resView = view('manageBP.components.content-report.table', compact('response', 'my', 'page'))->render();
+
+                    return response()->json([
+                        'message'=> 'Query data successfully',
+                        'resHtml' => $resView,
+                    ], 200);
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'message' => 'query data error',
+                        'err' => $e->getMessage(),
+                    ], 500);
+                }
+            } else if($request->typeDisplay == 'car_nopay') {
+                try {
+                    $page = $request->typeDisplay;
+                    $response = DB::table('tbl_claim')
+                    ->selectRaw("insure_name, date_bill, bill_no, no_policy, no_regiscar, payment_st, date_paybill, firm_doit, firm_sparepart, firm_all, remark")
+                    ->whereRaw("SUBSTR(payment_st, 1, 2) = 'J'")->get();
+
+                    if(count($response) == 0) {
+                        throw new \Exception("query not found");
+                    }
+
+                    $resView = view("manageBP.components.content-report.table" , compact('response', 'page'))->render();
+
+                    return response()->json([
+                        'message'=> 'Query data successfully',
+                        'resHtml' => $resView,
+                    ], 200);
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'message' => 'query data error',
+                        'err' => $e->getMessage(),
+                    ], 500);
+                }
+            } else if($request->typeDisplay == 'car_nocliam') {
+                try {
+                    $page = $request->typeDisplay;
+
+                    $response = DB::table('')
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'message' => 'query data error',
+                        'err' => $e->getMessage(),
+                    ], 500);
+                }
+            }
+        } else if($request->getName == 'techname') {
+            try { 
+                $response = DB::table('tbl_technician')->selectRaw("name")->whereRaw("active = 'yes'")->get();
+
+                $resView = view("manageBP.components.content-report.form", compact("response"))->render();
+
+                return response()->json([
+                    "message"=> "get data success",
+                    "resHtml" => $resView,
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'message' => 'query data error',
+                ], 500);
+            }
+        }
+    } 
+
     public function create(Request $request) {
         $fromdate = $request->fromdate;
         $todate = $request->todate;
@@ -42,6 +138,7 @@ class reportController extends Controller
             return view('manageBP.report.pivotamont', compact('fromdate', 'todate', 'year'));
         }
     }
+
     public function dereport(Request $request) {
         $fromdata = $request->fromdata;
         $todate = $request->todate;
