@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Traits\Conditionable;
 
 class reportController extends Controller
 {
     public function index(Request $request) {
+        // =====================================================
+        // display Condition
+        // =====================================================
         if($request->page == 'report') {
             if($request->typeDisplay == 'sendinsure') {
                 try {
@@ -125,11 +129,61 @@ class reportController extends Controller
                     ], 500);
                 }
             }
+
+        // =====================================================
+        // page Condition
+        // =====================================================
         } else if($request->getName == 'techname') {
             try { 
+                $page = $request->getName;
                 $response = DB::table('tbl_technician')->selectRaw("name")->whereRaw("active = 'yes'")->get();
 
-                $resView = view("manageBP.components.content-report.form", compact("response"))->render();
+                $resView = view("manageBP.components.content-report.form", compact("response", "page"))->render();
+
+                return response()->json([
+                    "message"=> "get data success",
+                    "resHtml" => $resView,
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'message' => 'query data error',
+                ], 500);
+            }
+        } else if($request->getName == 'pastBill') {
+            try {
+                $page = $request->getName;
+
+                $resView = view("manageBP.components.content-report.form", compact("page"))->render();
+
+                return response()->json([
+                    "message"=> "get data success",
+                    "resHtml" => $resView,
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'message' => 'query data error',
+                ], 500);
+            }
+        } else if ($request->getName == 'date_send') {
+            try {
+                $page = $request->getName;
+
+                $resView = view("manageBP.components.content-report.form", compact("page"))->render();
+
+                return response()->json([
+                    "message"=> "get data success",
+                    "resHtml" => $resView,
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'message' => 'query data error',
+                ], 500);
+            }
+        } else if ($request->getName == 'pase_bill') {
+            try {
+                $page = $request->getName;
+
+                $resView = view("manageBP.components.content-report.form", compact("page"))->render();
 
                 return response()->json([
                     "message"=> "get data success",

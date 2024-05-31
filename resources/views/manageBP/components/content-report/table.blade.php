@@ -34,6 +34,7 @@ body {
 }
 </style>
 
+<div class="hideData">
 @if ($page == 'caljob')
 @php
     $name = $response[0]->respon_name;
@@ -330,3 +331,4 @@ body {
     </table>
 </div>
 @endif
+</div>

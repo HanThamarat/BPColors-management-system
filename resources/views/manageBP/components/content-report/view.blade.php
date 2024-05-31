@@ -103,24 +103,24 @@ body {
         <div class="bgg flex justify-center my-5">
             <img src="{{ asset('img/query.png') }}" alt="">
         </div>
-        <div class="loading hidden">
-            <div class="animate-pulse flex space-x-4 my-5">
-            <div class="flex-1 space-y-6 py-1">
-                <div class="h-5 bg-blue-500 rounded"></div>
-                <div class="space-y-3">
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="h-3 bg-blue-500 rounded col-span-2"></div>
-                    <div class="h-3 bg-blue-500 rounded col-span-1"></div>
-                </div>
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="h-3 bg-blue-500 rounded col-span-1"></div>
-                    <div class="h-3 bg-blue-500 rounded col-span-2"></div>
-                </div>
-                <div class="h-3 bg-blue-500 rounded"></div>
-                <div class="h-3 bg-blue-500 rounded"></div>
-                </div>
+    </div>
+    <div class="loading hidden">
+        <div class="animate-pulse flex space-x-4 my-5">
+        <div class="flex-1 space-y-6 py-1">
+            <div class="h-5 bg-blue-500 rounded"></div>
+            <div class="space-y-3">
+            <div class="grid grid-cols-3 gap-4">
+                <div class="h-3 bg-blue-500 rounded col-span-2"></div>
+                <div class="h-3 bg-blue-500 rounded col-span-1"></div>
             </div>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="h-3 bg-blue-500 rounded col-span-1"></div>
+                <div class="h-3 bg-blue-500 rounded col-span-2"></div>
             </div>
+            <div class="h-3 bg-blue-500 rounded"></div>
+            <div class="h-3 bg-blue-500 rounded"></div>
+            </div>
+        </div>
         </div>
     </div>
 </x-fullcard>
@@ -150,6 +150,7 @@ body {
             $('.title_export').prop("disabled", true);
             $('.loading').removeClass('hidden');
             $('.bgg').addClass('hidden');
+            $('.hideData').addClass('hidden');
 
             console.log(selectedValue);
 
@@ -287,6 +288,63 @@ body {
                             timer: 1500
                         });
                     }
+                });
+            } else if(selectedValue == 'sendinsure') {
+                $.ajax({
+                    url: "{{ route('report.index') }}",
+                    type: 'GET',
+                    data: {
+                        getName: 'pastBill',
+                    },
+                    success: async function(response) {
+                        $('.loading').addClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        $('#show-data').html(response.resHtml).slideDown('slow');
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        $('.loading').addClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        console.log(error);
+                    },
+                });
+            } else if(selectedValue == 'date_send') {
+                $.ajax({
+                    url: "{{ route('report.index') }}",
+                    type: 'GET',
+                    data: {
+                        getName: 'date_send',
+                    },
+                    success: async function(response) {
+                        $('.loading').addClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        $('#show-data').html(response.resHtml).slideDown('slow');
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        $('.loading').addClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        console.log(error);
+                    },
+                });
+            } else if(selectedValue == 'pase_bill') {
+                $.ajax({
+                    url: "{{ route('report.index') }}",
+                    type: 'GET',
+                    data: {
+                        getName: 'pase_bill',
+                    },
+                    success: async function(response) {
+                        $('.loading').addClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        $('#show-data').html(response.resHtml).slideDown('slow');
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        $('.loading').addClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        console.log(error);
+                    },
                 });
             }
         });
