@@ -1,8 +1,15 @@
 <div class="lg:w-3/5 px-2 py-4">
     <div class="rounded px-2 py-5 bg-white drop-shadow-md">
         <div class="flex justify-between items-center">
-            <div class="text-sm text-blue-600">
-                <i class="fa-regular fa-user"></i>
+            <div class="text-sm text-blue-600 flex items-center gap-x-2">
+                <lord-icon
+                    src="https://cdn.lordicon.com/bgebyztw.json"
+                    trigger="loop"
+                    state="hover-looking-around"
+                    stroke="bold"
+                    colors="primary:#2196f3,secondary:#2196f3"
+                    style="width:25px;height:25px">
+                </lord-icon>
                 <span>ข้อมูล BP (BP Details)</span>
             </div>
             <div>

@@ -17,7 +17,7 @@
             </div>
             <div>
                 <label class="invisible">btn</label>
-                <button id="btnCaljob" type="submit" class="w-[50px] h-[35px] bg-blue-500 hover:bg-blue-600 duration-100 ease-in-out flex justify-center items-center rounded">
+                <button id="btnCaljob" type="submit" class="w-[50px] h-[34px] bg-blue-500 hover:bg-blue-600 duration-100 ease-in-out flex justify-center items-center rounded">
                     <i id="ic" class="fa-solid fa-magnifying-glass text-white"></i>
                     <div id="spinnerss" role="status" class="hidden">
                         <svg aria-hidden="true" class="w-5 h-5 text-white animate-spin text-white fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +42,7 @@
             </div>
             <div>
                 <label class="invisible">btn</label>
-                <button id="billBtn" type="submit" class="w-[50px] h-[35px] bg-blue-500 hover:bg-blue-600 duration-100 ease-in-out flex justify-center items-center rounded">
+                <button id="billBtn" type="submit" class="w-[50px] h-[34px] bg-blue-500 hover:bg-blue-600 duration-100 ease-in-out flex justify-center items-center rounded">
                     <i id="ic" class="fa-solid fa-magnifying-glass text-white"></i>
                     <div id="spinnerss" role="status" class="hidden">
                         <svg aria-hidden="true" class="w-5 h-5 text-white animate-spin text-white fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,7 +71,7 @@
             </div>
             <div>
                 <label class="invisible">btn</label>
-                <button id="dateSendBtn" type="submit" class="w-[50px] h-[35px] bg-blue-500 hover:bg-blue-600 duration-100 ease-in-out flex justify-center items-center rounded">
+                <button id="dateSendBtn" type="submit" class="w-[50px] h-[34px] bg-blue-500 hover:bg-blue-600 duration-100 ease-in-out flex justify-center items-center rounded">
                     <i id="ic" class="fa-solid fa-magnifying-glass text-white"></i>
                     <div id="spinnerss" role="status" class="hidden">
                         <svg aria-hidden="true" class="w-5 h-5 text-white animate-spin text-white fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,7 +100,7 @@
             </div>
             <div>
                 <label class="invisible">btn</label>
-                <button id="paseBillBtn" type="submit" class="w-[50px] h-[35px] bg-blue-500 hover:bg-blue-600 duration-100 ease-in-out flex justify-center items-center rounded">
+                <button id="paseBillBtn" type="submit" class="w-[50px] h-[34px] bg-blue-500 hover:bg-blue-600 duration-100 ease-in-out flex justify-center items-center rounded">
                     <i id="ic" class="fa-solid fa-magnifying-glass text-white"></i>
                     <div id="spinnerss" role="status" class="hidden">
                         <svg aria-hidden="true" class="w-5 h-5 text-white animate-spin text-white fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -136,44 +136,58 @@
             $('.loading').removeClass('hidden');
             $('.bgg').addClass('hidden');
 
-            $.ajax({
-                url: "{{ route('report.index') }}",
-                type: 'GET',
-                data: {
-                    page: 'report',
-                    typeDisplay: selectedValue,
-                    data: data,
-                    _token: '{{ @csrf_token() }}',
-                },
-                success: async function(response) {
-                    $('#spinnerss').addClass('hidden');
-                    $('.loading').addClass('hidden');
-                    $('#ic').removeClass('hidden');
-                    $('.title_export').prop("disabled", false);
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        text: response.message,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+            if (data.month !== '' && data.techName !== '') {
+                $.ajax({
+                    url: "{{ route('report.index') }}",
+                    type: 'GET',
+                    data: {
+                        page: 'report',
+                        typeDisplay: selectedValue,
+                        data: data,
+                        _token: '{{ @csrf_token() }}',
+                    },
+                    success: async function(response) {
+                        $('#spinnerss').addClass('hidden');
+                        $('.loading').addClass('hidden');
+                        $('#ic').removeClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            text: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
 
-                    $('#show-data').html(response.resHtml).slideDown('slow');
-                },
-                error: function(err) {
-                    $('#spinnerss').addClass('hidden');
-                    $('.loading').addClass('hidden');
-                    $('#ic').removeClass('hidden');
-                    $('.title_export').prop("disabled", false);
-                    Swal.fire({
-                        position: "center",
-                        icon: "error",
-                        text: err.responseJSON.err,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-            });
+                        $('#show-data').html(response.resHtml).slideDown('slow');
+                    },
+                    error: function(err) {
+                        $('#spinnerss').addClass('hidden');
+                        $('.loading').addClass('hidden');
+                        $('#ic').removeClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            text: err.responseJSON.err,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            } else {
+                $('#spinnerss').addClass('hidden');
+                $('.loading').addClass('hidden');
+                $('#ic').removeClass('hidden');
+                $('.title_export').prop("disabled", false);
+                Swal.fire({
+                    position: "center",
+                    icon: "warning",
+                    text: "กรุณากรอกข้อมูลให้ครบถ้วน",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
         });
 
         $('#billBtn').click(function(e) {
@@ -187,52 +201,65 @@
                 data[x.name] = x.value;
             });
 
-            console.log(data);
-
             const selectedValue = $('input[name="datatype"]:checked').val();
             $('.title_export').prop("disabled", true);
             $('.loading').removeClass('hidden');
             $('.bgg').addClass('hidden');
 
+            console.log(data);
 
-            $.ajax({
-                url: "{{ route('report.index') }}",
-                type: 'GET',
-                data: {
-                    page: 'report',
-                    typeDisplay: selectedValue,
-                    data: data,
-                    _token: '{{ @csrf_token() }}',
-                },
-                success: async function(response) {
-                    $('#spinnerss').addClass('hidden');
-                    $('.loading').addClass('hidden');
-                    $('#ic').removeClass('hidden');
-                    $('.title_export').prop("disabled", false);
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        text: response.message,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+            if (data.no_bill !== '') {
+                $.ajax({
+                    url: "{{ route('report.index') }}",
+                    type: 'GET',
+                    data: {
+                        page: 'report',
+                        typeDisplay: selectedValue,
+                        data: data,
+                        _token: '{{ @csrf_token() }}',
+                    },
+                    success: async function(response) {
+                        $('#spinnerss').addClass('hidden');
+                        $('.loading').addClass('hidden');
+                        $('#ic').removeClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            text: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
 
-                    $('#show-data').html(response.resHtml).slideDown('slow');
-                },
-                error: function(err) {
-                    $('#spinnerss').addClass('hidden');
-                    $('.loading').addClass('hidden');
-                    $('#ic').removeClass('hidden');
-                    $('.title_export').prop("disabled", false);
-                    Swal.fire({
-                        position: "center",
-                        icon: "error",
-                        text: err.responseJSON.err,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-            });
+                        $('#show-data').html(response.resHtml).slideDown('slow');
+                    },
+                    error: function(err) {
+                        $('#spinnerss').addClass('hidden');
+                        $('.loading').addClass('hidden');
+                        $('#ic').removeClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            text: err.responseJSON.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            } else {
+                $('#spinnerss').addClass('hidden');
+                $('.loading').addClass('hidden');
+                $('#ic').removeClass('hidden');
+                $('.title_export').prop("disabled", false);
+                Swal.fire({
+                    position: "center",
+                    icon: "warning",
+                    text: "กรุณากรอกข้อมูลให้ครบถ้วน",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
         });
     });
 </script>

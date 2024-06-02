@@ -15,11 +15,26 @@ class reportController extends Controller
         if($request->page == 'report') {
             if($request->typeDisplay == 'sendinsure') {
                 try {
-                //    $response = DB::table('');
+                   $bill_no = $request->data['no_bill'];
+
+                   $response = DB::table('tbl_claim')
+                   ->selectRaw("date_dms, no_regiscar, no_policy, invoice_no, firm_all")
+                   ->whereRaw("bill_no = '". $bill_no ."'")->get();
+
+                   if(count($response) == 0) {
+                     throw new \Exception("Query not found");
+                   }
+
+                   $resView = view('manageBP.report.PDF.bill-export', compact('response', 'bill_no'))->render();
+
+                   return response()->json([
+                        'message'=> 'Query data successfully',
+                        'resHtml' => $resView,
+                   ], 200); 
                 } catch (\Exception $e) {
                     return response()->json([
-                        'message' => 'query data error',
-                    ]);
+                        'message' => $e->getMessage(),
+                    ], 500);
                 }
             } else if($request->typeDisplay == 'caljob') {
                 try {
