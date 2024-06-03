@@ -96,7 +96,7 @@ class reportController extends Controller
 
                     $response = DB::table('tbl_claim')
                     ->selectRaw("payment_st, car_job, date_cliam, no_claim, no_regiscar, car_model, insure_name, firm_doit, firm_sparepart, date_firmins")
-                    ->whereRaw("date_carin IS NULL AND payment_st NOT IN ('K ชำระเงินแล้ว','L ยกเลิกงานเคลม')")->get();
+                    ->whereRaw("date_cliam <> '' AND date_carin = '' AND payment_st NOT IN ('K ชำระเงินแล้ว','L ยกเลิกงานเคลม','')")->get();
 
                      $resView = view("manageBP.components.content-report.table" , compact('response', 'page'))->render();
 
