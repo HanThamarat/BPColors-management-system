@@ -63,11 +63,11 @@
         <form id="dateSend" class="w-full my-5 flex w-full justify-between gap-x-3">
             <div class="w-full">
                 <label>จากวันที่</label>
-                <input type="date" name="no_bill" class="w-full py-1 px-4 rounded">
+                <input type="date" name="Fdate" class="w-full py-1 px-4 rounded">
             </div>
             <div class="w-full">
                 <label>ถึงวันที่</label>
-                <input type="date" name="no_bill" class="w-full py-1 px-4 rounded">
+                <input type="date" name="Tdate" class="w-full py-1 px-4 rounded">
             </div>
             <div>
                 <label class="invisible">btn</label>
@@ -92,11 +92,11 @@
         <form id="paseBill" class="w-full my-5 flex w-full justify-between gap-x-3">
             <div class="w-full">
                 <label>จากวันที่</label>
-                <input type="date" name="no_bill" class="w-full py-1 px-4 rounded">
+                <input type="date" name="Fdate" class="w-full py-1 px-4 rounded">
             </div>
             <div class="w-full">
                 <label>ถึงวันที่</label>
-                <input type="date" name="no_bill" class="w-full py-1 px-4 rounded">
+                <input type="date" name="Tdate" class="w-full py-1 px-4 rounded">
             </div>
             <div>
                 <label class="invisible">btn</label>
@@ -137,6 +137,150 @@
             $('.bgg').addClass('hidden');
 
             if (data.month !== '' && data.techName !== '') {
+                $.ajax({
+                    url: "{{ route('report.index') }}",
+                    type: 'GET',
+                    data: {
+                        page: 'report',
+                        typeDisplay: selectedValue,
+                        data: data,
+                        _token: '{{ @csrf_token() }}',
+                    },
+                    success: async function(response) {
+                        $('#spinnerss').addClass('hidden');
+                        $('.loading').addClass('hidden');
+                        $('#ic').removeClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            text: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
+                        $('#show-data').html(response.resHtml).slideDown('slow');
+                    },
+                    error: function(err) {
+                        $('#spinnerss').addClass('hidden');
+                        $('.loading').addClass('hidden');
+                        $('#ic').removeClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            text: err.responseJSON.err,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            } else {
+                $('#spinnerss').addClass('hidden');
+                $('.loading').addClass('hidden');
+                $('#ic').removeClass('hidden');
+                $('.title_export').prop("disabled", false);
+                Swal.fire({
+                    position: "center",
+                    icon: "warning",
+                    text: "กรุณากรอกข้อมูลให้ครบถ้วน",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        });
+
+        $('#paseBillBtn').click(function(e) {
+            e.preventDefault();
+
+            $('#ic').addClass('hidden');
+            $('#spinnerss').removeClass('hidden');
+
+            let data = {};
+            $("#paseBill").serializeArray().map(function(x) {
+                data[x.name] = x.value;
+            });
+
+            console.log(data);
+
+            const selectedValue = $('input[name="datatype"]:checked').val();
+            $('.title_export').prop("disabled", true);
+            $('.loading').removeClass('hidden');
+            $('.bgg').addClass('hidden');
+
+            if (data.Fdate !== '' && data.Tdate !== '') {
+                $.ajax({
+                    url: "{{ route('report.index') }}",
+                    type: 'GET',
+                    data: {
+                        page: 'report',
+                        typeDisplay: selectedValue,
+                        data: data,
+                        _token: '{{ @csrf_token() }}',
+                    },
+                    success: async function(response) {
+                        $('#spinnerss').addClass('hidden');
+                        $('.loading').addClass('hidden');
+                        $('#ic').removeClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            text: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
+                        $('#show-data').html(response.resHtml).slideDown('slow');
+                    },
+                    error: function(err) {
+                        $('#spinnerss').addClass('hidden');
+                        $('.loading').addClass('hidden');
+                        $('#ic').removeClass('hidden');
+                        $('.title_export').prop("disabled", false);
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            text: err.responseJSON.err,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            } else {
+                $('#spinnerss').addClass('hidden');
+                $('.loading').addClass('hidden');
+                $('#ic').removeClass('hidden');
+                $('.title_export').prop("disabled", false);
+                Swal.fire({
+                    position: "center",
+                    icon: "warning",
+                    text: "กรุณากรอกข้อมูลให้ครบถ้วน",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        });
+
+        $('#dateSendBtn').click(function(e) {
+            e.preventDefault();
+
+            $('#ic').addClass('hidden');
+            $('#spinnerss').removeClass('hidden');
+
+            let data = {};
+            $("#dateSend").serializeArray().map(function(x) {
+                data[x.name] = x.value;
+            });
+
+            console.log(data);
+
+            const selectedValue = $('input[name="datatype"]:checked').val();
+            $('.title_export').prop("disabled", true);
+            $('.loading').removeClass('hidden');
+            $('.bgg').addClass('hidden');
+
+            if (data.Fdate !== '' && data.Tdate !== '') {
                 $.ajax({
                     url: "{{ route('report.index') }}",
                     type: 'GET',

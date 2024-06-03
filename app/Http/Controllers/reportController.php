@@ -152,6 +152,44 @@ class reportController extends Controller
                         'err' => $e->getMessage(),
                     ], 500);
                 }
+            } else if($request->typeDisplay == 'pase_bill') { 
+                try {
+                    $page = $request->typeDisplay;
+                    $response = DB::table('tbl_claim')
+                    ->selectRaw("date_bill, no_claim, no_policy, no_job, no_regiscar, insure_name, date_cliam, date_send, date_fecliam, invoice_no, bill_no, date_transfer, firm_doit, firm_sparepart, firm_all")
+                    ->whereRaw("date_bill BETWEEN '". $request->Fdate ."' AND '". $request->Tdate ."' ORDER BY date_bill asc")->get();
+
+                    $resView = view("manageBP.components.content-report.table", compact("response","page"))->render();
+
+                    return response()->json([
+                        'message'=> 'Query data successfully',
+                        'resHtml' => $resView,
+                    ], 200);
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'message' => 'query data error',
+                        'err' => $e->getMessage(),
+                    ], 500);
+                }
+            } else if($request->typeDisplay == 'date_send') {
+                try {
+                    $page = $request->typeDisplay;
+                    $response = DB::table('tbl_claim')
+                    ->selectRaw("DATE_FORMAT(date_send, '%a %b %Y') AS DATESF, DATEDIFF(date_send, date_carin) AS sumDate, no_claim, no_regiscar, payment_st, date_send, firm_doit, firm_sparepart, firm_all")
+                    ->whereRaw("date_send BETWEEN '". $request->Fdate ."' AND '". $request->Tdate ."'")->get();
+
+                    $resView = view("manageBP.components.content-report.table", compact("response","page"))->render();
+
+                    return response()->json([
+                        'message'=> 'Query data successfully',
+                        'resHtml' => $resView,
+                    ], 200);
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'message' => 'query data error',
+                        'err' => $e->getMessage(),
+                    ], 500);
+                }
             }
 
         // =====================================================
