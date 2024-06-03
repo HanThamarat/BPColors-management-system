@@ -68,16 +68,8 @@ class ShowBp extends Component
 
     public function render()
     {
-        if($this->search !== null || $this->search == null) {
-            if($this->fromdate !== null) {
-                return view('livewire.show-bp', [
-                    'GetClaim' => DB::table('tbl_claim')->whereRaw('date_cliam between ? and ?',[$this->fromdate, $this->todate])->paginate(5)
-                ]);
-            }
-            return view('livewire.show-bp', [
-                // 'GetClaim' => DB::table('tbl_claim')->whereRaw("no_claim like '%". $this->search ."%' ORDER BY id DESC")->paginate(5)
-                'GetClaim' => DB::table('tbl_claim')->whereRaw("no_claim like '%". $this->search ."%'")->paginate(5)
-            ]);
-        }
+        return view('livewire.show-bp', [
+            'GetClaim' => DB::table('tbl_claim')->whereRaw("date_cliam between '". $this->fromdate ."' and '". $this->todate ."' AND no_claim like '%". $this->search ."%'")->paginate(5)
+        ]);
     }
 }
