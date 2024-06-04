@@ -3,6 +3,7 @@
     $title = 'รายละเอียด BP';
     $funcNameClose = 'closeFormCustomer';
     $funcNameSave = 'saveFormCustomer';
+    $u_role = auth()->user()->role;
 @endphp
 <x-formpopup :openForm="$FormCuspop" :icon="$icon" :title="$title" :Data="$userData" :eventClose="$funcNameClose" :eventSave="$funcNameSave" >
     <div class="w-full my-4 flex">
@@ -80,13 +81,18 @@
             <input type="text" placeholder="เลขตัวถัง" class="w-full rounded" wire:model="car_body_number">
         </div>
         <div class="w-full mx-2">
-            <label>ผู้รับเคส</label>
-            <select name="clm_recipient" id="" class="w-full rounded" wire:model="clm_recipient">
-                <option value="">---เลือกผู้รับเคส---</option>
-                <option value="สิทธิศักดิ์ กังสกุล">สิทธิศักดิ์ กังสกุล</option>
-                <option value="ศุภวัฒน์ หลานเด็น" >ศุภวัฒน์ หลานเด็น</option>
-                <option value="สิริกาญจน์ หีมเอียด" >สิริกาญจน์ หีมเอียด</option>
-            </select>
+            @if ($u_role == 'admin' || $u_role =='superadmin')
+                <label>ผู้รับเคส</label>
+                <select name="clm_recipient" id="" class="w-full rounded" wire:model="clm_recipient">
+                    <option value="">---เลือกผู้รับเคส---</option>
+                    @foreach ($userdata_pa as $item)
+                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            @else
+                <label>ผู้รับเคส</label>
+                <input type="text" placeholder="ผู้รับเคส" class="w-full rounded bg-gray-100" wire:model="clm_recipient">
+            @endif
         </div>
         <div class="w-full mx-2">
             <label>เลขที่กรมธรรม์</label>

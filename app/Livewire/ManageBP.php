@@ -80,20 +80,6 @@ class ManageBP extends Component
         $table = DB::table($tableName);
         $check_on_claim = $table->where([ 'no_claim' => $this->clm_number ])->count();
         if($check_on_claim === 0) {
-            if($this->work_type !== null){
-                $workType = $this->work_type;
-                // // check work type
-                // if($workType == "L-เบา") {
-                //     $dateWork = '+6 day';
-                // } else if($workType == 'M-กลาง') {
-                //     $dateWork = '+14 day';
-                // } else if($workType == 'H1') {
-                //     $dateWork = '+21 day';
-                // } else if($workType == 'H2') {
-                //     $dateWork = '+35 day';
-                // } else if($workType == 'H3') {
-                //     $dateWork = '+45 day';
-                // }
                 $respose = DB::insert("INSERT INTO {$tableName} (
                     no_claim, 
                     no_policy,
@@ -114,8 +100,9 @@ class ManageBP extends Component
                     emcs,
                     remark,
                     payment_st,
-                    date_create
-                    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",[
+                    date_create,
+                    user_con,
+                    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",[
                     $this->clm_number,
                     $this->policy_number,
                     $this->job_number,
@@ -135,7 +122,8 @@ class ManageBP extends Component
                     $this->insurence_EMCS,
                     $this->note,
                     $this->claim_status,
-                    $formattedDate
+                    $formattedDate,
+                    $this->clm_recipient,
                 ]);
 
                 $this->reset([
@@ -180,9 +168,6 @@ class ManageBP extends Component
                         timer: 1500
                     );
                 }
-            } else {
-                $this->active=true;
-            }
         } else {
             $this->active = true;
         }

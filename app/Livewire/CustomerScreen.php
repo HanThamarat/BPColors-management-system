@@ -422,7 +422,7 @@ class CustomerScreen extends Component
 
         $response = tbl_claim::where(['id' => $this->userId])->get();
 
-
+        $this->clm_recipient = $response[0]->user_con;
         $this->clm_number = $response[0]->no_claim;
         $this->policy_number = $response[0]->no_policy;
         $this->job_number = $response[0]->no_job;
@@ -468,7 +468,8 @@ class CustomerScreen extends Component
             'insure_name' => $this->insurence_name,
             'emcs' => $this->insurence_EMCS,
             'remark' => $this->note,
-            'payment_st' => $this->claim_status
+            'payment_st' => $this->claim_status,
+            'user_con' => $this->clm_recipient,
         ]);
 
         $this->dispatch('alert',
@@ -493,6 +494,10 @@ class CustomerScreen extends Component
             'getUserData' => DB::table('tbl_claim')->where(['id' => session()->get('userID')])->get()[0],
             'wipData' => DB::table('tbl_wip')->whereRaw("no_claimex = '". $no_claim ."'")->get(),
             'getJob' => DB::table('job_cal')->get(),
+            'userdata_pa' => DB::table('users')
+            ->selectRaw("id ,name")
+            ->whereRaw("role = 'PA' AND status = 'active' ")
+            ->get(),
         ]);
     }
 }
