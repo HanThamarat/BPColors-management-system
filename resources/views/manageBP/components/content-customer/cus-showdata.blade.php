@@ -58,46 +58,46 @@
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>เลขที่กรมธรรม์: </span>
-                        <p>{{ $getUserData->no_policy !== '' ? $getUserData->no_policy : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->no_policy !== '' && $getUserData->no_policy !== null ? $getUserData->no_policy : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>แหล่งที่มาลูกค้า: </span>
-                        <p>{{ $getUserData->cus_resource !== '' ? $getUserData->cus_resource : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->cus_resource !== '' && $getUserData->cus_resource !== null ? $getUserData->cus_resource : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>แหล่งต่อประกัน: </span>
-                        <p>{{ $getUserData->insure_source !== '' ? $getUserData->insure_source : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->insure_source !== '' && $getUserData->insure_source !== null ? $getUserData->insure_source : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>ประกัน: </span>
-                        <p>{{ $getUserData->insure_name !== '' ? $getUserData->insure_name : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->insure_name !== '' && $getUserData->insure_source !== null ? $getUserData->insure_name : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>สถานะการซ่อม: </span>
-                        <p>{{ $getUserData->job_status !== '' ? $getUserData->job_status : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->job_status !== '' && $getUserData->job_status !== null ? $getUserData->job_status : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                 </div>
                 <div class="w-full ml-2">
                     <div class="flex justify-between border-b my-1">
                         <span>เลขที่ Job (BP) (RO) (SA): </span>
-                        <p>{{ $getUserData->no_job !== '' ? $getUserData->no_job : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->no_job !== '' && $getUserData->no_job !== null ? $getUserData->no_job : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>ประเภทประกันภัย: </span>
-                        <p>{{ $getUserData->insure_type !== '' ? $getUserData->insure_type : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->insure_type !== '' && $getUserData->insure_type !== null ? $getUserData->insure_type : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>ประเภท EMCS: </span>
-                        <p>{{ $getUserData->emcs !== '' ? $getUserData->emcs : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->emcs !== '' && $getUserData->emcs !== null ? $getUserData->emcs : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>ประเภทงาน: </span>
-                        <p>{{ $getUserData->car_job !== '' ? $getUserData->car_job : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->car_job !== '' && $getUserData->car_job !== null ? $getUserData->car_job : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div>
                         <span>หมายเหตุ: </span>
                         <div class="bg-white px-2 py-2 flex rounded h-48">
-                            <p class="">{{ $getUserData->remark !== '' ? $getUserData->remark : 'ไม่มีข้อมูล'}}</p>
+                            <p class="">{{ $getUserData->remark !== '' && $getUserData->remark !== null ? $getUserData->remark : 'ไม่มีข้อมูล'}}</p>
                         </div>
                     </div>
                 </div>
@@ -156,71 +156,71 @@
                                     <div>
                                         <div class="border-b flex justify-between items-center">
                                             <span>วันที่เคลม : </span>
-                                            <span>{{ $getUserData->date_cliam !== null ?  $getUserData->date_cliam : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_cliam !== null && $getUserData->date_cliam !== '' ?  $getUserData->date_cliam : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b  flex justify-between items-center">
                                             <span>วันที่นัดหมายรับบริการ : </span>
-                                            <span>{{ $getUserData->date_service !== null ?  $getUserData->date_service : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_service !== null && $getUserData->date_service !== '' ?  $getUserData->date_service : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b  flex justify-between items-center">
                                             <span>วันที่รับรถ : </span>
-                                            <span>{{ $getUserData->date_carin !== null ?  $getUserData->date_carin : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_carin !== null && $getUserData->date_carin !== '' ?  $getUserData->date_carin : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b  flex justify-between items-center">
                                             <span>วันที่ซ่อม : </span>
-                                            <span>{{ $getUserData->date_repair !== null ?  $getUserData->date_repair : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_repair !== null && $getUserData->date_repair !== '' ?  $getUserData->date_repair : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b  flex justify-between items-center">
                                             <span>วันที่ส่งมอบระบบ : </span>
-                                            <span>{{ $getUserData->date_repair !== null ?  $getUserData->date_repair : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_repair !== null && $getUserData->date_repair !== '' ?  $getUserData->date_repair : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>วันนัดส่งมอบจริง : </span>
-                                            <span>{{ $getUserData->date_send_next !== null ?  $getUserData->date_send_next : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_send_next !== null && $getUserData->date_send_next !== '' ?  $getUserData->date_send_next : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                     </div>
                                     <div class="mt-5">
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>อนุมัติค่าแรง : </span>
-                                            <span>{{ $getUserData->firm_doit !== null ?  number_format($getUserData->firm_doit, 2) : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->firm_doit !== null &&  $getUserData->firm_doit !== '' ?  number_format($getUserData->firm_doit, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>อนุมัติรวม : </span>
-                                            <span>{{ $getUserData->firm_all !== null ?   number_format($getUserData->firm_all, 2) : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->firm_all !== null && $getUserData->firm_all !== '' ? number_format($getUserData->firm_all, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>อนุมัติค่าอะไหล่ : </span>
-                                            <span>{{ $getUserData->firm_sparepart !== null ?  number_format($getUserData->firm_sparepart, 2) : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->firm_sparepart !== null && $getUserData->firm_sparepart !== '' ? number_format($getUserData->firm_sparepart, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>วันที่ส่งรถ : </span>
-                                            <span>{{ $getUserData->date_send_car !== null ?  $getUserData->date_send_car : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_send_car !== null && $getUserData->date_send_car !== '' ?  $getUserData->date_send_car : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                     </div>
                                     <div class="mt-5">
                                         <div class="border-b flex justify-between items-center">
                                             <span>เลขที่ใบกำกับภาษี (SA): </span>
-                                            <span>{{ $getUserData->invoice_no !== null ?  $getUserData->invoice_no : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->invoice_no !== null && $getUserData->invoice_no !== '' ?  $getUserData->invoice_no : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>วันวางบิลตัวจริง: </span>
-                                            <span>{{ $getUserData->date_bill !== null ?  $getUserData->date_bill : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_bill !== null && $getUserData->date_bill !== '' ?  $getUserData->date_bill : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>จำนวนเงินรับจริง: </span>
-                                            <span>{{ $getUserData->total_pay !== null ?   number_format($getUserData->total_pay, 2) : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->total_pay !== null && $getUserData->total_pay !== '' ? number_format($getUserData->total_pay, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>เลขที่วางบิล (Cashier): </span>
-                                            <span>{{ $getUserData->bill_no !== null ?  $getUserData->bill_no : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->bill_no !== null && $getUserData->bill_no !== '' ? $getUserData->bill_no : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>วันกำหนดจ่ายเงิน: </span>
-                                            <span>{{ $getUserData->date_paybill !== null ?  $getUserData->date_paybill : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_paybill !== null && $getUserData->date_paybill !== '' ? $getUserData->date_paybill : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>วันที่ได้รับเงิน: </span>
-                                            <span>{{ $getUserData->date_transfer !== null ?  $getUserData->date_transfer : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_transfer !== null && $getUserData->date_transfer !== '' ?  $getUserData->date_transfer : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -228,43 +228,43 @@
                                     <div>
                                         <div class="border-b flex justify-between items-center">
                                             <span>ประเมินค่าแรง : </span>
-                                            <span>{{ $getUserData->cost_doit !== null ? number_format($getUserData->cost_doit, 2) : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->cost_doit !== null && $getUserData->cost_doit !== '' ? number_format($getUserData->cost_doit, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>ประเมินค่าอะไหล่ : </span>
-                                            <span>{{ $getUserData->cost_sparepart !== null ? number_format($getUserData->cost_sparepart, 2) : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->cost_sparepart !== null && $getUserData->cost_sparepart !== '' ? number_format($getUserData->cost_sparepart, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>ประเมินรวม : </span>
-                                            <span>{{ $getUserData->cost_totel !== null ? number_format($getUserData->cost_totel, 2) : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->cost_totel !== null && $getUserData->cost_totel !== '' ? number_format($getUserData->cost_totel, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>ประกันอนุมัติ : </span>
-                                            <span>{{ $getUserData->date_firmins !== null ?  $getUserData->date_firmins : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_firmins !== null && $getUserData->date_firmins !== '' ? $getUserData->date_firmins : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                     </div>
                                     <div class="mt-5">
                                         <div class="border-b flex justify-between items-center">
                                             <span>วันส่งมอบ/วันเปิดแจ้งหนี้ DMS: </span>
-                                            <span>{{ $getUserData->date_dms !== null ?  $getUserData->date_dms : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_dms !== null && $getUserData->date_dms !== '' ? $getUserData->date_dms : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>วันที่ได้อนุมัติ E-Claim: </span>
-                                            <span>{{ $getUserData->date_fecliam !== null ?  $getUserData->date_fecliam : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_fecliam !== null && $getUserData->date_fecliam !== '' ? $getUserData->date_fecliam : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>วันที่ขออนุมัติใน E-Claim: </span>
-                                            <span>{{ $getUserData->date_ecliam !== null ?  $getUserData->date_ecliam : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->date_ecliam !== null && $getUserData->date_ecliam !== '' ? $getUserData->date_ecliam : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                         <div class="mt-2 border-b flex justify-between items-center">
                                             <span>ค่า exzept: </span>
-                                            <span>{{ $getUserData->exzept !== null ?  number_format($getUserData->exzept, 2) : 'ไม่มีข้อมูล' }}</span>
+                                            <span>{{ $getUserData->exzept !== null && $getUserData->exzept !== '' ? number_format($getUserData->exzept, 2) : 'ไม่มีข้อมูล' }}</span>
                                         </div>
                                     </div>
                                     <div class="mt-5">
                                         <span>หมายเหตุ: </span>
                                         <div class="bg-white px-2 py-2 flex rounded h-48">
-                                            <p class="">{{ $getUserData->note_service != '' ? $getUserData->note_service : 'ไม่มีข้อมูล'}}</p>
+                                            <p class="">{{ $getUserData->note_service !== '' && $getUserData->note_service !== null ? $getUserData->note_service : 'ไม่มีข้อมูล'}}</p>
                                         </div>
                                     </div>
                                 </div>
