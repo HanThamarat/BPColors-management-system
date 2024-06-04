@@ -36,16 +36,13 @@
             <div class="lg:ml-1">
                 <label for="">เลขที่เครม</label>
                 <div class="flex items-center">
-                    <input type="text" class="w-full py-1 px-2 bg-gray-200 rounded-l" style="border: none;" placeholder="search.." wire:model.live="search">
-                    <button class="px-4 py-1 rounded-r bg-blue-500">
-                        <lord-icon
-                            src="https://cdn.lordicon.com/unukghxb.json"
-                            trigger="hover"
-                            style="width:10px;height:10px"
-                            colors="outline:#fff"
-                            >
-                        </lord-icon>
-                    </button>
+                    <input type="text" class="w-full py-1 px-2 bg-gray-200 rounded" style="border: none;" placeholder="search.." wire:model.live="search">
+                </div>
+            </div>
+            <div class="lg:ml-1">
+                <label for="">ป้ายทะเบียน</label>
+                <div class="flex items-center">
+                    <input type="text" class="w-full py-1 px-2 bg-gray-200 rounded" style="border: none;" placeholder="search.." wire:model.live="no_regiscar">
                 </div>
             </div>
         </div>
