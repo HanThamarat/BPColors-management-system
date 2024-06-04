@@ -30,31 +30,31 @@
                 <div class="w-full mr-2">
                     <div class="flex justify-between border-b my-1">
                         <span>สถานะ: </span>
-                        <p>{{ $getUserData->payment_st !== '' ? $getUserData->payment_st : 'ไม่มีข้อมูล' }}</p>
+                        <p>{{ $getUserData->payment_st !== '' && $getUserData->payment_st !== null ? $getUserData->payment_st : 'ไม่มีข้อมูล' }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>เลขที่เคลม: </span>
-                        <p>{{ $getUserData->no_claim !== '' ? $getUserData->no_claim : 'ไม่มีข้อมูล' }}</p>
+                        <p>{{ $getUserData->no_claim !== '' && $getUserData->no_claim !== null ? $getUserData->no_claim : 'ไม่มีข้อมูล' }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>ทะเบียนรถ: </span>
-                        <p>{{ $getUserData->no_regiscar !== '' ? $getUserData->no_regiscar : 'ไม่มีข้อมูล' }}</p>
+                        <p>{{ $getUserData->no_regiscar !== '' && $getUserData->no_regiscar !== null ? $getUserData->no_regiscar : 'ไม่มีข้อมูล' }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>ยีห้อ: </span>
-                        <p>{{ $getUserData->car_brand !== '' ? $getUserData->car_brand : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->car_brand !== '' && $getUserData->car_brand !== null ? $getUserData->car_brand : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>รุ่นรถ: </span>
-                        <p>{{ $getUserData->car_model !== '' ? $getUserData->car_model : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->car_model !== '' && $getUserData->car_model !== null ? $getUserData->car_model : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>เลขตัวถัง: </span>
-                        <p>{{ $getUserData->car_chassis !== '' ? $getUserData->car_chassis : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->car_chassis !== '' && $getUserData->car_chassis !== null ? $getUserData->car_chassis : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>ผู้รับเคส: </span>
-                        <p>{{ $getUserData->user_con !== '' ? $getUserData->user_con : 'ไม่มีข้อมูล'  }}</p>
+                        <p>{{ $getUserData->user_con !== '' &&  $getUserData->user_con !== null ? $getUserData->user_con : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>เลขที่กรมธรรม์: </span>
