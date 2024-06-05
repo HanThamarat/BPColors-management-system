@@ -130,7 +130,7 @@
            <div class="text-2xl font-medium text-blue-500">
                 <span>รายการปรับเปลี่ยนค่าแรง</span>
            </div>
-            <button wire:click.prevent="showdt" class="w-full bg-gray-100 rounded flex justify-around items-center mt-5">
+            <button wire:click.prevent="updatajobCal" class="w-full bg-gray-100 rounded flex justify-around items-center mt-5">
                 <div class="w-full flex justify-around items-center bg-red-200 rounded-md py-2">
                     <div class="flex items-center w-full justify-center">
                         <div>

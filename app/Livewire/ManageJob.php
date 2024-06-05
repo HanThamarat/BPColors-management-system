@@ -135,34 +135,33 @@ class ManageJob extends Component
     }
 
     public function updatajobCal() {
-        dd($this->cal_up);
 
-        // $res_job = DB::table('job_cal')->get();
+        $res_job = DB::table('job_cal')->get();
 
-        // foreach ($res_job as $res) {
-        //     $job["{$res->job_name}"] = $res->job_ptc;
-        // }
+        foreach ($res_job as $res) {
+            $job["{$res->job_name}"] = $res->job_ptc;
+        }
 
 
-        // $response = DB::table('tbl_claim')->whereRaw("date_dms between '2024-04-01' AND '2024-04-30'")->get();
+        $response = DB::table('tbl_claim')->whereRaw("date_dms between '2024-05-01' AND '2024-05-31'")->get();
 
-        // foreach ($response as $row) {
-        //     $res_wip = DB::table("tbl_claim")
-        //     ->selectRaw('tbl_wip.*')
-        //     ->join('tbl_wip','tbl_claim.no_claim','=','tbl_wip.no_claimex')
-        //     ->whereRaw("no_claimex = '". $row->no_claim ."'")->get();
-        //     for ($i=0; $i < count($res_wip); $i++) { 
-        //         if($row->firm_doit !== 0.00) {
-        //             $firm_doit = $row->firm_doit;
-        //             $cal_job = ((floatval($firm_doit)*floatval($job[$res_wip[$i]->type_doit]))/floatval(count(array($res_wip[$i]->type_doit))));
+        foreach ($response as $row) {
+            $res_wip = DB::table("tbl_claim")
+            ->selectRaw('tbl_wip.*')
+            ->join('tbl_wip','tbl_claim.no_claim','=','tbl_wip.no_claimex')
+            ->whereRaw("no_claimex = '". $row->no_claim ."' AND type_doit <> ''")->get();
+            for ($i=0; $i < count($res_wip); $i++) { 
+                if($row->firm_doit !== 0.00) {
+                    $firm_doit = $row->firm_doit;
+                    $cal_job = ((floatval($firm_doit)*floatval($job[$res_wip[$i]->type_doit]))/floatval(count(array($res_wip[$i]->type_doit))));
     
-        //             DB::table('tbl_wip')->where(['no' => intval($res_wip[$i]->no)])->update([
-        //                 'cal_doit' => $cal_job,
-        //                 'date_create' => now(),
-        //             ]);
-        //         }
-        //     }
-        // }
+                    DB::table('tbl_wip')->where(['no' => intval($res_wip[$i]->no)])->update([
+                        'cal_doit' => $cal_job,
+                        'date_create' => now(),
+                    ]);
+                }
+            }
+        }
     }
 
     public function render()

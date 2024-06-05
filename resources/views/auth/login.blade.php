@@ -64,6 +64,7 @@
         const loginEl = document.querySelector('.login-btn');
         const spinerEl = document.querySelector('.spiner');
         const submitEl = document.querySelector('.btn-sub');
+        const DsBtn = document.getElementById('submitForm');
 
         document.title = 'BP | Login';
 
