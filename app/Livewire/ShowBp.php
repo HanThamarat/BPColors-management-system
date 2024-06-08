@@ -70,7 +70,7 @@ class ShowBp extends Component
     public function render()
     {
         return view('livewire.show-bp', [
-            'GetClaim' => DB::table('tbl_claim')->whereRaw("date_cliam between '". $this->fromdate ."' and '". $this->todate ."' AND no_claim like '%". $this->search ."%' AND no_regiscar LIKE '%". $this->no_regiscar ."%'")->paginate(5)
+            'GetClaim' => DB::table('tbl_claim')->whereRaw("date_cliam between '". $this->fromdate ."' and '". $this->todate ."' AND no_claim like '%". $this->search ."%' AND no_regiscar LIKE '%". $this->no_regiscar ."%' AND payment_st LIKE '%" . $this->claim_st . "%'")->paginate(5)
         ]);
     }
 }

@@ -73,6 +73,12 @@ class CustomerScreen extends Component
     
     public $wipDatas;
 
+    public $date_send;
+
+    public $evaluate_total;
+    public $evaluate_job;
+    public $evaluate_spares;
+
     // public $Inputs = [''];
 
     public $technician;
@@ -94,7 +100,12 @@ class CustomerScreen extends Component
     public function placeholder() {
         return view('components.cus-placehoder');
     }
-
+    public function updateSumCost() {
+        $this->cost_totel = number_format(($this->cost_doit + $this->cost_sparepart), 2);
+    }
+    public function updateSumFirm() {
+        $this->firm_all = number_format(($this->firm_doit + $this->firm_sparepart), 2);
+    }
     public function addInput()
     {
         $this->type_doit[] = '';
@@ -165,20 +176,10 @@ class CustomerScreen extends Component
         $this->validate([
             'date_cliam' => 'required:min:3',
             'date_carin' => 'required:min:3',
-            'date_service' => 'required:min:3',
-            'date_repair' => 'required:min:3',
-            'date_send_next' => 'required:min:3',
-            'firm_doit' => 'required:min:3',
-            'cost_doit' => 'max:10'
         ],
         [
             'date_cliam.required' => "กรุณากรอกวันที่เข้าเคลม",
             'date_carin.required' => "กรุณากรอกข้อมูล",
-            'date_service.required' => "กรุณากรอกข้อมูล",
-            'date_repair.required' => "กรุณากรอกข้อมูล",
-            'date_send_next.required' => "กรุณากรอกข้อมูล",
-            'firm_doit.required' => "กรุณากรอกข้อมูล",
-            'cost_doit.max:10' => 'กรุใส่ไม่เกิน 10 ตัวอักษร',
         ]);
 
         $response = DB::table('tbl_claim')->where(['id' => $this->userId])->get()[0];
@@ -393,6 +394,7 @@ class CustomerScreen extends Component
         $response = tbl_claim::where(['id' => $this->userId])->get();
 
         $this->date_cliam = $response[0]->date_cliam;
+        $this->date_send = $response[0]->date_send;
         $this->date_carin = $response[0]->date_carin;
         $this->date_service = $response[0]->date_service;
         $this->date_repair = $response[0]->date_repair;

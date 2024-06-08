@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="text-sm w-full my-2 mr-2">
                                         <label for="">วันที่ส่งมอบระบบ</label>
-                                        <input type="date" class="block w-full py-1 px-2 rounded {{ $u_role == 'admin' || $u_role == 'superadmin' ? '' : 'bg-gray-100' }}" {{ $u_role == 'admin' || $u_role == 'superadmin' ? '' : 'readonly' }}>
+                                        <input type="date" class="block w-full py-1 px-2 rounded {{ $u_role == 'admin' || $u_role == 'superadmin' ? '' : 'bg-gray-100' }}" {{ $u_role == 'admin' || $u_role == 'superadmin' ? '' : 'readonly' }} wire:model="date_send">
                                     </div>
                                 </div>
                                 <div class="w-full ml-1">
@@ -72,17 +72,24 @@
                                 <div class="w-full mr-1">
                                     <div class="text-sm w-full my-2 mr-2">
                                         <label for="">ประเมินค่าแรง</label>
-                                        <input type="text" class="block w-full py-1 px-2 rounded" wire:model="cost_doit">
+                                        <input type="text" id="evaluate_job" value="" class="block w-full py-1 px-2 rounded" wire:model.live="cost_doit">
                                     </div>
                                     <div class="text-sm w-full my-2 mr-2">
                                         <label for="">ประเมินรวม</label>
-                                        <input type="text" class="block w-full py-1 px-2 rounded" wire:model="cost_totel">
+                                        <div class="flex items-center">
+                                            <input type="text" id="evaluate_total" value="" class="block w-full py-1 px-2 rounded-l" wire:model.live="cost_totel" readonly>
+                                            <button class="bg-blue-500 rounded-r border-1 py-1 px-2 text-white"  wire:click.prevent="updateSumCost">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="w-full ml-1">
                                     <div class="text-sm w-full my-2 mr-2">
                                         <label for="">ประเมินค่าอะไหล่</label>
-                                        <input type="text" class="block w-full py-1 px-2 rounded" wire:model="cost_sparepart">
+                                        <input type="text" id="evaluate_spares" value="" class="block w-full py-1 px-2 rounded" wire:model.live="cost_sparepart">
                                     </div>
                                     <div class="text-sm w-full my-2 mr-2">
                                         <label for="">ประกันอนุมัติ</label>
@@ -94,18 +101,25 @@
                                 <div class="w-full mr-1">
                                     <div class="text-sm w-full my-2 mr-2">
                                         <label for="">อนุมัติค่าแรง</label>
-                                        <input type="text" class="block w-full py-1 px-2 rounded" wire:model="firm_doit">
+                                        <input type="text" id="firm_doit" class="block w-full py-1 px-2 rounded" wire:model="firm_doit">
                                         @error('firm_doit') <span class="error text-red-500">{{ $message }}</span> @enderror
                                     </div>
                                     <div class="text-sm w-full my-2 mr-2">
                                         <label for="">อนุมัติรวม</label>
-                                        <input type="text" class="block w-full py-1 px-2 rounded" wire:model="firm_all">
+                                        <div class="flex items-center">
+                                            <input type="text" id="firm_all" class="block w-full py-1 px-2 rounded-l" wire:model="firm_all" readonly>
+                                            <button class="bg-blue-500 rounded-r border-1 py-1 px-2 text-white" wire:click.prevent="updateSumFirm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="w-full ml-1">
                                     <div class="text-sm w-full my-2 mr-2">
                                         <label for="">อนุมัติค่าอะไหล่</label>
-                                        <input type="text" class="block w-full py-1 px-2 rounded" wire:model="firm_sparepart">
+                                        <input type="text" id="firm_spares" class="block w-full py-1 px-2 rounded" wire:model="firm_sparepart">
                                     </div>
                                     <div class="text-sm w-full my-2 mr-2">
                                         <label for="">วันที่ส่งรถ</label>

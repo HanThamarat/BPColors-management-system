@@ -37,4 +37,24 @@
         document.querySelector('.btn-detail').disabled = true;
         document.querySelector('.btn-repaire').disabled = true;
     }
+
+    // const inputSum = document.querySelectorAll("#evaluate_job, #evaluate_job");
+
+    // console.log(inputSum);
+
+    // inputSum.forEach((input) => {
+    //     input.addEventListener('input', calSum);
+    //     console.log(input);
+    // });
+
+    // calSum = () => {
+    //     var evaluate_job = parseFloat(document.getElementById('evaluate_job').value) || 0;
+    //     var evaluate_spares = parseFloat(document.getElementById('evaluate_spares').value) || 0;
+
+    //     let sum = evaluate_job + evaluate_spares;
+
+    //     console.log(sum);
+
+    //     document.getElementById('evaluate_total').value = sum;
+    // }
 </script>

@@ -39,6 +39,6 @@
     @include('manageBP.components.content-customer.main-customer')
 </div>
 <script>
-    document.title = "BP | Customer Detail";
+    // document.title = "BP | Customer Detail";
 </script>
 {{-- @include('manageBP.components.content-customer.script-cus') --}}

@@ -12,13 +12,9 @@
                 <label for="">ถึงวันที่</label>
                 <input type="date" class="w-full py-1 lg:px-2 rounded bg-gray-200 block" style="border: none;" wire:model.live="todate">
             </div>
-            {{-- <div class="lg:mx-1">
+            <div class="lg:mx-1">
                 <label for="">สถานะ</label>
-                <button class="block border py-1 rounded bg-gray-200 px-2 items-center w-full flex justify-between" onclick="handleDropdnow()">
-                    <span>เลือกสถานะ</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <select name="claim_status" id="" class="dropEls hidden mt-1 w-full py-1 lg:px-2 rounded bg-gray-200 block" style="border: none;" wire:model.live="claim_st" multiple>
+                <select name="claim_status" id="" class="w-full py-1 lg:px-2 rounded bg-gray-200 block" style="border: none;" wire:model.live="claim_st">
                     <option value="A เปิดใบรับรถ">A เปิดใบรับรถ</option>
                     <option value="B รอประกันอนุมัติ">B รอประกันอนุมัติ</option>
                     <option value="C ประกันอนุมัติ">C ประกันอนุมัติ</option>
@@ -32,7 +28,7 @@
                     <option value="K ชำระเงินแล้ว">K ชำระเงินแล้ว</option>
                     <option value="L ยกเลิกงานเคลม">L ยกเลิกงานเคลม</option>
                 </select>
-            </div> --}}
+            </div>
             <div class="lg:ml-1">
                 <label for="">เลขที่เครม</label>
                 <div class="flex items-center">

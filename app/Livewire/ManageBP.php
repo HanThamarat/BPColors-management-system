@@ -177,9 +177,8 @@ class ManageBP extends Component
     public function mount()
     {
         $this->GetBrand = DB::table('brand_car')->get();
-        $this->GetInsurances = DB::table('tbl_insurance')->get();
+        $this->GetInsurances = DB::table('tbl_insurance')->whereRaw("flag = 'yes'")->get();
         $this->GetClaim = DB::table('tbl_claim')->get();
-
         $this->numClaim = DB::table('tbl_wip')->where(['no_claimex' => 'no_claim'])->count();
     }
 
