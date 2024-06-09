@@ -129,7 +129,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 					$objPHPExcel->getActiveSheet()->setCellValue('B'.($r+2),$res->no_claim);
 					$objPHPExcel->getActiveSheet()->setCellValue('C'.($r+2),$res->date_cliam);
 					$objPHPExcel->getActiveSheet()->setCellValue('D'.($r+2),$res->date_firmins);
-					$objPHPExcel->getActiveSheet()->setCellValue('E'.($r+2),'=IF(D'.($r+2).'="0000-00-00",NOW()-C'.($r+2).',D'.($r+2).'-C'.($r+2).')');
+					$objPHPExcel->getActiveSheet()->setCellValue('E'.($r+2),'=IF(D'.($r+2).'="",NOW()-C'.($r+2).',D'.($r+2).'-C'.($r+2).')');
 
 					if($res->date_firmins === "0000-00-00" || $res->date_firmins === "" ){
 						$dateNow=date_create(date('Y-m-d'));
@@ -308,7 +308,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 					$objPHPExcel->getActiveSheet()->setCellValue('B'.($r+2),$res->no_claim);
 					$objPHPExcel->getActiveSheet()->setCellValue('C'.($r+2),$res->date_repair);
 					$objPHPExcel->getActiveSheet()->setCellValue('D'.($r+2),$res->date_dms);
-					$objPHPExcel->getActiveSheet()->setCellValue('E'.($r+2),'=IF(D'.($r+2).'="0000-00-00",NOW()-C'.($r+2).',D'.($r+2).'-C'.($r+2).')');
+					$objPHPExcel->getActiveSheet()->setCellValue('E'.($r+2),'=IF(D'.($r+2).'="",NOW()-C'.($r+2).',D'.($r+2).'-C'.($r+2).')');
 
 					if($res->date_dms == "0000-00-00" || $res->date_dms === ""){
 						$dateNow=date_create(date('Y-m-d'));
