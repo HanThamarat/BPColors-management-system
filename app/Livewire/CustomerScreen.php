@@ -101,10 +101,10 @@ class CustomerScreen extends Component
         return view('components.cus-placehoder');
     }
     public function updateSumCost() {
-        $this->cost_totel = number_format(($this->cost_doit + $this->cost_sparepart), 2);
+        $this->cost_totel = ($this->cost_doit + $this->cost_sparepart);
     }
     public function updateSumFirm() {
-        $this->firm_all = number_format(($this->firm_doit + $this->firm_sparepart), 2);
+        $this->firm_all = ($this->firm_doit + $this->firm_sparepart);
     }
     public function addInput()
     {
@@ -186,7 +186,7 @@ class CustomerScreen extends Component
 
         // dd([$this->date_repair,$response->car_job ]);
 
-        if($this->date_repair !== null && $response->car_job !== null) {
+        if($response->car_job !== null) {
             $dateplus = '';
             if($response->car_job === "L-เบา") {
                 $dateplus = "+6 day";
