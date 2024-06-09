@@ -175,11 +175,9 @@ class CustomerScreen extends Component
 
         $this->validate([
             'date_cliam' => 'required:min:3',
-            'date_carin' => 'required:min:3',
         ],
         [
             'date_cliam.required' => "กรุณากรอกวันที่เข้าเคลม",
-            'date_carin.required' => "กรุณากรอกข้อมูล",
         ]);
 
         $response = DB::table('tbl_claim')->where(['id' => $this->userId])->get()[0];
