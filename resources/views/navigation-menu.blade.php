@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ auth()->user()->hasRole(['colorstock']) ? route('home.index') : route('dashboard') }}">
                        <img src="{{ asset('img/logo.png') }}" class="w-20" alt="">
                     </a>
                 </div>
@@ -99,7 +99,11 @@
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
-
+                            @hasrole(['superadmin'])
+                                <x-dropdown-link href="{{ route('home.index') }}">
+                                    {{ __('Go to colorStock') }}
+                                </x-dropdown-link>
+                            @endhasrole
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link href="{{ route('api-tokens.index') }}">
                                     {{ __('API Tokens') }}

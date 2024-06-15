@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\tbl_claim;
 use App\Models\brand_car;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -189,11 +190,12 @@ class ManageBP extends Component
 
     public function render()
     {
+        $role = ['PA'];
         return view('livewire.manage-b-p', [
-            "userdata_pa" => DB::table('users')
-            ->selectRaw("id ,name")
-            ->whereRaw("role = 'PA' AND status = 'active' ")
-            ->get(),
+            "userdata_pa" => User::selectRaw("id ,name")
+            ->whereHas('roles', function($q) use ($role){
+                $q->whereIn('name', $role);
+            })->get(),
         ]);
     }
 }

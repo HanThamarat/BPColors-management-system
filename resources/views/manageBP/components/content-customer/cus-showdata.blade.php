@@ -1,5 +1,5 @@
 <div class="lg:w-3/5 px-2 py-4">
-    <div class="rounded px-2 py-5 bg-white drop-shadow-md">
+    <div class="rounded px-2 py-5 bg-white drop-shadow-md animate-fade-up animate-once animate-duration-1000 animate-ease-in-out">
         <div class="flex justify-between items-center">
             <div class="text-sm text-blue-600 flex items-center gap-x-2">
                 <lord-icon
@@ -104,7 +104,7 @@
             </div>
         </x-detail>
     </div>
-    <div class="rounded px-2 py-5 mt-2 bg-white drop-shadow-md">
+    <div class="rounded px-2 py-5 mt-2 bg-white drop-shadow-md animate-fade-up animate-once animate-duration-1000 animate-delay-300 animate-ease-in-out">
         <div class="flex justify-between items-center text-sm" id="tab-bar">
             {{-- <button class="btn-detail w-full  py-1 px-2 rounded bg-blue-500 text-white mr-1" onclick="handleDetail()">รายละเอียดอื่นๆ</button>
             <button class="btn-repaire w-full  py-1 px-2 rounded  ml-1" onclick="handleRepaire()">รายการซ่อม</button> --}}

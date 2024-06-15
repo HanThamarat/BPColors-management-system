@@ -21,6 +21,7 @@ export default {
                 object: '#ffddd2',
                 primary: "#161622",
                 ttow: '#212A37',
+                card: '#fdfffc',
             },
             fontFamily: {
                 'prompt': 'Prompt'

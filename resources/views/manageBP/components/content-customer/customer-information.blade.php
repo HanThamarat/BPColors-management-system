@@ -1,5 +1,5 @@
 <div class="lg:w-1/5 px-2 py-4">
-    <div class="rounded bg-gradient-to-r from-cyan-500 to-blue-500 justify-between flex drop-shadow-md">
+    <div class="rounded bg-gradient-to-r from-cyan-500 to-blue-500 justify-between flex drop-shadow-md animate-fade-right animate-once animate-duration-1000 animate-ease-in-out">
         <div class="flex justify-center py-5 px-2">
             <span class="font-medium flex items-center text-white drop-shadow-md animate-bounce animate-infinite animate-ease-in-out">
                 BP Details
@@ -9,7 +9,7 @@
             <img src="{{ asset('img/service.png') }}" class="object-cover py-2" style="width: 200px; margin-bottom: -20px; margin-top: -10px;" alt="">
         </div>
     </div>
-    <div class="bg-white mt-2 drop-shadow-md rounded px-2 py-5">
+    <div class="bg-white mt-2 drop-shadow-md rounded px-2 py-5 animate-fade-right animate-once animate-duration-1000 animate-delay-300 animate-ease-in-out">
         <div class="font-medium text-gray-600">
             <span>Personal Information</span>
         </div>

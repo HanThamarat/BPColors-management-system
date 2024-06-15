@@ -77,10 +77,12 @@
                                 <span>Username</span>
                                 <span class="block">{{ @$item->username }}</span>
                             </div>
+                            @hasrole(['superadmin'])
                             <div class="w-full">
                                 <span>Role</span>
                                 <span class="block">{{ @$item->role }}</span>
                             </div>
+                            @endhasrole
                             <div class="w-full">
                                 <span>Status</span>
                                 <span class="block">{{ @$item->status }}</span>
@@ -112,7 +114,7 @@
                 </div>
             @else
                 <div>
-                    <div class="w-full flex justify-center mt-6">
+                    <div class="w-full flex justify-center mt-10">
                         <img src="{{ asset('img/out-of-stock.png') }}" style="width: 75px;" class="out__of animate-bounce animate-infinite animate-duration-1000 animate-delay-500 animate-ease-out" alt="">
                     </div>
                     <div class="flex justify-center text-gray-600 mt-2">
@@ -165,11 +167,11 @@
                 </div>
             @else
                 <div>
-                    <div class="w-full flex justify-center mt-6">
+                    <div class="w-full flex justify-center mt-10">
                         <img src="{{ asset('img/out-of-stock.png') }}" style="width: 75px;" class="out__of animate-bounce animate-infinite animate-duration-1000 animate-delay-500 animate-ease-out" alt="">
                     </div>
                     <div class="flex justify-center text-gray-600 mt-2">
-                        <span>ยังไม่ข้อมูลผู้ใช้งาน</span>
+                        <span>ยังไม่ข้อมูลผู้รับเคส</span>
                     </div>
                 </div>
             @endif

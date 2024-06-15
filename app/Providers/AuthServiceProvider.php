@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('isVerifyrole', function ($user) {
             // return $user->role === 'admin' || $user->role === 'superadmin';
-            return $user->role === 'superadmin';
+            return $user->hasRole(['superadmin']);
         });
     }
 }

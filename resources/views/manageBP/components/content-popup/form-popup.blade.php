@@ -2,7 +2,7 @@
     $u_role = auth()->user()->role;
 @endphp
 @if ($formType !== 1) 
-    <div id="popup-modal" tabindex="-1" class="popup__style {{ $popupForm ? '' : 'hidden' }} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 flex">
+    <div id="popup-modal" tabindex="-1" class="popup__style {{ $popupForm ? 'animate-fade-up animate-once animate-duration-1000 animate-delay-300 animate-ease-in-out' : 'hidden' }} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 flex">
         <div class="relative p-4 w-5/6">
             <div class="relative bg-white rounded-lg shad py-8 px-4">
                 <form>
@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="text-sm w-full my-2 mr-2">
                                         <label for="">วันที่ส่งมอบระบบ</label>
-                                        <input type="date" class="block w-full py-1 px-2 rounded {{ $u_role == 'admin' || $u_role == 'superadmin' ? '' : 'bg-gray-100' }}" {{ $u_role == 'admin' || $u_role == 'superadmin' ? '' : 'readonly' }} wire:model="date_send">
+                                        <input type="date" class="block w-full py-1 px-2 rounded {{ auth()->user()->hasRole(['superadmin', 'admin']) ? '' : 'bg-gray-100' }}" {{ auth()->user()->hasRole(['superadmin', 'admin']) ? '' : 'readonly' }} wire:model="date_send">
                                     </div>
                                 </div>
                                 <div class="w-full ml-1">
@@ -198,7 +198,7 @@
         </div>
     </div>
 @else
-<div id="popup-modal" tabindex="-1" class="popup__style {{ $popupForm ? '' : 'hidden' }} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 flex">
+<div id="popup-modal" tabindex="-1" class="popup__style {{ $popupForm ? 'animate-fade-up animate-once animate-duration-1000 animate-delay-300 animate-ease-in-out' : 'hidden' }} overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 flex">
     <div class="relative p-4 w-5/6">
         <div class="relative bg-white rounded-lg shadow py-8 px-4">
             <form>

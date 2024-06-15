@@ -14,19 +14,29 @@ use Illuminate\Support\Facades\Gate;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use App\Http\Controllers\AuthenticatedSessionController;
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
 
-// Route::get('/getBrand', [App\Http\Controllers\ClaimControllers::class, 'brand']);
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:colorstock','role:superadmin',])->group(function() {
+    
+    Route::resource("home", App\Http\Controllers\colorStock\HomeController::class);
+    Route::resource("stock", App\Http\Controllers\colorStock\StockController::class);
+    Route::resource("page", App\Http\Controllers\colorStock\PageController::class);
+    Route::resource("stocklist", App\Http\Controllers\colorStock\StocklistController::class);
 
+});
 
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified',])->group(function () {
-    Route::get('/dashboard', function () {
+// path for check role redirect
+Route::get('/dashboard', [AuthenticatedSessionController::class, 'create'])->name('dashboard');
+
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified','roleBp:BP','roleBp:admin','roleBp:superadmin'])->group(function () {
+    Route::get('/create', function () {
         return view('manageBP.bpClaim');
-    })->name('dashboard');
+    })->name('create');
     Route::get('/cusPage', function() {
         return view('manageBP.customer-screen');
     })->name('cusPage');

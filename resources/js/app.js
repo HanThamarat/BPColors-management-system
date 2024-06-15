@@ -1,5 +1,8 @@
 import './bootstrap';
 import 'flowbite';
+import $ from 'jquery';
+
+window.$ = window.jQuery = $; 
 
 window.addEventListener('alert', (e) => {
     let data = e.detail;

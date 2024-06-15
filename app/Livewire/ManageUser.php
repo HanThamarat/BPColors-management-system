@@ -2,9 +2,12 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class ManageUser extends Component
 {
@@ -26,13 +29,18 @@ class ManageUser extends Component
     public $user_original = true;
     public $user_PA = false;
 
+    public $createUser = true;
+    public $changeRole = false;
+
+    public $createRoleName;
+    public $PermissionName;
+
     public function placeholder() {
         return view('components.manage-placholder');
     }
 
 
     public function create() {
-
         if ($this->role != "PA") {
             $validate = $this->validate([
                 "name"=> "required",
@@ -40,17 +48,19 @@ class ManageUser extends Component
                 "username"=> "required",
             ]);
 
-            $response = DB::insert("insert into users(name, username, password, role) values(?,?,?,?)", [
-                $this->name,
-                $this->username,
-                Hash::make($this->password),
-                $this->role,
+
+            $response = User::create([
+                "name" => $this->name,
+                "username" => $this->username,
+                "password" => Hash::make($this->password),
             ]);
+            
+            $response->assignRole($this->role);
         } else {
-            $response = DB::insert("insert into users(name, role) values(?,?)", [
-                $this->name,
-                $this->role,
+            $response = User::create([
+                "name" => $this->name,
             ]);
+            $response->assignRole($this->role);
         }
 
         if ($response == 'true') {
@@ -102,6 +112,16 @@ class ManageUser extends Component
         } else {
             $this->user_original = true;
             $this->user_PA = false;
+        }
+    }
+
+    public function handleHeader($tail_id) {
+        if($tail_id == 1) {
+            $this->createUser = false;
+            $this->changeRole = true;
+        } else {
+            $this->changeRole = false;
+            $this->createUser = true;
         }
     }
 
@@ -203,26 +223,59 @@ class ManageUser extends Component
             }
         }
     }
+
+    public function createRole() {
+        
+        $this->validate([
+            "createRoleName"=> "required",
+            "PermissionName"=> "required",
+        ]);
+
+        $role = Role::create(['name' => $this->createRoleName, 'guard_name' => 'web']);
+        $permission = Permission::create(['name' => $this->PermissionName, 'guard_name' => 'web']);
+
+        $role->syncPermissions($permission);
+
+        $this->reset('createRoleName', 'PermissionName');
+        $this->dispatch('alert',
+            position: 'center',
+            type: 'success',
+            title: 'เพิ่มสิทธ์สำเร็จ',
+            timer: 1500
+        );
+    }
     
     public function render()
     {
+        $pa_role = ['PA'];
+        $user_role = ['admin','superadmin', 'BP', 'colorstock'];
         return view('livewire.manage-user', [
-            "userData" => DB::table("users")
-            ->selectRaw("id ,name, username, role, status, email")
-            ->whereRaw("role = 'admin' or role = 'superadmin' or role = 'BP'")
+            "userData" => User::
+            selectRaw("id ,name, username, status, email")
+            ->whereHas('roles', function($query) use ($user_role) {
+                $query->whereIn('name', $user_role);
+            })->get(),
+            "userdata_pa" => User::
+            selectRaw("id ,name, username, status, email")
+            ->whereHas('roles', function($q) use ($pa_role){
+                $q->whereIn('name', $pa_role);
+            })->get(),
+            "count_u_original" => User::
+            selectRaw("COUNT(id) AS COUNTU")
+            ->whereHas('roles', function($query) use ($user_role) {
+                $query->whereIn('name', $user_role);
+            })->get()[0],
+            "count_u_pa" => User::
+            selectRaw("COUNT(id) AS COUNTPA")
+            ->whereHas('roles', function($query) use ($pa_role) {
+                $query->whereIn('name', $pa_role);
+            })->get()[0],
+            "getRole" => DB::table('roles')->selectRaw("name")->get(),
+            "getRoledetail" => DB::table('roles')
+            ->selectRaw("roles.name AS roleName, permissions.name AS permissionName")
+            ->join("role_has_permissions", "roles.id", "=", "role_has_permissions.role_id")
+            ->join("permissions", "permissions.id", "=", "role_has_permissions.permission_id")
             ->get(),
-            "userdata_pa" => DB::table('users')
-            ->selectRaw("id ,name, username, role, status, email")
-            ->whereRaw("role = 'PA'")
-            ->get(),
-            "count_u_original" => DB::table("users")
-            ->selectRaw("COUNT(id) AS COUNTU")
-            ->whereRaw("role = 'admin' or role = 'superadmin' or role = 'BP'")
-            ->get()[0],
-            "count_u_pa" => DB::table("users")
-            ->selectRaw("COUNT(id) AS COUNTPA")
-            ->whereRaw("role = 'PA'")
-            ->get()[0],
         ]);
     }
 }
