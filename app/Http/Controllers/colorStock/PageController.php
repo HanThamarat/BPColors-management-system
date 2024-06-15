@@ -12,14 +12,9 @@ class PageController extends Controller
         if($req->page == 'incomingStock') {
             $stockData = DB::select("
                 WITH sumGramQuantity AS (
-                    SELECT ProductNo,
-                    CASE 
-                        WHEN (SUM(TB_COLORST_IN.GramQuantity) - SUM(TB_COLORST_OUT.OutGramQuantity)) IS NOT NULL THEN (SUM(TB_COLORST_IN.GramQuantity) - SUM(TB_COLORST_OUT.OutGramQuantity))
-                        WHEN (SUM(TB_COLORST_IN.GramQuantity) - SUM(TB_COLORST_OUT.OutGramQuantity)) IS NULL THEN SUM(TB_COLORST_IN.GramQuantity)
-                    END AS StockInAfter
-                    FROM ((TB_COLOR_STOCK 
+                    SELECT ProductNo,SUM(TB_COLORST_IN.GramQuantity) as GramQuantityIn
+                    FROM (TB_COLOR_STOCK 
                     LEFT JOIN TB_COLORST_IN ON TB_COLOR_STOCK.ProductNo = TB_COLORST_IN.Product_Id)
-                    LEFT JOIN TB_COLORST_OUT ON TB_COLOR_STOCK.ProductNo = TB_COLORST_OUT.Product_Id)
                     WHERE TB_COLORST_IN.GramQuantity IS NOT NULL GROUP BY TB_COLOR_STOCK.ProductNo
                 ),
                 sumStockOut AS (
@@ -34,8 +29,9 @@ class PageController extends Controller
                 )
                 SELECT TB_COLOR_STOCK.ProductNo, ProductDetail, UnitType, UnitPrice, UnitStart,
                     CASE 
-                        WHEN ROUND((((StockInAfter - StockOutAfter) / StockInAfter) * 100), 0) IS NOT NULL THEN ROUND((((StockInAfter - StockOutAfter) / StockInAfter) * 100), 0)
-                        WHEN ROUND((((StockInAfter - StockOutAfter) / StockInAfter) * 100), 0) IS NULL THEN 100
+                        WHEN ROUND((((GramQuantityIn - StockOutAfter) / GramQuantityIn) * 100), 0) < 0 THEN 0
+                        WHEN ROUND((((GramQuantityIn - StockOutAfter) / GramQuantityIn) * 100), 0) IS NOT NULL THEN ROUND((((GramQuantityIn - StockOutAfter) / GramQuantityIn) * 100), 0)
+                        WHEN ROUND((((GramQuantityIn - StockOutAfter) / GramQuantityIn) * 100), 0) IS NULL THEN 100
                     END AS StockCal
                     FROM ((TB_COLOR_STOCK 
                     LEFT JOIN sumGramQuantity ON TB_COLOR_STOCK.ProductNo = sumGramQuantity.ProductNo)

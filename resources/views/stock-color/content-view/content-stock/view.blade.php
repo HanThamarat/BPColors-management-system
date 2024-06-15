@@ -10,9 +10,7 @@
             ],
         ])
     @endcomponent
-    @component('stock-color.content-view.content-stock.components.tab')
-        
-    @endcomponent
+    @component('stock-color.content-view.content-stock.components.tab')@endcomponent
     @component('stock-color.content-view.content-stock.content-stockcal.view')
         @slot('data', [
             "stockData" => $stockData,

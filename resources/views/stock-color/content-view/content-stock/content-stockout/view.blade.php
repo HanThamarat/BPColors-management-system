@@ -81,7 +81,7 @@
                         btnEna();
                         Swal.fire({
                             icon: 'error',
-                            text: error.responseJSON.message,
+                            text: err.responseJSON.message,
                             showConfirmButton: false,
                             timer: 1000
                         });

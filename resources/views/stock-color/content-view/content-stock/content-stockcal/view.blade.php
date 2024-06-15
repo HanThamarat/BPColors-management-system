@@ -5,7 +5,7 @@
             @slot('data', [
                 "StockCal" => @$item->StockCal,
                 "ProductNo" => @$item->ProductNo,
-                "ProductDetail" => @$item->$ProductDetail,
+                "ProDetail" => @$item->ProductDetail,
             ])
         @endcomponent
         @endforeach
