@@ -1,6 +1,7 @@
 <script src="{{ asset('js/jquery.js') }}"></script>
 <script> 
     $(document).ready(function() {
+        document.title = 'COLOR STOCK | create stock'; 
         $("#stockData").submit(function(e) {
             try {
                 btnDis();

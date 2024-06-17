@@ -10,3 +10,6 @@
         </div>
     </div>
 </x-app-layout>
+<script>
+    document.title = 'COLOR STOCK';
+</script>
