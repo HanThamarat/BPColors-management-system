@@ -19,6 +19,6 @@ class TB_COLORIN extends Model
     }
 
     public function Stock() {
-        return $this->belongsTo(TB_COLORST::class, 'ProductNo', 'Product_Id');
+        return $this->belongsTo(TB_COLORST::class, 'Product_Id', 'ProductNo');
     }
 }

@@ -104,32 +104,31 @@
                     throw new Error(`กรุณากรอกข้อมูลให้ครบ`);
                 }
 
-                console.log(DateF, DateT, contentStock);
-
-                // $.ajax({
-                //     url: "{{ route('stock.create') }}",
-                //     type: 'GET',
-                //     data: {
-                //         StockContent: contentStock,
-                //         ProductNo: ProId,
-                //         _token: '{{ @csrf_token() }}',
-                //     },
-                //     success: async function(res) {
-                //         btnEna();
-                //         console.log(res);
-                //         $("#htmlRender").html(res.resHtml);
-                //     },
-                //     error: async function(err) {
-                //         btnEna();
-                //         console.log(err);
-                //         Swal.fire({
-                //             icon: 'error',
-                //             text: err.responseJSON.message,
-                //             showConfirmButton: false,
-                //             timer: 1500
-                //         });
-                //     },
-                // });
+                $.ajax({
+                    url: "{{ route('stocklist.create') }}",
+                    type: 'GET',
+                    data: {
+                        page: contentStock,
+                        Fdate: DateF,
+                        Tdate: DateT,
+                        _token: '{{ @csrf_token() }}',
+                    },
+                    success: async function(res) {
+                        btnEna();
+                        console.log(res);
+                        $("#htmlRender").html(res.resHtml);
+                    },
+                    error: async function(err) {
+                        btnEna();
+                        console.log(err);
+                        Swal.fire({
+                            icon: 'error',
+                            text: err.responseJSON.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    },
+                });
             } catch (error) {
                 btnEna();
                 Swal.fire({

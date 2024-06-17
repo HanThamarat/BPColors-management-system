@@ -15,10 +15,10 @@ class TB_COLOROUT extends Model
     protected $fillable = ['OutGramQuantity', 'OutUnitPrice', 'ReferNo', 'Product_Id', 'ClaimNo', 'DateSt_Out'];
 
     public function STIN() {
-        return $this->belongsTo(TB_COLORIN::class, 'ProductNo', 'Product_Id');
+        return $this->belongsTo(TB_COLORIN::class, 'Product_Id', 'Product_Id');
     }
 
     public function Stock() {
-        return $this->belongsTo(TB_COLORST::class, 'ProductNo', 'Product_Id');
+        return $this->belongsTo(TB_COLORST::class, 'Product_Id', 'ProductNo');
     }
 }
