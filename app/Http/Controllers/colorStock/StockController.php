@@ -174,15 +174,27 @@ class StockController extends Controller
                 $data = $req->data;
 
                 $recheckStockout = DB::select("
-                   SELECT ProductNo,
-                    CASE 
-                        WHEN (SUM(TB_COLORST_IN.GramQuantity) - SUM(TB_COLORST_OUT.OutGramQuantity)) IS NOT NULL THEN (SUM(TB_COLORST_IN.GramQuantity) - SUM(TB_COLORST_OUT.OutGramQuantity))
-                        WHEN (SUM(TB_COLORST_IN.GramQuantity) - SUM(TB_COLORST_OUT.OutGramQuantity)) IS NULL THEN SUM(TB_COLORST_IN.GramQuantity)
-                    END AS StockInAfter
-                    FROM ((TB_COLOR_STOCK 
-                    LEFT JOIN TB_COLORST_IN ON TB_COLOR_STOCK.ProductNo = TB_COLORST_IN.Product_Id)
-                    LEFT JOIN TB_COLORST_OUT ON TB_COLOR_STOCK.ProductNo = TB_COLORST_OUT.Product_Id)
-                    WHERE TB_COLORST_IN.GramQuantity IS NOT NULL AND TB_COLOR_STOCK.ProductNo = '". $data['ProNoOut'] ."' GROUP BY TB_COLOR_STOCK.ProductNo
+                    WITH sumGramQuantity AS (
+                        SELECT ProductNo,SUM(TB_COLORST_IN.GramQuantity) as GramQuantityIn
+                        FROM (TB_COLOR_STOCK 
+                        LEFT JOIN TB_COLORST_IN ON TB_COLOR_STOCK.ProductNo = TB_COLORST_IN.Product_Id)
+                        WHERE TB_COLORST_IN.GramQuantity IS NOT NULL GROUP BY TB_COLOR_STOCK.ProductNo
+                    ),
+                    sumStockOut AS (
+                        SELECT ProductNo,
+                        CASE 
+                            WHEN SUM(TB_COLORST_OUT.OutGramQuantity) IS NOT NULL THEN (SUM(TB_COLORST_OUT.OutGramQuantity))
+                            WHEN SUM(TB_COLORST_OUT.OutGramQuantity) IS NULL THEN 'Stock Out NotFound'
+                        END AS StockOutAfter
+                        FROM (TB_COLOR_STOCK 
+                        LEFT JOIN TB_COLORST_OUT ON TB_COLOR_STOCK.ProductNo = TB_COLORST_OUT.Product_Id)
+                        WHERE TB_COLORST_OUT.OutGramQuantity IS NOT NULL GROUP BY TB_COLOR_STOCK.ProductNo
+                    )
+                    SELECT TB_COLOR_STOCK.ProductNo, (GramQuantityIn - StockOutAfter) AS StockInAfter
+                        FROM ((TB_COLOR_STOCK 
+                        LEFT JOIN sumGramQuantity ON TB_COLOR_STOCK.ProductNo = sumGramQuantity.ProductNo)
+                        LEFT JOIN sumStockOut ON TB_COLOR_STOCK.ProductNo = sumStockOut.ProductNo
+                        ) WHERE TB_COLOR_STOCK.ProductNo = '". $data['ProNoOut'] ."'
                 ");
 
                 $calRecheck = ($recheckStockout[0]->StockInAfter - $data['UnitQuatityOut']);

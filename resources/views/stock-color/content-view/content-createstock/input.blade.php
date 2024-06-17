@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="w-4/5 px-4 py-8" data-aos="fade-up" data-aos-duration="1000">
-            <input type="text" name="unitType" class="w-full py-1 px-2 rounded hidden" value="unit">
+            <input type="text" id="unitType" name="unitType" class="w-full py-1 px-2 rounded hidden" value="unit">
             <div class="w-full flex justify-between gap-x-3 mb-3">
                 <div class="w-full text-[14px]">
                     <label class="text-red-500">รหัสสินค้า*</label>

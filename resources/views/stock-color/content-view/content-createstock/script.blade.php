@@ -6,7 +6,6 @@
             try {
                 btnDis();
                 e.preventDefault();
-
                 let data = {};
                 $(this).serializeArray().map(function(x) {
                     if (x.value != '') {
@@ -34,6 +33,7 @@
                         });
                         $("input[type='text'], textarea").each(function() {
                             $(this).val('');
+                            $("#unitType").val('unit');
                         });
                     },
                     error: function(err) {
