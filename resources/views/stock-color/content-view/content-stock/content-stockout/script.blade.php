@@ -1,11 +1,11 @@
 <script>
     $(document).ready(function() {
-        $("#FormStockIn").submit(function(e) {
+        $("#StockOut").submit(function(e) {
             try {
                 btnDis();
                 e.preventDefault();
                 let data = {};
-                $("#FormStockIn").serializeArray().map(function(x) {
+                $("#StockOut").serializeArray().map(function(x) {
                     if (x.value != '') {
                         data[x.name] = x.value;
                     } else {
@@ -17,7 +17,7 @@
                     url: "{{ route('stock.store') }}",
                     type: 'POST',
                     data: {
-                        page:'stockIn',
+                        page:'stockOut',
                         data: data,
                         _token: '{{ @csrf_token() }}',
                     },
@@ -32,14 +32,13 @@
                             showConfirmButton: false,
                             timer: 1000
                         });
-
                         getStockData();
                     },
                     error: async function(err) {
                         btnEna();
                         Swal.fire({
                             icon: 'error',
-                            text: error.responseJSON.message,
+                            text: err.responseJSON.message,
                             showConfirmButton: false,
                             timer: 1000
                         });
@@ -52,10 +51,11 @@
                     text: error.message,
                     showConfirmButton: false,
                     timer: 1000
-                }); 
+                });
             }
         });
 
+        
         function getStockData() {
             let elementPac = `
                 @for ($i = 0; $i < 10; $i++)
@@ -101,30 +101,30 @@
             });
         }
 
-        $("#GramQuantityIn").keyup(function(e) {
+        $("#UnitQuatityOut").keyup(function(e) {
             var Unit = $(this).val();
             var ProductPrice = {{ @$res[0]->UnitPrice }};
 
             var calUnit = (Unit * ProductPrice);
 
-           $("#UnitPriceSumIn").val(calUnit);
+           $("#UnitPriceOut").val(calUnit);
         });
 
         
         function btnDis() {
-            $("#stockInBtn").attr("disabled", true);
-            $("#stockInBtn").removeClass("bg-blue-500");
-            $("#stockInBtn").removeClass("hover:bg-blue-400");
-            $("#stockInBtn").addClass("bg-blue-400");
-            $("#spintIn").removeClass("hidden");
+            $("#StockOutBtn").attr("disabled", true);
+            $("#StockOutBtn").removeClass("bg-blue-500");
+            $("#StockOutBtn").removeClass("hover:bg-blue-400");
+            $("#StockOutBtn").addClass("bg-blue-400");
+            $("#spintOut").removeClass("hidden");
         }
 
         function btnEna() {
-            $("#stockInBtn").attr("disabled", false);
-            $("#stockInBtn").addClass("bg-blue-500");
-            $("#stockInBtn").addClass("hover:bg-blue-400");
-            $("#stockInBtn").removeClass("bg-blue-400");
-            $("#spintIn").addClass("hidden");
+            $("#StockOutBtn").attr("disabled", false);
+            $("#StockOutBtn").addClass("bg-blue-500");
+            $("#StockOutBtn").addClass("hover:bg-blue-400");
+            $("#StockOutBtn").removeClass("bg-blue-400");
+            $("#spintOut").addClass("hidden");
         }
     });
 </script>

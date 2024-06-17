@@ -42,27 +42,72 @@ class StockController extends Controller
     }
 
     public function create(Request $req) {
-        try {
-            $res = TB_COLORST::whereRaw("ProductNo = '". $req->ProductNo ."'")->get();
+        $stockCal = DB::select("
+            WITH sumGramQuantity AS (
+                SELECT ProductNo,SUM(TB_COLORST_IN.GramQuantity) as GramQuantityIn
+                FROM (TB_COLOR_STOCK 
+                LEFT JOIN TB_COLORST_IN ON TB_COLOR_STOCK.ProductNo = TB_COLORST_IN.Product_Id)
+                WHERE TB_COLORST_IN.GramQuantity IS NOT NULL GROUP BY TB_COLOR_STOCK.ProductNo
+            ),
+            sumStockOut AS (
+                SELECT ProductNo,
+                CASE 
+                    WHEN SUM(TB_COLORST_OUT.OutGramQuantity) IS NOT NULL THEN (SUM(TB_COLORST_OUT.OutGramQuantity))
+                    WHEN SUM(TB_COLORST_OUT.OutGramQuantity) IS NULL THEN 'Stock Out NotFound'
+                END AS StockOutAfter
+                FROM (TB_COLOR_STOCK 
+                LEFT JOIN TB_COLORST_OUT ON TB_COLOR_STOCK.ProductNo = TB_COLORST_OUT.Product_Id)
+                WHERE TB_COLORST_OUT.OutGramQuantity IS NOT NULL GROUP BY TB_COLOR_STOCK.ProductNo
+            )
+            SELECT TB_COLOR_STOCK.ProductNo, ProductDetail, UnitType, UnitPrice, UnitStart,
+                CASE 
+                    WHEN ROUND((((GramQuantityIn - StockOutAfter) / GramQuantityIn) * 100), 0) < 0 THEN 0
+                    WHEN ROUND((((GramQuantityIn - StockOutAfter) / GramQuantityIn) * 100), 0) IS NOT NULL THEN ROUND((((GramQuantityIn - StockOutAfter) / GramQuantityIn) * 100), 0)
+                    WHEN ROUND((((GramQuantityIn - StockOutAfter) / GramQuantityIn) * 100), 0) IS NULL THEN 100
+                END AS StockCal
+                FROM ((TB_COLOR_STOCK 
+                LEFT JOIN sumGramQuantity ON TB_COLOR_STOCK.ProductNo = sumGramQuantity.ProductNo)
+                LEFT JOIN sumStockOut ON TB_COLOR_STOCK.ProductNo = sumStockOut.ProductNo
+                )
+        ");
 
-            if(count($res) == 0) {
-                throw new \Exception('ไม่สามารถเพิ่มสต็อกได้ เนื่องจากไม่ทีรหัสที่กรอกมา');
-             }
-
-            if($req->StockContent == 'stockIn') {
-                $resHtml = view('stock-color.content-view.content-stock.content-stockin.view', compact('res'))->render();
-            } else {
-                $resHtml = view('stock-color.content-view.content-stock.content-stockout.view', compact('res'))->render();
+        if($req->page == 'manageStock') {
+            try {
+                $res = TB_COLORST::whereRaw("ProductNo = '". $req->ProductNo ."'")->get();
+    
+                if(count($res) == 0) {
+                    throw new \Exception('ไม่สามารถเพิ่มสต็อกได้ เนื่องจากไม่ทีรหัสที่กรอกมา');
+                 }
+    
+                if($req->StockContent == 'stockIn') {
+                    $resHtml = view('stock-color.content-view.content-stock.content-stockin.view', compact('res'))->render();
+                } else {
+                    $resHtml = view('stock-color.content-view.content-stock.content-stockout.view', compact('res'))->render();
+                }
+    
+                return response()->json([
+                    'message' => "",
+                    'resHtml' => $resHtml,
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'message' => $e->getMessage(),
+                ], 500);
             }
+        } else if($req->page == 'getDataStockCal') {   
+            try {
 
-            return response()->json([
-                'message' => "",
-                'resHtml' => $resHtml,
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 500);
+                $resHtml = view('stock-color.content-view.content-stock.content-stockcal.viewFetch', compact('stockCal'))->render();
+
+                return response()->json([
+                    "message" => "get stockcal success",
+                    "resHtml" => $resHtml,
+                ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'message' => $e->getMessage(),
+                ], 500);
+            }
         }
     }
 
@@ -97,7 +142,7 @@ class StockController extends Controller
 
                 return response()->json([
                     'message' => 'เพิมพ์สต็อกสีเรียบร้อยแล้ว',
-                    'body' => [$resStock, $resSTIN]
+                    'body' => [$resStock, $resSTIN],
                 ], 200);
             } catch (\Exception $e) {
                 return response()->json([

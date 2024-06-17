@@ -45,6 +45,7 @@
                 <th class="py-2">รหัสสินค้า</th>
                 <th>คำอธิบาย</th>
                 <th>หน่วย</th>
+                <th>สภาพสินค้า</th>
                 <th>จำนวน</th>
                 <th>ราคาต่อหน่อย</th>
                 <th>ราคารวม</th>
@@ -57,6 +58,7 @@
                     <td class="py-2">{{ $item->Product_Id }}</td>
                     <td>{{ $item->Stock->ProductDetail }}</td>
                     <td>{{ $item->Stock->UnitType }}</td>
+                    <td>{{ $item->Product_con !== 'notgood' ? 'สภาพดี' : 'มิตำหนิ' }}</td>
                     <td>{{ number_format($item->GramQuantity, 2) }}</td>
                     <td>{{ $item->Stock->UnitPrice }}</td>
                     <td>{{  number_format($item->InUnitPirece, 2) }}</td>

@@ -40,6 +40,7 @@
                     url: "{{ route('stock.create') }}",
                     type: 'GET',
                     data: {
+                        page: 'manageStock',
                         StockContent: contentStock,
                         ProductNo: ProId,
                         _token: '{{ @csrf_token() }}',
