@@ -1,4 +1,4 @@
-<div class="my-10 flex justify-center items-center animate-fade-down animate-one animate-duration-1000 animate-delay-1000 animate-ease-in-out">
+<div class="my-10 flex justify-center items-center animate-fade-down animate-one animate-duration-1000 animate-ease-in-out">
     <div class="lg:w-5/6 rounded-md bg-white drop-shadow block lg:flex">
         <div class="lg:w-1/6 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-md justify-center flex items-end">
             <span>
