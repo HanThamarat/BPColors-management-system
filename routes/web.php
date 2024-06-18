@@ -32,6 +32,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
 
 // path for check role redirect
 Route::get('/dashboard', [AuthenticatedSessionController::class, 'create'])->name('dashboard');
+Route::resource('checkRedirect', App\Http\Controllers\RedirectController::class);
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified','roleBp:BP','roleBp:admin','roleBp:superadmin'])->group(function () {
     Route::get('/create', function () {

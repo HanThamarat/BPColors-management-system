@@ -71,18 +71,16 @@
                         <div class="my-5 bg-gray-100 px-2 py-2 rounded flex justify-between items-center">
                             <div class="w-full">
                                 <span>Name</span>
-                                <span class="block">{{ @$item->name }}</span>
+                                <span class="block">{{ @$item->nameUser }}</span>
                             </div>
                             <div class="w-full">
                                 <span>Username</span>
                                 <span class="block">{{ @$item->username }}</span>
                             </div>
-                            @hasrole(['superadmin'])
                             <div class="w-full">
                                 <span>Role</span>
-                                <span class="block">{{ @$item->role }}</span>
+                                <span class="block">{{ @$item->roleName }}</span>
                             </div>
-                            @endhasrole
                             <div class="w-full">
                                 <span>Status</span>
                                 <span class="block">{{ @$item->status }}</span>
@@ -130,11 +128,11 @@
                         <div class="my-5 bg-gray-100 px-2 py-2 rounded flex justify-between items-center">
                             <div class="w-full">
                                 <span>Name</span>
-                                <span class="block">{{ @$item->name }}</span>
+                                <span class="block">{{ @$item->nameUser }}</span>
                             </div>
                             <div class="w-full">
                                 <span>Role</span>
-                                <span class="block">{{ @$item->role }}</span>
+                                <span class="block">{{ @$item->roleName }}</span>
                             </div>
                             <div class="w-full">
                                 <span>Status</span>

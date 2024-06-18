@@ -250,16 +250,16 @@ class ManageUser extends Component
         $pa_role = ['PA'];
         $user_role = ['admin','superadmin', 'BP', 'colorstock'];
         return view('livewire.manage-user', [
-            "userData" => User::
-            selectRaw("id ,name, username, status, email")
-            ->whereHas('roles', function($query) use ($user_role) {
-                $query->whereIn('name', $user_role);
-            })->get(),
-            "userdata_pa" => User::
-            selectRaw("id ,name, username, status, email")
-            ->whereHas('roles', function($q) use ($pa_role){
-                $q->whereIn('name', $pa_role);
-            })->get(),
+            "userData" => DB::select("
+                SELECT users.id, users.name AS nameUser, username, status, roles.name AS roleName
+                FROM ((users INNER JOIN model_has_roles ON users.id  = model_has_roles.model_id) INNER JOIN roles ON model_has_roles.role_id = roles.id)
+                WHERE roles.name <> 'PA'
+            "),
+            "userdata_pa" => DB::select("
+                SELECT users.id, users.name AS nameUser, username, status, roles.name AS roleName
+                FROM ((users INNER JOIN model_has_roles ON users.id  = model_has_roles.model_id) INNER JOIN roles ON model_has_roles.role_id = roles.id)
+                WHERE roles.name = 'PA'
+            "),
             "count_u_original" => User::
             selectRaw("COUNT(id) AS COUNTU")
             ->whereHas('roles', function($query) use ($user_role) {

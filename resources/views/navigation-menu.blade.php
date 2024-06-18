@@ -100,9 +100,19 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
                             @hasrole(['superadmin'])
-                                <x-dropdown-link href="{{ route('home.index') }}">
-                                    {{ __('Go to colorStock') }}
-                                </x-dropdown-link>
+                                @if(session('page') == '')
+                                    <x-dropdown-link href="{{ route('checkRedirect.create') }}?page={{ 'stock' }}">
+                                        {{ __('Go to colorStock') }}
+                                    </x-dropdown-link>
+                                @elseif(session('page') == 'stock')
+                                    <x-dropdown-link href="{{ route('checkRedirect.create') }}?page={{ 'bp' }}">
+                                        {{ __('Go to BP') }}
+                                    </x-dropdown-link>
+                                @elseif(session('page') == 'bp')
+                                    <x-dropdown-link href="{{ route('checkRedirect.create') }}?page={{ 'stock' }}">
+                                        {{ __('Go to stock') }}
+                                    </x-dropdown-link>
+                                @endif
                             @endhasrole
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link href="{{ route('api-tokens.index') }}">
