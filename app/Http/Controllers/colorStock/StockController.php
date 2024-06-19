@@ -136,7 +136,7 @@ class StockController extends Controller
                     "Product_Id" => $data['ProductId'],
                     "GramQuantity" => $data['UnitStart'],
                     "DateSt_In" => $dataformat,
-                    "InUnitPirece" => $data['UnitPrice'],
+                    "InUnitPirece" => $data['ProductPrice'],
                     "Product_con" => "good",
                 ]);
 
