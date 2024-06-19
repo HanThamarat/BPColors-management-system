@@ -15,7 +15,7 @@ class PageController extends Controller
                     SELECT ProductNo,SUM(TB_COLORST_IN.GramQuantity) as GramQuantityIn
                     FROM (TB_COLOR_STOCK 
                     LEFT JOIN TB_COLORST_IN ON TB_COLOR_STOCK.ProductNo = TB_COLORST_IN.Product_Id)
-                    WHERE TB_COLORST_IN.GramQuantity IS NOT NULL GROUP BY TB_COLOR_STOCK.ProductNo
+                    WHERE TB_COLORST_IN.GramQuantity IS NOT NULL AND TB_COLORST_IN.status = 'active' GROUP BY TB_COLOR_STOCK.ProductNo
                 ),
                 sumStockOut AS (
                     SELECT ProductNo,
@@ -25,7 +25,7 @@ class PageController extends Controller
                     END AS StockOutAfter
                     FROM (TB_COLOR_STOCK 
                     LEFT JOIN TB_COLORST_OUT ON TB_COLOR_STOCK.ProductNo = TB_COLORST_OUT.Product_Id)
-                    WHERE TB_COLORST_OUT.OutGramQuantity IS NOT NULL GROUP BY TB_COLOR_STOCK.ProductNo
+                    WHERE TB_COLORST_OUT.OutGramQuantity IS NOT NULL AND TB_COLORST_OUT.status = 'active' GROUP BY TB_COLOR_STOCK.ProductNo
                 )
                 SELECT TB_COLOR_STOCK.ProductNo, ProductDetail, UnitType, UnitPrice, UnitStart,
                     CASE 

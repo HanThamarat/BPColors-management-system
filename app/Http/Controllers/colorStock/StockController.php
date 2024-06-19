@@ -16,7 +16,7 @@ class StockController extends Controller
 {
     public function index() {
         $stockData = DB::select("
-          WITH sumGramQuantity AS (
+         WITH sumGramQuantity AS (
                 SELECT ProductNo,SUM(TB_COLORST_IN.GramQuantity) as GramQuantityIn
                 FROM (TB_COLOR_STOCK 
                 LEFT JOIN TB_COLORST_IN ON TB_COLOR_STOCK.ProductNo = TB_COLORST_IN.Product_Id)
@@ -32,11 +32,15 @@ class StockController extends Controller
                 LEFT JOIN TB_COLORST_OUT ON TB_COLOR_STOCK.ProductNo = TB_COLORST_OUT.Product_Id)
                 WHERE TB_COLORST_OUT.OutGramQuantity IS NOT NULL GROUP BY TB_COLOR_STOCK.ProductNo
             )
-            SELECT TB_COLOR_STOCK.ProductNo, ProductDetail, UnitType, UnitPrice, UnitStart ,(GramQuantityIn - StockOutAfter) AS StockInAfter, StockOutAfter
+            SELECT TB_COLOR_STOCK.ProductNo, ProductDetail, UnitType, UnitPrice, UnitStart, StockOutAfter,
+                CASE 
+                    WHEN (GramQuantityIn - StockOutAfter) IS NOT NULL THEN (GramQuantityIn - StockOutAfter) 
+                    WHEN (GramQuantityIn - StockOutAfter) IS NULL THEN GramQuantityIn
+                END AS StockInAfter
                 FROM ((TB_COLOR_STOCK 
                 LEFT JOIN sumGramQuantity ON TB_COLOR_STOCK.ProductNo = sumGramQuantity.ProductNo)
                 LEFT JOIN sumStockOut ON TB_COLOR_STOCK.ProductNo = sumStockOut.ProductNo
-                )
+            )
         ");
         return view('stock-color.content-view.content-createstock.view', compact('stockData'));
     }
@@ -47,7 +51,7 @@ class StockController extends Controller
                 SELECT ProductNo,SUM(TB_COLORST_IN.GramQuantity) as GramQuantityIn
                 FROM (TB_COLOR_STOCK 
                 LEFT JOIN TB_COLORST_IN ON TB_COLOR_STOCK.ProductNo = TB_COLORST_IN.Product_Id)
-                WHERE TB_COLORST_IN.GramQuantity IS NOT NULL GROUP BY TB_COLOR_STOCK.ProductNo
+                WHERE TB_COLORST_IN.GramQuantity IS NOT NULL AND TB_COLORST_IN.status = 'active' GROUP BY TB_COLOR_STOCK.ProductNo
             ),
             sumStockOut AS (
                 SELECT ProductNo,
@@ -57,7 +61,7 @@ class StockController extends Controller
                 END AS StockOutAfter
                 FROM (TB_COLOR_STOCK 
                 LEFT JOIN TB_COLORST_OUT ON TB_COLOR_STOCK.ProductNo = TB_COLORST_OUT.Product_Id)
-                WHERE TB_COLORST_OUT.OutGramQuantity IS NOT NULL GROUP BY TB_COLOR_STOCK.ProductNo
+                WHERE TB_COLORST_OUT.OutGramQuantity IS NOT NULL AND TB_COLORST_OUT.status = 'active' GROUP BY TB_COLOR_STOCK.ProductNo
             )
             SELECT TB_COLOR_STOCK.ProductNo, ProductDetail, UnitType, UnitPrice, UnitStart,
                 CASE 
@@ -150,15 +154,62 @@ class StockController extends Controller
                 ], 500);
             }
         } else if($page == 'stockIn') {
-            $data = $req->data;
             try {
-                $res = TB_COLORIN::create([
-                    "Product_Id" => $data['ProNo'],
-                    "GramQuantity" => $data['GramQuantityIn'],
-                    "InUnitPirece" => $data['UnitPriceSumIn'],
-                    "Product_con" => $data['conditionProduct'],
-                    "DateSt_In" => $data['StockData'],
-                ]);
+                $data = $req->data;
+                $ReCheckStock = DB::select("
+                    WITH sumGramQuantity AS (
+                        SELECT ProductNo,SUM(TB_COLORST_IN.GramQuantity) as GramQuantityIn
+                        FROM (TB_COLOR_STOCK 
+                        LEFT JOIN TB_COLORST_IN ON TB_COLOR_STOCK.ProductNo = TB_COLORST_IN.Product_Id)
+                        WHERE TB_COLORST_IN.GramQuantity IS NOT NULL GROUP BY TB_COLOR_STOCK.ProductNo
+                    ),
+                    sumStockOut AS (
+                        SELECT ProductNo,
+                        CASE 
+                            WHEN SUM(TB_COLORST_OUT.OutGramQuantity) IS NOT NULL THEN (SUM(TB_COLORST_OUT.OutGramQuantity))
+                            WHEN SUM(TB_COLORST_OUT.OutGramQuantity) IS NULL THEN 'Stock Out NotFound'
+                        END AS StockOutAfter
+                        FROM (TB_COLOR_STOCK 
+                        LEFT JOIN TB_COLORST_OUT ON TB_COLOR_STOCK.ProductNo = TB_COLORST_OUT.Product_Id)
+                        WHERE TB_COLORST_OUT.OutGramQuantity IS NOT NULL GROUP BY TB_COLOR_STOCK.ProductNo
+                    )
+                    SELECT TB_COLOR_STOCK.ProductNo, ProductDetail, UnitType, UnitPrice, UnitStart,
+                        CASE 
+                            WHEN ROUND((((GramQuantityIn - StockOutAfter) / GramQuantityIn) * 100), 0) < 0 THEN 0
+                            WHEN ROUND((((GramQuantityIn - StockOutAfter) / GramQuantityIn) * 100), 0) IS NOT NULL THEN ROUND((((GramQuantityIn - StockOutAfter) / GramQuantityIn) * 100), 0)
+                            WHEN ROUND((((GramQuantityIn - StockOutAfter) / GramQuantityIn) * 100), 0) IS NULL THEN 100
+                        END AS StockCal
+                        FROM ((TB_COLOR_STOCK 
+                        LEFT JOIN sumGramQuantity ON TB_COLOR_STOCK.ProductNo = sumGramQuantity.ProductNo)
+                        LEFT JOIN sumStockOut ON TB_COLOR_STOCK.ProductNo = sumStockOut.ProductNo
+                        ) WHERE TB_COLOR_STOCK.ProductNo = '". $data['ProNo'] ."'
+                ");
+
+                if ($ReCheckStock[0]->StockCal <= 0) {
+                    TB_COLORIN::where("Product_Id", $data['ProNo'])->update([
+                        'status' => 'inactive'
+                    ]);
+                    TB_COLOROUT::where("Product_Id", $data['ProNo'])->update([
+                        'status' => 'inactive'
+                    ]);
+
+                    $res = TB_COLORIN::create([
+                        "Product_Id" => $data['ProNo'],
+                        "GramQuantity" => $data['GramQuantityIn'],
+                        "InUnitPirece" => $data['UnitPriceSumIn'],
+                        "Product_con" => $data['conditionProduct'],
+                        "DateSt_In" => $data['StockData'],
+                    ]);
+                } else {
+                    $res = TB_COLORIN::create([
+                        "Product_Id" => $data['ProNo'],
+                        "GramQuantity" => $data['GramQuantityIn'],
+                        "InUnitPirece" => $data['UnitPriceSumIn'],
+                        "Product_con" => $data['conditionProduct'],
+                        "DateSt_In" => $data['StockData'],
+                    ]);
+                }
+                
                 
                 return response()->json([
                     'message' => 'เพิมพ์สต็อกสีเรียบร้อยแล้ว',
