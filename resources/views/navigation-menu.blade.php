@@ -5,9 +5,19 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ auth()->user()->hasRole(['colorstock']) ? route('home.index') : route('dashboard') }}">
-                       <img src="{{ asset('img/logo.png') }}" class="w-20" alt="">
-                    </a>
+                    @if(session('page') == '')
+                        <a href="{{ auth()->user()->hasRole(['colorstock']) ? route('home.index') : route('dashboard') }}">
+                            <img src="{{ asset('img/logo.png') }}" class="w-20" alt="">
+                        </a>
+                    @elseif(session('page') == 'stock')
+                        <a href="{{ route('home.index') }}">
+                            <img src="{{ asset('img/logo.png') }}" class="w-20" alt="">
+                        </a>
+                    @elseif(session('page') == 'bp')
+                        <a href="{{ route('dashboard') }}">
+                            <img src="{{ asset('img/logo.png') }}" class="w-20" alt="">
+                        </a>
+                    @endif
                 </div>
 
                 <!-- Navigation Links -->
