@@ -27,6 +27,7 @@ services:
             - .docker/nginx/nginx.conf:/etc/nginx/nginx.conf
         depends_on:
             - php
+            - npm
         networks:
             - my_network
 
@@ -44,6 +45,16 @@ services:
         - "3307:3306"
       volumes:
         - "./.docker/db:/var/lib/mysql:rw"
+      networks:
+        - my_network
+
+    npm:
+      image: node:current-alpine
+      container_name: mitsuBp_npm
+      volumes:
+        - .:/var/www
+      entrypoint: ["npm", "run", "dev"]
+      working_dir: /var/www
       networks:
         - my_network
   
