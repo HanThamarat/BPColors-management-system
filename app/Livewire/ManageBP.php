@@ -61,8 +61,6 @@ class ManageBP extends Component
             'claim_status' => 'required',
             'clm_number' => 'required|min:5',
             'regiscar_number' => 'required|min:3',
-            'car_brand' => 'required',
-            'car_model' => 'required|min:3'
         ],
         [
             'cus_name.required' => 'กรุณากรอกชื่อของลูกค้า',
@@ -73,8 +71,6 @@ class ManageBP extends Component
             'clm_number.min:5' => 'กรุณากรอกเลขที่เคลมที่ถุกต้อง',
             'regiscar_number.required' => 'กรุณากรอกทะเบียนรถ',
             'regiscar_number.min:3' => 'กรุณากรอกทะเบียนรถที่ถูกต้อง',
-            'car_brand.required' => 'กรุณาเลือกยี่ห้อรถ',
-            'car_model.required' => 'กรุณากรอกรุ่นรถ',
         ]);
 
         $tableName = 'tbl_claim';
