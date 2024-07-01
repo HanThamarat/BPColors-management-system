@@ -170,7 +170,7 @@ class CustomerScreen extends Component
     }
 
     public function insertDetail() {
-        
+
         $this->validate([
             'date_cliam' => 'required:min:3',
         ],
@@ -197,55 +197,44 @@ class CustomerScreen extends Component
             }
           
             $date_cal = $this->date_repair;
-            $date_sent = date('Y-m-d', strtotime($dateplus, strtotime($date_cal)));
-
-
-            if($date_cal != '0000-00-00') {
+            $date_sent = $date_cal == '0000-00-00' ? null : date('Y-m-d', strtotime($dateplus, strtotime($date_cal)));
                 
-                DB::table('tbl_claim')->where(['id' => $this->userId])->update([
-                    'date_cliam' => $this->date_cliam === '0000-00-00' ? null : $this->date_cliam,
-                    'date_carin' => $this->date_carin === '0000-00-00' ? null : $this->date_carin,
-                    'date_service' => $this->date_service === '0000-00-00' ? null : $this->date_service,
-                    'date_repair' => $this->date_repair === '0000-00-00' ? null : $this->date_repair,
-                    'date_send_next' => $this->date_send_next === '0000-00-00' ? null : $this->date_send_next,
-                    'cost_doit' => $this->cost_doit,
-                    'cost_totel' => $this->cost_totel,
-                    'cost_sparepart' => $this->cost_sparepart,
-                    'date_firmins' => $this->date_firmins === '0000-00-00' ? null : $this->date_firmins,
-                    'firm_doit' => $this->firm_doit,
-                    'firm_all' => $this->firm_all,
-                    'firm_sparepart' => $this->firm_sparepart,
-                    'date_send_car' => $this->date_send_car === '0000-00-00' ? null : $this->date_send_car,
-                    'date_dms' => $this->date_dms === '0000-00-00' ? null : $this->date_dms,
-                    'date_ecliam' => $this->date_ecliam === '0000-00-00' ? null : $this->date_ecliam,
-                    'date_fecliam' => $this->date_fecliam === '0000-00-00' ? null : $this->date_fecliam,
-                    'exzept' => $this->exzept,
-                    'invoice_no' => $this->invoice_no,
-                    'date_bill' => $this->date_bill === '0000-00-00' ? null : $this->date_bill,
-                    'total_pay' => $this->total_pay,
-                    'bill_no' => $this->bill_no,
-                    'date_paybill' => $this->date_paybill === '0000-00-00' ? null : $this->date_paybill,
-                    'note_service' => $this->note_service,
-                    'date_send' => $date_sent,
-                    'date_transfer' => $this->date_transfer === '0000-00-00' ? null : $this->date_transfer,
-                ]);
+            DB::table('tbl_claim')->where(['id' => $this->userId])->update([
+                'date_cliam' => $this->date_cliam === '0000-00-00' ? null : $this->date_cliam,
+                'date_carin' => $this->date_carin === '0000-00-00' ? null : $this->date_carin,
+                'date_service' => $this->date_service === '0000-00-00' ? null : $this->date_service,
+                'date_repair' => $this->date_repair === '0000-00-00' || $this->date_repair === ''  ? null : $this->date_repair,
+                'date_send_next' => $this->date_send_next === '0000-00-00' ? null : $this->date_send_next,
+                'cost_doit' => $this->cost_doit,
+                'cost_totel' => $this->cost_totel,
+                'cost_sparepart' => $this->cost_sparepart,
+                'date_firmins' => $this->date_firmins === '0000-00-00' ? null : $this->date_firmins,
+                'firm_doit' => $this->firm_doit,
+                'firm_all' => $this->firm_all,
+                'firm_sparepart' => $this->firm_sparepart,
+                'date_send_car' => $this->date_send_car === '0000-00-00' ? null : $this->date_send_car,
+                'date_dms' => $this->date_dms === '0000-00-00' ? null : $this->date_dms,
+                'date_ecliam' => $this->date_ecliam === '0000-00-00' ? null : $this->date_ecliam,
+                'date_fecliam' => $this->date_fecliam === '0000-00-00' ? null : $this->date_fecliam,
+                'exzept' => $this->exzept,
+                'invoice_no' => $this->invoice_no,
+                'date_bill' => $this->date_bill === '0000-00-00' ? null : $this->date_bill,
+                'total_pay' => $this->total_pay,
+                'bill_no' => $this->bill_no,
+                'date_paybill' => $this->date_paybill === '0000-00-00' ? null : $this->date_paybill,
+                'note_service' => $this->note_service,
+                'date_send' => $date_sent,
+                'date_transfer' => $this->date_transfer === '0000-00-00' ? null : $this->date_transfer,
+            ]);
 
-                $this->dispatch('alert', 
-                    type: 'success',
-                    title: 'บันทึกข้อมูลเสร็จสิ้น',
-                    position: 'center',
-                    timer: 1500
-                );
+            $this->dispatch('alert', 
+                type: 'success',
+                title: 'บันทึกข้อมูลเสร็จสิ้น',
+                position: 'center',
+                timer: 1500
+            );
 
-                $this->popupForm = false;
-            } else {
-                $this->dispatch('alert', 
-                    type: 'error',
-                    title: 'กรุณากรอกวันที่ซ่อม',
-                    position: 'center',
-                    timer: 1500
-                );
-            }
+            $this->popupForm = false;
         } else {
             $this->dispatch('alert', 
                 type: 'error',
