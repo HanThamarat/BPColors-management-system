@@ -108,8 +108,8 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                @if ($items->date_status !== null)
-                                    {{ $items->date_status }}
+                                @if ($items->car_job !== null || $items->car_job !== '')
+                                    {{ $items->car_job }}
                                 @else
                                     ไม่มีข้อมูล
                                 @endif
