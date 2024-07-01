@@ -69,8 +69,14 @@ class ShowBp extends Component
 
     public function render()
     {
+        $Fdate = $this->fromdate;
+        $Tdate = $this->todate;
         return view('livewire.show-bp', [
-            'GetClaim' => DB::table('tbl_claim')->whereRaw("date_cliam between '". $this->fromdate ."' and '". $this->todate ."' AND no_claim like '%". $this->search ."%' AND no_regiscar LIKE '%". $this->no_regiscar ."%' AND payment_st LIKE '%" . $this->claim_st . "%'")->paginate(5)
+            'GetClaim' => DB::table('tbl_claim')
+            ->when($Fdate !== '' && $Tdate !== '', function($q) use ($Fdate, $Tdate) {
+                return $q->whereBetween('date_cliam', [$Fdate, $Tdate]);
+            })
+            ->whereRaw("no_claim like '%". $this->search ."%' AND no_regiscar LIKE '%". $this->no_regiscar ."%' AND payment_st LIKE '%" . $this->claim_st . "%'")->paginate(5)
         ]);
     }
 }
