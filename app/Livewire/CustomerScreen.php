@@ -154,7 +154,7 @@ class CustomerScreen extends Component
         }
 
         $this->userId = session()->get('userID');
-        $this->technician = tbl_stock_technician::all();
+        $this->technician = tbl_stock_technician::whereRaw("active = 'yes'")->get();
         $no_claim = DB::table('tbl_claim')->where(['id' => $this->userId])->get()[0]->no_claim;
         $this->wipDatas = DB::table('tbl_wip')->where(['no_claimex' => $no_claim])->get();
         $this->GetBrand = DB::table('brand_car')->get();
