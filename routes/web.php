@@ -33,6 +33,11 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
 // path for check role redirect
 Route::get('/dashboard', [AuthenticatedSessionController::class, 'create'])->name('dashboard');
 Route::resource('checkRedirect', App\Http\Controllers\RedirectController::class);
+Route::resource('unlockScreen', App\Http\Controllers\auth\ulockController::class);
+
+Route::get("/lockscreen", function() {
+    return view('components.content-lockscreen.lock-screen');
+})->name('lockscreen');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'),'verified','roleBp:BP','roleBp:admin','roleBp:superadmin'])->group(function () {
     Route::get('/create', function () {

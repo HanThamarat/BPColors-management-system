@@ -42,6 +42,8 @@
                 </header>
             @endif
 
+            @include('layouts.model-locscreen')
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}
@@ -56,9 +58,77 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
         <script src="https://cdn.lordicon.com/lordicon.js"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="{{ asset('js/jquery.js') }}"></script>
         <script>
             AOS.init();
         </script>
         @include('sweetalert::alert')
+        <script>
+            console.log('👨🏻‍💻 System is ready!');
+            const countdownDisplay = document.getElementById("countdown");
+            let countdownTime;
+            let timer;
+            let minutes, seconds;
+            let countdownInterval;
+            $(document).ready(function() {
+                let timeOutId;
+
+                $("#close-modal").click(function() {
+                    $('#modal').addClass('hidden');
+                    $('#modal').removeClass('flex');
+                })
+
+                $("#close-modal-2").click(function() {
+                    $('#modal').addClass('hidden');
+                    $('#modal').removeClass('flex');
+                })
+
+                function startLockScreen() {
+                    timeOutId = setTimeout(() => {
+                        countdown(120, countdownDisplay);
+                        console.log('👋 Not event in system');
+                        $('#modal').removeClass('hidden');
+                        $('#modal').addClass('flex');
+                    }, 100000);
+                }
+
+                function resetTimer() {
+                    console.log('✅ Active event in system');
+                    clearTimeout(timeOutId);
+                    clearTimeout(timer);
+                    clearTimeout(minutes);
+                    clearTimeout(seconds);
+                    clearInterval(countdownInterval);
+                    startLockScreen();
+                }
+
+                document.addEventListener("mousemove", resetTimer);
+                document.addEventListener("keydown", resetTimer);
+
+                startLockScreen();
+
+                function countdown(durationInSeconds, displayElement) {
+                    timer = durationInSeconds;
+
+                    countdownInterval = setInterval(function () {
+                        minutes = parseInt(timer / 60, 10);
+                        seconds = parseInt(timer % 60, 10);
+
+                        minutes = minutes < 10 ? "0" + minutes : minutes;
+                        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                        displayElement.textContent = minutes + ":" + seconds;
+
+                        console.log(`🎉 Countdown for your : ${countdownTime}`);
+
+                        countdownTime = minutes + ":" + seconds;
+
+                        if (--timer < 0) {
+                            window.location.href = "{{ route('lockscreen') }}";
+                        }
+                    }, 1000);
+                }
+            })
+        </script>
     </body>
 </html>
