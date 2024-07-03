@@ -1,8 +1,13 @@
 import './bootstrap';
 import 'flowbite';
 import $ from 'jquery';
+import { createApp } from 'vue';
+import app from './component/app.vue';
+import router from './routers';
 
 window.$ = window.jQuery = $; 
+
+createApp(app).use(router).mount('#app');
 
 window.addEventListener('alert', (e) => {
     let data = e.detail;
