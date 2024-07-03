@@ -66,16 +66,16 @@ for($i=1;$i<13;$i++){
         $work_a = DB::table('tbl_wip')->selectRaw("SUM(cal_doit) as doit")->whereRaw("respon_name = '". $res_name2->name ."' AND no_claimex IN (SELECT no_claim  FROM tbl_claim WHERE SUBSTRING(payment_st,1,1) in ('G','H','I','J','K') AND DATE_FORMAT(date_dms,'%Y-%m')= '". $y_m ."' ) GROUP BY tbl_wip.respon_name")->get();
 		
 		foreach ($work_a as $res) {
-		$objPHPExcel->getActiveSheet()->setCellValue([($i+1),($emp)], @$res->doit ? 0 : @$res->doit);
+			$objPHPExcel->getActiveSheet()->setCellValue([($i+1),($emp)], $res->doit);
         	$emp++;
 		}
     }
 	$n_m++;	
 }
-$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+$objPHPExcel->getActiveSheet()->getStyle('A1:K1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+$objPHPExcel->getActiveSheet()->getStyle('A1:K1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->applyFromArray(
+$objPHPExcel->getActiveSheet()->getStyle('A1:K1')->applyFromArray(
 		array(
 			'font'    => array(
 				'bold'      => true
