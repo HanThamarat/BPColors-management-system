@@ -107,6 +107,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 				$total = 0;
                 $total2 = 0;
 				$timeTxt = '';
+				$dateNow;
 						
 
 
@@ -122,7 +123,6 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 				->whereRaw("date_bill BETWEEN '". $fromdate ."' AND '". $todate ."' ")->get();
 
                 foreach ($response as $res) {
-                                       
 					// $objPHPExcel->getActiveSheet()->getStyle('E')->getNumberFormat()->setFormatCode('############');
 					// $objPHPExcel->getActiveSheet()->getStyle('C:D')->getNumberFormat()->setFormatCode('yyyy-mm-dd');
 					$objPHPExcel->getActiveSheet()->setCellValue('A'.($r+2),$no);
@@ -139,7 +139,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 					
 					$dateCli=date_create($res->date_cliam);
 					$diff=date_diff($dateCli,$dateNow);							
-					$dateFirm = $diff->format("%R%a days");
+					$dateFirm = $diff->format("%a");
 
 					if(substr($res->car_job,0,1) === "H"){
 						if($dateFirm>11){
@@ -163,6 +163,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 						}
 
 					}
+					
 					//$fomula= "=IFS(LEFT(K2,1)='H',IF(D2>20,'เกินกำหนด','ปกติ'),LEFT(K2,1)='M',IF(D2>10,'เกินกำหนด','ปกติ'),LEFT(K2,1)='L',IF(D2>5,'เกินกำหนด','ปกติ'))";
 					$objPHPExcel->getActiveSheet()->setCellValue('F'.($r+2),$timeTxt);
 					$objPHPExcel->getActiveSheet()->setCellValue('G'.($r+2),$res->car_job);
@@ -317,8 +318,9 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 					}
 					
 					$dateCli=date_create($res->date_repair);
-					$diff=date_diff($dateCli,$dateNow);							
-					$dateFirm = $diff->format("%R%a days");
+					$diff=date_diff($dateCli,$dateNow);		
+					$dateFirm = $diff->format("%a");
+
 					if(substr($res->car_job,0,1) === "H"){
 						if($dateFirm>21){
 							$timeTxt = "เลยกำหนด";
