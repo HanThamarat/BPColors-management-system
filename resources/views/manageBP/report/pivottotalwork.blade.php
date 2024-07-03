@@ -43,8 +43,6 @@ $objPHPExcel->setActiveSheetIndex(0);
 // $work_n = "SELECT * FROM tbl_technician WHERE";
 $work_n = DB::table('tbl_technician')->whereRaw("active ='yes'")->get();
 
-
-
 $row = 1;
 $c1 = 2;
 $m=0;
@@ -57,47 +55,49 @@ foreach ($work_n as $res_name) {
     $objPHPExcel->getActiveSheet()->setCellValue([(1),($row)],$res_name->name);
 }
 
-for($i=2;$i<13;$i++){
-	$objPHPExcel->getActiveSheet()->setCellValue([($i),(1)],$marr[$i].' '.$year);
+for($i=1;$i<13;$i++){
+	$row = ($i+1);
+	$objPHPExcel->getActiveSheet()->setCellValue([($i+1),(1)],$marr[$i].' '.$year);
 
 	$y_m = $year.'-'.sprintf("%02d",$i);
 	$emp=2;
 
 	foreach ($work_n as $res_name2) {
-        $work_a = DB::table('tbl_wip')->selectRaw("SUM(cal_doit) as doit")->whereRaw("respon_name= ? AND no_claimex IN (SELECT no_claim  FROM tbl_claim WHERE SUBSTRING(payment_st,1,1) in ('G','H','I','J','K') AND DATE_FORMAT(date_dms,'%Y-%m')= ? ) GROUP BY tbl_wip.respon_name", [$res_name2->name, $y_m])->get();
+        $work_a = DB::table('tbl_wip')->selectRaw("SUM(cal_doit) as doit")->whereRaw("respon_name = '". $res_name2->name ."' AND no_claimex IN (SELECT no_claim  FROM tbl_claim WHERE SUBSTRING(payment_st,1,1) in ('G','H','I','J','K') AND DATE_FORMAT(date_dms,'%Y-%m')= '". $y_m ."' ) GROUP BY tbl_wip.respon_name")->get();
+		
 		foreach ($work_a as $res) {
-			$objPHPExcel->getActiveSheet()->setCellValue([($i),($emp)],$res->doit);
+		$objPHPExcel->getActiveSheet()->setCellValue([($i+1),($emp)], @$res->doit ? 0 : @$res->doit);
         	$emp++;
 		}
     }
 	$n_m++;	
 }
-// $objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-// $objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-// $objPHPExcel->getActiveSheet()->getStyle('A1:H1')->applyFromArray(
-// 		array(
-// 			'font'    => array(
-// 				'bold'      => true
-// 			),
+$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->applyFromArray(
+		array(
+			'font'    => array(
+				'bold'      => true
+			),
 			
-// 			'borders' => array(
-// 				'allborders' => array(
-// 					  'style' => PHPExcel_Style_Border::BORDER_THIN
-// 					)
-// 			),
-// 			'fill' => array(
-// 	 			'type'       => PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
-// 	  			'rotation'   => 90,
-// 	 			'startcolor' => array(
-// 	 				'argb' => 'FFA0A0A0'
-// 	 			),
-// 	 			'endcolor'   => array(
-// 	 				'argb' => 'FFFFFFFF'
-// 	 			)
-// 	 		)
-// 		)
-// );
+			'borders' => array(
+				'allborders' => array(
+					  'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
+					)
+			),
+			'fill' => array(
+	 			'type'       => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+	  			'rotation'   => 90,
+	 			'startcolor' => array(
+	 				'argb' => 'FFA0A0A0'
+	 			),
+	 			'endcolor'   => array(
+	 				'argb' => 'FFFFFFFF'
+	 			)
+	 		)
+		)
+);
 
 		
     
@@ -105,30 +105,30 @@ for($i=2;$i<13;$i++){
 					
 				
 					
-		// 		$objPHPExcel->getActiveSheet()->getStyle('A2'.':H'.($r+1))->getFont()->setName('Arial');
-		// 		$objPHPExcel->getActiveSheet()->getStyle('A2'.':H'.($r+1))->getFont()->setSize(8);
-		// 		$objPHPExcel->getActiveSheet()->getStyle('A2:H'.($r+2))->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
-				
-											
-				
-				
+	// $objPHPExcel->getActiveSheet()->getStyle('A2'.':H'.($row+1))->getFont()->setName('Arial');
+	// $objPHPExcel->getActiveSheet()->getStyle('A2'.':H'.($row+1))->getFont()->setSize(8);
+	// $objPHPExcel->getActiveSheet()->getStyle('A2:H'.($row+2))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
+	
+								
+	
+	
+
+	// $objPHPExcel->getActiveSheet()->getStyle('A'.($row+2).':H'.($row+2))->getFont()->setName('Candara');
+	// $objPHPExcel->getActiveSheet()->getStyle('A'.($row+2).':H'.($row+2))->getFont()->setSize(16);
+	// $objPHPExcel->getActiveSheet()->getStyle('A'.($row+2).':H'.($row+2))->getFont()->setBold(true);
+	
+	// $objPHPExcel->getActiveSheet()->getStyle('A'.($row+2).':H'.($row+2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+	
+	// $objPHPExcel->getActiveSheet()->getStyle('A2:H'.($row+2))->applyFromArray(
+	// 	array(
 			
-		// 		$objPHPExcel->getActiveSheet()->getStyle('A'.($r+2).':H'.($r+2))->getFont()->setName('Candara');
-		// 		$objPHPExcel->getActiveSheet()->getStyle('A'.($r+2).':H'.($r+2))->getFont()->setSize(16);
-		// 		$objPHPExcel->getActiveSheet()->getStyle('A'.($r+2).':H'.($r+2))->getFont()->setBold(true);
-				
-		// 		$objPHPExcel->getActiveSheet()->getStyle('A'.($r+2).':H'.($r+2))->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-				
-		// 		$objPHPExcel->getActiveSheet()->getStyle('A2:H'.($r+2))->applyFromArray(
-		// array(
-			
-		// 	'borders' => array(
-		// 		'allborders' => array(
-		// 			  'style' => PHPExcel_Style_Border::BORDER_THIN
-		// 			)
-		// 		)
-	 // 		)
-		// );
+	// 		'borders' => array(
+	// 			'allborders' => array(
+	// 				  'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
+	// 				)
+	// 			)
+	//  		)
+	// 	);
 
 $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader('&L&BInvoice&RPrinted on &D');
 $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $objPHPExcel->getProperties()->getTitle() . '&RPage &P of &N');

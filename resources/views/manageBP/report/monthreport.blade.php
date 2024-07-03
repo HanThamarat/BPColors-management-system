@@ -70,10 +70,9 @@ $objPHPExcel->getActiveSheet()->setCellValue([(2),($row+2)],"ยอดวาง�
 
 for($i=1;$i<($date_diff+2);$i++){
 
-    dump($i);
-//  $objPHPExcel->getActiveSheet()->setCellValue([($c1+$i),($row)],$i);
-//  $objPHPExcel->getActiveSheet()->setCellValue([($c1+$i),($row+1)],$arr_dms[$i]);
-//  $objPHPExcel->getActiveSheet()->setCellValue([($c1+$i),($row+2)],$arr_bill[$i]);
+ $objPHPExcel->getActiveSheet()->setCellValue([($c1+$i),($row)],$i);
+ $objPHPExcel->getActiveSheet()->setCellValue([($c1+$i),($row+1)], empty($arr_dms[$i]) ? 0 : $arr_dms[$i]);
+ $objPHPExcel->getActiveSheet()->setCellValue([($c1+$i),($row+2)], empty($arr_bill[$i]) ? 0 : $arr_bill[$i]);
 
 $m++;
 }
@@ -197,23 +196,23 @@ $statusType = [
 
 
 for($i=1;$i<10;$i++){
-            $now = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("payment_st = ?  GROUP BY date_cliam ORDER BY date_cliam ASC", [$statusType[$i]])->get()[0];
-            // dd($now->b);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.(3+$i), $now->b);
+            $now = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("payment_st = '". $statusType[$i] ."'  GROUP BY date_cliam ORDER BY date_cliam ASC")->get();
+
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(3+$i), !empty($now->b) ? $now->b : 0);
             // $objPHPExcel->getActiveSheet()->setCellValue('C4', $qnow['c']);
             // $objPHPExcel->getActiveSheet()->setCellValue('D4', $qnow['d']);
             // $objPHPExcel->getActiveSheet()->setCellValue('E4', $qnow['e']);
 
 }
 
-    $dataA = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("payment_st = 'A เปิดใบรับรถ'")->get()[0];
+    $dataA = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("payment_st = 'A เปิดใบรับรถ'")->get();
     $dataA2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("SUBSTR(date_cliam,1,7) = substr(?,0,7)", [$todate])->get();
 
 
-    $objPHPExcel->getActiveSheet()->setCellValue('B4', $dataA->b);
-    $objPHPExcel->getActiveSheet()->setCellValue('C4', $dataA->c);
-    $objPHPExcel->getActiveSheet()->setCellValue('D4', $dataA->d);
-    $objPHPExcel->getActiveSheet()->setCellValue('E4', $dataA->e);
+    $objPHPExcel->getActiveSheet()->setCellValue('B4', empty($dataA->b) ? 0 : $dataA->b);
+    $objPHPExcel->getActiveSheet()->setCellValue('C4', empty($dataA->c) ? 0 : $dataA->c);
+    $objPHPExcel->getActiveSheet()->setCellValue('D4', empty($dataA->d) ? 0 : $dataA->d);
+    $objPHPExcel->getActiveSheet()->setCellValue('E4', empty($dataA->e) ? 0 : $dataA->e);
     // $objPHPExcel->getActiveSheet()->setCellValue('J4', $dataA2['b']);
     // $objPHPExcel->getActiveSheet()->setCellValue('K4', $dataA2['c']);
     // $objPHPExcel->getActiveSheet()->setCellValue('L4', $dataA2['d']);
@@ -226,13 +225,13 @@ for($i=1;$i<10;$i++){
     // $dataB = mysql_fetch_array(mysql_query($b));
     // $dataB2 = mysql_fetch_array(mysql_query($b2));
 
-    $dataB = DB::table('tbl_claim')->selectRaw("SUBSTRING(payment_st,1,1) as a ,COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("SUBSTRING(payment_st,1,1) IN ('B') GROUP BY payment_st")->get()[0];
+    $dataB = DB::table('tbl_claim')->selectRaw("SUBSTRING(payment_st,1,1) as a ,COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("SUBSTRING(payment_st,1,1) IN ('B') GROUP BY payment_st")->get();
     $dataB2 = DB::table('tbl_claim')->selectRaw("SUBSTRING(payment_st,1,1) as a ,COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("SUBSTRING(payment_st,1,1) IN ('B') AND date_firmins = 0000-00-00 OR date_firmins is null GROUP BY payment_st")->get();
 
-    $objPHPExcel->getActiveSheet()->setCellValue('B5', $dataB->b);
-    $objPHPExcel->getActiveSheet()->setCellValue('C5', $dataB->c);
-    $objPHPExcel->getActiveSheet()->setCellValue('D5', $dataB->d);
-    $objPHPExcel->getActiveSheet()->setCellValue('E5', $dataB->e);
+    $objPHPExcel->getActiveSheet()->setCellValue('B5', empty($dataB) ? 0 : $dataB[0]->b);
+    $objPHPExcel->getActiveSheet()->setCellValue('C5', empty($dataB) ? 0 : $dataB[0]->c);
+    $objPHPExcel->getActiveSheet()->setCellValue('D5', empty($dataB) ? 0 : $dataB[0]->d);
+    $objPHPExcel->getActiveSheet()->setCellValue('E5', empty($dataB) ? 0 : $dataB[0]->e);
     // $objPHPExcel->getActiveSheet()->setCellValue('J5', $dataB2['b']);
     // $objPHPExcel->getActiveSheet()->setCellValue('K5', $dataB2['c']);
     // $objPHPExcel->getActiveSheet()->setCellValue('L5', $dataB2['d']);
@@ -242,7 +241,7 @@ for($i=1;$i<10;$i++){
 
     // dd($c_h);
 
-    $c = DB::table('tbl_claim')->selectRaw("'C' as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_firmins, '%Y-%m') = substr(?,0,7)", [$todate])->get();
+    $c = DB::table('tbl_claim')->selectRaw("'C' as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_firmins, '%Y-%m') = substr('". $todate ."',0,7)")->get();
     // dd($c);
 
     $d_h = DB::table('tbl_claim')->selectRaw(" SUBSTRING(payment_st,1,1) as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("SUBSTRING(payment_st,1,1) IN ('D','E','F','G') GROUP BY payment_st")->get();
@@ -252,9 +251,9 @@ for($i=1;$i<10;$i++){
     // dd($h);
 
 
-    $dataG = DB::table('tbl_claim')->selectRaw("'G' as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_send_next, '%Y-%m-%d') = ?", [$todate])->get();
+    $dataG = DB::table('tbl_claim')->selectRaw("'G' as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_send_next, '%Y-%m-%d') = '". $todate ."'")->get();
     // dd($dataG);
-    $dataG2 = DB::table('tbl_claim')->selectRaw("'G' as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_send_next, '%Y-%m') = substr(?,0,7)", [$todate])->get();
+    $dataG2 = DB::table('tbl_claim')->selectRaw("'G' as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_send_next, '%Y-%m') = substr('". $todate ."',0,7)")->get();
     // dd($dataG2);
 
     // $objPHPExcel->getActiveSheet()->setCellValue('B10', $dataG['b']);
@@ -311,17 +310,17 @@ for($i=1;$i<10;$i++){
     // dd( $pay_key);
     // dd($arr_ch_key);
     for($i=0;$i<count($pay_st);$i++){
-        // if($arr_ch[$pay_st[$i]][0] != ""){
-        //     $objPHPExcel->getActiveSheet()->setCellValue('B'.(5+($i+1)),$arr_ch[$pay_st[$i]][0]);
-        //     $objPHPExcel->getActiveSheet()->setCellValue('C'.(5+($i+1)),$arr_ch[$pay_st[$i]][1]);
-        //     $objPHPExcel->getActiveSheet()->setCellValue('D'.(5+($i+1)),$arr_ch[$pay_st[$i]][2]);
-        //     $objPHPExcel->getActiveSheet()->setCellValue('E'.(5+($i+1)),$arr_ch[$pay_st[$i]][3]);
-        // }else{
-        //     $objPHPExcel->getActiveSheet()->setCellValue('B'.(5+($i+1)),0);
-        //     $objPHPExcel->getActiveSheet()->setCellValue('C'.(5+($i+1)),0);
-        //     $objPHPExcel->getActiveSheet()->setCellValue('D'.(5+($i+1)),0);
-        //     $objPHPExcel->getActiveSheet()->setCellValue('E'.(5+($i+1)),0);
-        // }
+        if($arr_ch[$pay_st[$i]][0] != ""){
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(5+($i+1)),$arr_ch[$pay_st[$i]][0]);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(5+($i+1)),$arr_ch[$pay_st[$i]][1]);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(5+($i+1)),$arr_ch[$pay_st[$i]][2]);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(5+($i+1)),$arr_ch[$pay_st[$i]][3]);
+        }else{
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.(5+($i+1)),0);
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.(5+($i+1)),0);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.(5+($i+1)),0);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.(5+($i+1)),0);
+        }
         // if($month_ch[$pay_st[$i]][0]!=""){
         //     $objPHPExcel->getActiveSheet()->setCellValue('J'.(5+($i+1)),$month_ch[$pay_st[$i]][0]);
         //     $objPHPExcel->getActiveSheet()->setCellValue('K'.(5+($i+1)),$month_ch[$pay_st[$i]][1]);
@@ -336,52 +335,53 @@ for($i=1;$i<10;$i++){
        
    }
 
-    $dataI = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) AS b,SUM(firm_doit) AS c,SUM(firm_sparepart) AS d,SUM(firm_all) AS e")->whereRaw("payment_st = 'I ขออนุมัติวางบิล'")->get()[0];
+    $dataI = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) AS b,SUM(firm_doit) AS c,SUM(firm_sparepart) AS d,SUM(firm_all) AS e")->whereRaw("payment_st = 'I ขออนุมัติวางบิล'")->get();
     // dd($dataI);
 
-    $dataI2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) AS b,SUM(firm_doit) AS c,SUM(firm_sparepart) AS d,SUM(firm_all) AS e")->whereRaw("DATE_FORMAT(date_ecliam, '%Y-%m') = substr(?,0,7)", [$todate])->get()[0];
+    $dataI2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) AS b,SUM(firm_doit) AS c,SUM(firm_sparepart) AS d,SUM(firm_all) AS e")->whereRaw("DATE_FORMAT(date_ecliam, '%Y-%m') = substr('". $todate ."',0,7)")->get()[0];
     // dd($dataI2);
 
-    $objPHPExcel->getActiveSheet()->setCellValue('B12', $dataI->b);
-    $objPHPExcel->getActiveSheet()->setCellValue('C12',$dataI->c);
-    $objPHPExcel->getActiveSheet()->setCellValue('D12',$dataI->d);
-    $objPHPExcel->getActiveSheet()->setCellValue('E12',$dataI->e);
+
+    $objPHPExcel->getActiveSheet()->setCellValue('B12', $dataI[0]->b === null ? 0 : $dataI[0]->b);
+    $objPHPExcel->getActiveSheet()->setCellValue('C12', $dataI[0]->c === null ? 0 : $dataI[0]->c);
+    $objPHPExcel->getActiveSheet()->setCellValue('D12',  $dataI[0]->d === null ? 0 : $dataI[0]->d);
+    $objPHPExcel->getActiveSheet()->setCellValue('E12', $dataI[0]->e === null ? 0 : $dataI[0]->e);
     // $objPHPExcel->getActiveSheet()->setCellValue('J12',$dataI2['b']);
     // $objPHPExcel->getActiveSheet()->setCellValue('K12',$dataI2['c']);
     // $objPHPExcel->getActiveSheet()->setCellValue('L12',$dataI2['d']);
     // $objPHPExcel->getActiveSheet()->setCellValue('M12',$dataI2['e']);
 
-    $dataJ = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("date_bill = ?", [$todate])->get()[0];
+    $dataJ = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("date_bill = '". $todate ."'")->get()[0];
     // dd($dataJ);
 
-    $dataJ2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_bill, '%Y-%m') = substr(?,0,7)", [$todate])->get()[0];
+    $dataJ2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_bill, '%Y-%m') = substr('". $todate ."',0,7)")->get()[0];
     // dd($dataJ2);
 
     // $objPHPExcel->getActiveSheet()->setCellValue('B13', $dataJ['b']);
     // $objPHPExcel->getActiveSheet()->setCellValue('C13',$dataJ['c']);
     // $objPHPExcel->getActiveSheet()->setCellValue('D13',$dataJ['d']);
     // $objPHPExcel->getActiveSheet()->setCellValue('E13',$dataJ['e']);
-    $objPHPExcel->getActiveSheet()->setCellValue('B13',$dataJ2->b);
-    $objPHPExcel->getActiveSheet()->setCellValue('C13',$dataJ2->c);
-    $objPHPExcel->getActiveSheet()->setCellValue('D13',$dataJ2->d);
-    $objPHPExcel->getActiveSheet()->setCellValue('E13',$dataJ2->e);
+    $objPHPExcel->getActiveSheet()->setCellValue('B13',$dataJ2->b === null ? 0 : $dataJ2->b);
+    $objPHPExcel->getActiveSheet()->setCellValue('C13',$dataJ2->c === null ? 0 : $dataJ2->c);
+    $objPHPExcel->getActiveSheet()->setCellValue('D13',$dataJ2->d === null ? 0 : $dataJ2->d);
+    $objPHPExcel->getActiveSheet()->setCellValue('E13',$dataJ2->e === null ? 0 : $dataJ2->e);
 
-    $dataK = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("date_transfer = ?", [$todate])->get()[0];
+    $dataK = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("date_transfer = '". $todate ."'")->get();
     // dd($dataK);
 
-    $dataK2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_transfer, '%Y-%m') = substr(?,0,7)", [$todate])->get()[0];
-    // dd($dataK2);
+    $dataK2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_transfer, '%Y-%m') = substr('". $todate ."',0,7)")->get();
+    // dd($dataK2[0]->b);
 
     // $objPHPExcel->getActiveSheet()->setCellValue('B14', $dataK['b']);
     // $objPHPExcel->getActiveSheet()->setCellValue('C14',$dataK['c']);
     // $objPHPExcel->getActiveSheet()->setCellValue('D14',$dataK['d']);
     // $objPHPExcel->getActiveSheet()->setCellValue('E14',$dataK['e']);
-    $objPHPExcel->getActiveSheet()->setCellValue('B14',$dataK2->b);
-    $objPHPExcel->getActiveSheet()->setCellValue('C14',$dataK2->c);
-    $objPHPExcel->getActiveSheet()->setCellValue('D14',$dataK2->d);
-    $objPHPExcel->getActiveSheet()->setCellValue('E14',$dataK2->e);
+    $objPHPExcel->getActiveSheet()->setCellValue('B14', $dataK2[0]->b === null ? 0 : $dataK2[0]->b);
+    $objPHPExcel->getActiveSheet()->setCellValue('C14', $dataK2[0]->c === null ? 0 : $dataK2[0]->c);
+    $objPHPExcel->getActiveSheet()->setCellValue('D14', $dataK2[0]->d === null ? 0 : $dataK2[0]->d);
+    $objPHPExcel->getActiveSheet()->setCellValue('E14', $dataK2[0]->e === null ? 0 : $dataK2[0]->e);
 
-    $dataL = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_status, '%Y-%m-%d') = ? AND SUBSTRING(payment_st,1,1) IN ('L') GROUP BY payment_st", [$todate])->get()[0];
+    $dataL = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_status, '%Y-%m-%d') = '". $todate ."' AND SUBSTRING(payment_st,1,1) IN ('L') GROUP BY payment_st")->get();
     // dd($dataL);
 
     $dataL2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_status, '%Y-%m') = substr('". $todate ."',0,7) AND SUBSTRING(payment_st,1,1) IN ('L') GROUP BY payment_st")->get();
@@ -391,10 +391,10 @@ for($i=1;$i<10;$i++){
     // $objPHPExcel->getActiveSheet()->setCellValue('C15',$dataL['c']);
     // $objPHPExcel->getActiveSheet()->setCellValue('D15',$dataL['d']);
     // $objPHPExcel->getActiveSheet()->setCellValue('E15',$dataL['e']);
-    $objPHPExcel->getActiveSheet()->setCellValue('B15',$dataL->b);
-    $objPHPExcel->getActiveSheet()->setCellValue('C15',$dataL->c);
-    $objPHPExcel->getActiveSheet()->setCellValue('D15',$dataL->d);
-    $objPHPExcel->getActiveSheet()->setCellValue('E15',$dataL->e);
+    $objPHPExcel->getActiveSheet()->setCellValue('B15', empty($dataL->b) ? 0 : $dataL[0]->b);
+    $objPHPExcel->getActiveSheet()->setCellValue('C15', empty($dataL->c) ? 0 : $dataL[0]->c);
+    $objPHPExcel->getActiveSheet()->setCellValue('D15', empty($dataL->d) ? 0 : $dataL[0]->d);
+    $objPHPExcel->getActiveSheet()->setCellValue('E15', empty($dataL->e) ? 0 : $dataL[0]->e);
 
 $objPHPExcel->getActiveSheet()->getStyle('A2:M15')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 $objPHPExcel->getActiveSheet()->getStyle('A2:M15')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);

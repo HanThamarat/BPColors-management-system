@@ -109,7 +109,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 						
 
 
-				$response = DB::table('tbl_claim')->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and  date_repair is not null  ORDER BY date_cliam ASC")->get();
+				$response = DB::table('tbl_claim')->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' ORDER BY date_cliam ASC")->get();
 
 
                 foreach ($response as $res) {
