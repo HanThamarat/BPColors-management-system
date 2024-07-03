@@ -172,7 +172,7 @@ $objPHPExcel->getProperties()->setCreator("Poobate Khunthong")
 								
 								$dateCli=date_create($row->date_cliam);
 								$diff=date_diff($dateCli,$dateNow);							
-								$dateFirm = $diff->format("%R%a days");
+								$dateFirm = $diff->format("%a");
 								if(substr($row->car_job,0,1)=="H"){
 									if($dateFirm>11){
 										$timeTxt = "เลยกำหนด";
@@ -210,7 +210,7 @@ $objPHPExcel->getProperties()->setCreator("Poobate Khunthong")
 								$objPHPExcel->getActiveSheet()->setCellValue('R'.($r+2),'');
 								$objPHPExcel->getActiveSheet()->setCellValue('S'.($r+2),$row->total_pay);								
 								$objPHPExcel->getActiveSheet()->setCellValue('T'.($r+2),$row->date_repair);
-								$objPHPExcel->getActiveSheet()->setCellValue('U'.($r+2),$row->date_dms);
+								$objPHPExcel->getActiveSheet()->setCellValue('U'.($r+2),$row->date_dms == null || $row->date_dms == '' ? "0000-00-00" : $row->date_dms);
 								$objPHPExcel->getActiveSheet()->setCellValue('V'.($r+2),'=IFERROR(IF(U'.($r+2).'="0000-00-00",NOW()-T'.($r+2).',U'.($r+2).'-T'.($r+2).'),0)');
 
 								if($row->date_dms === "0000-00-00"||$row->date_dms === ""){
@@ -221,7 +221,7 @@ $objPHPExcel->getProperties()->setCreator("Poobate Khunthong")
 								
 								$dateCli=date_create($row->date_repair);
 								$diff=date_diff($dateCli,$dateNow);							
-								$dateFirm = $diff->format("%R%a days");
+								$dateFirm = $diff->format("%a");
 								if($row->car_job === "H1"){
 									if($dateFirm>25){
 										$timeTxt = "เลยกำหนด";

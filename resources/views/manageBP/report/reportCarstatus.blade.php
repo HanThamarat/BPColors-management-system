@@ -117,7 +117,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
                     	$objPHPExcel->getActiveSheet()->getStyle('B:C')->getNumberFormat()->setFormatCode('yyyy-mm-dd');
                     	$objPHPExcel->getActiveSheet()->setCellValue('A'.($r+2),$no);
                     	$objPHPExcel->getActiveSheet()->setCellValue('B'.($r+2),$res->date_repair);
-                    	$objPHPExcel->getActiveSheet()->setCellValue('C'.($r+2),$res->date_dms);
+                    	$objPHPExcel->getActiveSheet()->setCellValue('C'.($r+2),$res->date_dms == null || $res->date_dms == '' ? "0000-00-00" : $res->date_dms);
                     	$objPHPExcel->getActiveSheet()->setCellValue('D'.($r+2),'=IF(C'.($r+2).'="0000-00-00",NOW()-B'.($r+2).',C'.($r+2).'-B'.($r+2).')');
 
                     	if($res-> date_dms == "0000-00-00" || $res->date_dms == null){
@@ -128,7 +128,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
                         
                     	$dateCli=date_create($res->date_repair);
                     	$diff=date_diff($dateCli,$dateNow);							
-                    	$dateFirm = $diff->format("%R%a days");
+                    	$dateFirm = $diff->format("%a");
                     	if(substr($res->car_job,0,1)=="H"){
                     		if($dateFirm>21){
                     			$timeTxt = "เลยกำหนด";
