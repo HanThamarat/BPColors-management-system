@@ -261,7 +261,7 @@ $objPHPExcel->getProperties()->setCreator("Poobate Khunthong")
 								}
 								//$fomula= "=IFS(LEFT(K2,1)='H',IF(D2>20,'เกินกำหนด','ปกติ'),LEFT(K2,1)='M',IF(D2>10,'เกินกำหนด','ปกติ'),LEFT(K2,1)='L',IF(D2>5,'เกินกำหนด','ปกติ'))";
 								$objPHPExcel->getActiveSheet()->setCellValue('W'.($r+2),$timeTxt);
-								$objPHPExcel->getActiveSheet()->setCellValue('X'.($r+2),$row->date_service);	
+								$objPHPExcel->getActiveSheet()->setCellValue('X'.($r+2),$row->date_service == null || $row->date_service == '' ? "0000-00-00" : $row->date_service);	
 								$objPHPExcel->getActiveSheet()->setCellValue('Y'.($r+2),$row->remark);	
 								$objPHPExcel->getActiveSheet()->setCellValue('Z'.($r+2),$row->car_job);
 								
