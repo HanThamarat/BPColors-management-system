@@ -161,7 +161,7 @@ $objPHPExcel->getProperties()->setCreator("Poobate Khunthong")
 								$objPHPExcel->getActiveSheet()->setCellValue('B'.($r+2),$row->no_claim);
 								$objPHPExcel->getActiveSheet()->setCellValue('C'.($r+2),$row->date_status);
 								$objPHPExcel->getActiveSheet()->setCellValue('D'.($r+2),$row->date_cliam);
-								$objPHPExcel->getActiveSheet()->setCellValue('E'.($r+2),$row->date_firmins);
+								$objPHPExcel->getActiveSheet()->setCellValue('E'.($r+2),$row->date_firmins == null || $row->date_firmins == '' ? "0000-00-00" : $row->date_firmins);
 								$objPHPExcel->getActiveSheet()->setCellValue('F'.($r+2),'=IFERROR(IF(E'.($r+2).'="0000-00-00",NOW()-D'.($r+2).',E'.($r+2).'-D'.($r+2).'),0)');
 
 								if($row->date_firmins === "0000-00-00"|| $row->date_firmins === ""){
