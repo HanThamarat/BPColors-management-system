@@ -210,7 +210,7 @@ $objPHPExcel->getProperties()->setCreator("Poobate Khunthong")
 								$objPHPExcel->getActiveSheet()->setCellValue('Q'.($r+2),$row->user_con);
 								$objPHPExcel->getActiveSheet()->setCellValue('R'.($r+2),'');
 								$objPHPExcel->getActiveSheet()->setCellValue('S'.($r+2),$row->total_pay);								
-								$objPHPExcel->getActiveSheet()->setCellValue('T'.($r+2),$row->date_repair);
+								$objPHPExcel->getActiveSheet()->setCellValue('T'.($r+2),$row->date_repair == null || $row->date_repair == '' ? "0000-00-00" : $row->date_repair);
 								$objPHPExcel->getActiveSheet()->setCellValue('U'.($r+2),$row->date_dms == null || $row->date_dms == '' ? "0000-00-00" : $row->date_dms);
 								$objPHPExcel->getActiveSheet()->setCellValue('V'.($r+2),'=IFERROR(IF(U'.($r+2).'="0000-00-00",NOW()-T'.($r+2).',U'.($r+2).'-T'.($r+2).'),0)');
 
