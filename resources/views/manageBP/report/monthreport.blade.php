@@ -341,7 +341,7 @@ for($i=1;$i<10;$i++){
     $dataI2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) AS b,SUM(firm_doit) AS c,SUM(firm_sparepart) AS d,SUM(firm_all) AS e")->whereRaw("DATE_FORMAT(date_ecliam, '%Y-%m') = substr('". $todate ."',0,7)")->get()[0];
     // dd($dataI2);
 
-
+   // repor
     $objPHPExcel->getActiveSheet()->setCellValue('B12', $dataI[0]->b === null ? 0 : $dataI[0]->b);
     $objPHPExcel->getActiveSheet()->setCellValue('C12', $dataI[0]->c === null ? 0 : $dataI[0]->c);
     $objPHPExcel->getActiveSheet()->setCellValue('D12',  $dataI[0]->d === null ? 0 : $dataI[0]->d);
