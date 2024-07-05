@@ -156,6 +156,7 @@ $objPHPExcel->getProperties()->setCreator("Poobate Khunthong")
 			          $objPHPExcel->getActiveSheet()->mergeCells('A'.($r+1).':M'.($r+1));
 			          $no = 1;
 
+					//   loop car status
                       foreach ($response as $row) {
                             	$objPHPExcel->getActiveSheet()->setCellValue('A'.($r+2),$no);
 								$objPHPExcel->getActiveSheet()->setCellValue('B'.($r+2),$row->no_claim);
