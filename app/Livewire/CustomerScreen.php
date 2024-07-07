@@ -10,6 +10,8 @@ use App\Models\tbl_stock_technician;
 use App\Models\tbl_wip;
 use Illuminate\Support\Facades\Auth;
 
+use Carbon\Carbon;
+
 class CustomerScreen extends Component
 {
     public $userId;
@@ -447,28 +449,59 @@ class CustomerScreen extends Component
     }
 
     public function saveFormCustomer() {
-        tbl_claim::where(['id' => $this->userId])->update([
-            'no_claim' => $this->clm_number,
-            'no_policy' => $this->policy_number,
-            'no_job' => $this->job_number,
-            'cus_name' => $this->cus_name,
-            'cus_tel' => $this->cus_phoneNumber,
-            'no_regiscar' => $this->regiscar_number,
-            'car_brand' => $this->car_brand,
-            'car_model' => $this->car_model,
-            'car_chassis' => $this->car_body_number,
-            'status_deduct' => $this->except,
-            'insure_type' => $this->insurence_type,
-            'cus_resource' => $this->cus_resource,
-            'insure_source' => $this->insurence,
-            'status_color' => $this->color,
-            'car_job' => $this->work_type,
-            'insure_name' => $this->insurence_name,
-            'emcs' => $this->insurence_EMCS,
-            'remark' => $this->note,
-            'payment_st' => $this->claim_status,
-            'user_con' => $this->clm_recipient,
-        ]);
+        $now = Carbon::now('Asia/Bangkok');
+        $bangkokTime = $now->format('Y-m-d');
+        $response = tbl_claim::where(['id' => $this->userId])->get();
+
+        if($response[0]->payment_st === $this->claim_status) {
+            tbl_claim::where(['id' => $this->userId])->update([
+                'no_claim' => $this->clm_number,
+                'no_policy' => $this->policy_number,
+                'no_job' => $this->job_number,
+                'cus_name' => $this->cus_name,
+                'cus_tel' => $this->cus_phoneNumber,
+                'no_regiscar' => $this->regiscar_number,
+                'car_brand' => $this->car_brand,
+                'car_model' => $this->car_model,
+                'car_chassis' => $this->car_body_number,
+                'status_deduct' => $this->except,
+                'insure_type' => $this->insurence_type,
+                'cus_resource' => $this->cus_resource,
+                'insure_source' => $this->insurence,
+                'status_color' => $this->color,
+                'car_job' => $this->work_type,
+                'insure_name' => $this->insurence_name,
+                'emcs' => $this->insurence_EMCS,
+                'remark' => $this->note,
+                'payment_st' => $this->claim_status,
+                'user_con' => $this->clm_recipient,
+            ]);
+        } else {
+            // update payment_st 
+            tbl_claim::where(['id' => $this->userId])->update([
+                'no_claim' => $this->clm_number,
+                'no_policy' => $this->policy_number,
+                'no_job' => $this->job_number,
+                'cus_name' => $this->cus_name,
+                'cus_tel' => $this->cus_phoneNumber,
+                'no_regiscar' => $this->regiscar_number,
+                'car_brand' => $this->car_brand,
+                'car_model' => $this->car_model,
+                'car_chassis' => $this->car_body_number,
+                'status_deduct' => $this->except,
+                'insure_type' => $this->insurence_type,
+                'cus_resource' => $this->cus_resource,
+                'insure_source' => $this->insurence,
+                'status_color' => $this->color,
+                'car_job' => $this->work_type,
+                'insure_name' => $this->insurence_name,
+                'emcs' => $this->insurence_EMCS,
+                'remark' => $this->note,
+                'payment_st' => $this->claim_status,
+                'date_transfer' => $bangkokTime,
+                'user_con' => $this->clm_recipient,
+            ]);
+        }
 
         $this->dispatch('alert',
             position: 'center',
