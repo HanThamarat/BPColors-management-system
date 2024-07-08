@@ -9,6 +9,7 @@ use App\Models\tbl_claim;
 use App\Models\tbl_stock_technician;
 use App\Models\tbl_wip;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 use Carbon\Carbon;
 
@@ -520,15 +521,15 @@ class CustomerScreen extends Component
 
         $no_claim = DB::table('tbl_claim')->where(['id' => session()->get('userID')])->get()[0]->no_claim;
         // $this->type_doit = DB::table('tbl_wip')->whereRaw("no_claimex = '". $no_claim ."'")->get();
-
+        $role = ['PA'];
         return view('livewire.customer-screen', [
             'getUserData' => DB::table('tbl_claim')->where(['id' => session()->get('userID')])->get()[0],
             'wipData' => DB::table('tbl_wip')->whereRaw("no_claimex = '". $no_claim ."'")->get(),
             'getJob' => DB::table('job_cal')->get(),
-            'userdata_pa' => DB::table('users')
-            ->selectRaw("id ,name")
-            ->whereRaw("role = 'PA' AND status = 'active' ")
-            ->get(),
+            "userdata_pa" => User::selectRaw("id ,name")
+            ->whereHas('roles', function($q) use ($role){
+                $q->whereIn('name', $role);
+            })->get(),
         ]);
     }
 }
