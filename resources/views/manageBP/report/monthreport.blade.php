@@ -206,7 +206,7 @@ for($i=1;$i<10;$i++){
 }
 
     $dataA = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("payment_st = 'A เปิดใบรับรถ'")->get();
-    $dataA2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("SUBSTR(date_cliam,1,7) = substr(?,0,7)", [$todate])->get();
+    $dataA2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("SUBSTR(date_cliam,1,7) = DATE_FORMAT('". $todate ."', '%Y-%m')")->get();
 
 
     $objPHPExcel->getActiveSheet()->setCellValue('B4', empty($dataA->b) ? 0 : $dataA->b);
@@ -241,7 +241,7 @@ for($i=1;$i<10;$i++){
 
     // dd($c_h);
 
-    $c = DB::table('tbl_claim')->selectRaw("'C' as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_firmins, '%Y-%m') = substr('". $todate ."',0,7)")->get();
+    $c = DB::table('tbl_claim')->selectRaw("'C' as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_firmins, '%Y-%m') = DATE_FORMAT('". $todate ."', '%Y-%m')")->get();
     // dd($c);
 
     $d_h = DB::table('tbl_claim')->selectRaw(" SUBSTRING(payment_st,1,1) as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("SUBSTRING(payment_st,1,1) IN ('D','E','F','G') GROUP BY payment_st")->get();
@@ -253,7 +253,7 @@ for($i=1;$i<10;$i++){
 
     $dataG = DB::table('tbl_claim')->selectRaw("'G' as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_send_next, '%Y-%m-%d') = '". $todate ."'")->get();
     // dd($dataG);
-    $dataG2 = DB::table('tbl_claim')->selectRaw("'G' as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_send_next, '%Y-%m') = substr('". $todate ."',0,7)")->get();
+    $dataG2 = DB::table('tbl_claim')->selectRaw("'G' as a,count(no_claim) as b,sum(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_send_next, '%Y-%m') = DATE_FORMAT('". $todate ."', '%Y-%m')")->get();
     // dd($dataG2);
 
     // $objPHPExcel->getActiveSheet()->setCellValue('B10', $dataG['b']);
@@ -338,7 +338,7 @@ for($i=1;$i<10;$i++){
     $dataI = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) AS b,SUM(firm_doit) AS c,SUM(firm_sparepart) AS d,SUM(firm_all) AS e")->whereRaw("payment_st = 'I ขออนุมัติวางบิล'")->get();
     // dd($dataI);
 
-    $dataI2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) AS b,SUM(firm_doit) AS c,SUM(firm_sparepart) AS d,SUM(firm_all) AS e")->whereRaw("DATE_FORMAT(date_ecliam, '%Y-%m') = substr('". $todate ."',0,7)")->get()[0];
+    $dataI2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) AS b,SUM(firm_doit) AS c,SUM(firm_sparepart) AS d,SUM(firm_all) AS e")->whereRaw("DATE_FORMAT(date_ecliam, '%Y-%m') = DATE_FORMAT('". $todate ."', '%Y-%m')")->get()[0];
     // dd($dataI2);
 
    // repor
@@ -354,7 +354,7 @@ for($i=1;$i<10;$i++){
     $dataJ = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("date_bill = '". $todate ."'")->get()[0];
     // dd($dataJ);
 
-    $dataJ2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_bill, '%Y-%m') = substr('". $todate ."',0,7)")->get()[0];
+    $dataJ2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_bill, '%Y-%m') = DATE_FORMAT('". $todate ."', '%Y-%m')")->get()[0];
     // dd($dataJ2);
 
     // $objPHPExcel->getActiveSheet()->setCellValue('B13', $dataJ['b']);
@@ -369,7 +369,7 @@ for($i=1;$i<10;$i++){
     $dataK = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("date_transfer = '". $todate ."'")->get();
     // dd($dataK);
 
-    $dataK2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_transfer, '%Y-%m') = substr('". $todate ."',0,7)")->get();
+    $dataK2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_transfer, '%Y-%m') = DATE_FORMAT('". $todate ."', '%Y-%m')")->get();
     // dd($dataK2[0]->b);
 
     // $objPHPExcel->getActiveSheet()->setCellValue('B14', $dataK['b']);
