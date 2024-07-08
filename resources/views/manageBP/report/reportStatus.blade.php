@@ -156,12 +156,13 @@ $objPHPExcel->getProperties()->setCreator("Poobate Khunthong")
 			          $objPHPExcel->getActiveSheet()->mergeCells('A'.($r+1).':M'.($r+1));
 			          $no = 1;
 
+					//   loop car status
                       foreach ($response as $row) {
                             	$objPHPExcel->getActiveSheet()->setCellValue('A'.($r+2),$no);
 								$objPHPExcel->getActiveSheet()->setCellValue('B'.($r+2),$row->no_claim);
 								$objPHPExcel->getActiveSheet()->setCellValue('C'.($r+2),$row->date_status);
 								$objPHPExcel->getActiveSheet()->setCellValue('D'.($r+2),$row->date_cliam);
-								$objPHPExcel->getActiveSheet()->setCellValue('E'.($r+2),$row->date_firmins);
+								$objPHPExcel->getActiveSheet()->setCellValue('E'.($r+2),$row->date_firmins == null || $row->date_firmins == '' ? "0000-00-00" : $row->date_firmins);
 								$objPHPExcel->getActiveSheet()->setCellValue('F'.($r+2),'=IFERROR(IF(E'.($r+2).'="0000-00-00",NOW()-D'.($r+2).',E'.($r+2).'-D'.($r+2).'),0)');
 
 								if($row->date_firmins === "0000-00-00"|| $row->date_firmins === ""){
@@ -209,7 +210,7 @@ $objPHPExcel->getProperties()->setCreator("Poobate Khunthong")
 								$objPHPExcel->getActiveSheet()->setCellValue('Q'.($r+2),$row->user_con);
 								$objPHPExcel->getActiveSheet()->setCellValue('R'.($r+2),'');
 								$objPHPExcel->getActiveSheet()->setCellValue('S'.($r+2),$row->total_pay);								
-								$objPHPExcel->getActiveSheet()->setCellValue('T'.($r+2),$row->date_repair);
+								$objPHPExcel->getActiveSheet()->setCellValue('T'.($r+2),$row->date_repair == null || $row->date_repair == '' ? "0000-00-00" : $row->date_repair);
 								$objPHPExcel->getActiveSheet()->setCellValue('U'.($r+2),$row->date_dms == null || $row->date_dms == '' ? "0000-00-00" : $row->date_dms);
 								$objPHPExcel->getActiveSheet()->setCellValue('V'.($r+2),'=IFERROR(IF(U'.($r+2).'="0000-00-00",NOW()-T'.($r+2).',U'.($r+2).'-T'.($r+2).'),0)');
 
@@ -260,7 +261,7 @@ $objPHPExcel->getProperties()->setCreator("Poobate Khunthong")
 								}
 								//$fomula= "=IFS(LEFT(K2,1)='H',IF(D2>20,'เกินกำหนด','ปกติ'),LEFT(K2,1)='M',IF(D2>10,'เกินกำหนด','ปกติ'),LEFT(K2,1)='L',IF(D2>5,'เกินกำหนด','ปกติ'))";
 								$objPHPExcel->getActiveSheet()->setCellValue('W'.($r+2),$timeTxt);
-								$objPHPExcel->getActiveSheet()->setCellValue('X'.($r+2),$row->date_service);	
+								$objPHPExcel->getActiveSheet()->setCellValue('X'.($r+2),$row->date_service == null || $row->date_service == '' ? "0000-00-00" : $row->date_service);	
 								$objPHPExcel->getActiveSheet()->setCellValue('Y'.($r+2),$row->remark);	
 								$objPHPExcel->getActiveSheet()->setCellValue('Z'.($r+2),$row->car_job);
 								

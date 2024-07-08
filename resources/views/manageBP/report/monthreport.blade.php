@@ -354,6 +354,7 @@ for($i=1;$i<10;$i++){
     $dataJ = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("date_bill = '". $todate ."'")->get()[0];
     // dd($dataJ);
 
+    $dataJ2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("payment_st = 'J วางบิลเรียบร้อย' AND DATE_FORMAT(date_transfer, '%Y-%m') = DATE_FORMAT('". $todate ."', '%Y-%m')")->get()[0];
     $dataJ2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_bill, '%Y-%m') = DATE_FORMAT('". $todate ."', '%Y-%m')")->get()[0];
     // dd($dataJ2);
 
@@ -369,6 +370,8 @@ for($i=1;$i<10;$i++){
     $dataK = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("date_transfer = '". $todate ."'")->get();
     // dd($dataK);
 
+    $dataK2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("payment_st = 'K ชำระเงินแล้ว' AND DATE_FORMAT(date_transfer, '%Y-%m') = DATE_FORMAT('". $todate ."', '%Y-%m')")->get();
+    // dd($dataK2);
     $dataK2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_transfer, '%Y-%m') = DATE_FORMAT('". $todate ."', '%Y-%m')")->get();
     // dd($dataK2[0]->b);
 

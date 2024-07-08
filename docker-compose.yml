@@ -34,6 +34,7 @@ services:
     # DATABASE (MySQL)
     db:
       image: mysql:8.0.19
+      platform: linux/x86_64
       container_name: mysql_mitsuBP
       command: --default-authentication-plugin=mysql_native_password
       environment:
