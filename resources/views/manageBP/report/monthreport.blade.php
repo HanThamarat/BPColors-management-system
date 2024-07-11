@@ -310,7 +310,7 @@ for($i=1;$i<10;$i++){
     // dd( $pay_key);
     // dd($arr_ch_key);
     for($i=0;$i<count($pay_st);$i++){
-        if($arr_ch[$pay_st[$i]][0] != ""){
+        if(@$arr_ch[$pay_st[$i]][0] != ""){
             $objPHPExcel->getActiveSheet()->setCellValue('B'.(5+($i+1)),$arr_ch[$pay_st[$i]][0]);
             $objPHPExcel->getActiveSheet()->setCellValue('C'.(5+($i+1)),$arr_ch[$pay_st[$i]][1]);
             $objPHPExcel->getActiveSheet()->setCellValue('D'.(5+($i+1)),$arr_ch[$pay_st[$i]][2]);
