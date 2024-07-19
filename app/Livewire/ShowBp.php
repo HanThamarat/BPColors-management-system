@@ -76,7 +76,7 @@ class ShowBp extends Component
             ->when($Fdate !== null && $Tdate !== null, function($q) use ($Fdate, $Tdate) {
                 return $q->whereBetween('date_cliam', [$Fdate, $Tdate]);
             })
-            ->whereRaw("no_claim like '%". $this->search ."%' AND no_regiscar LIKE '%". $this->no_regiscar ."%' AND payment_st LIKE '%" . $this->claim_st . "%'")->paginate(5)
+            ->whereRaw("no_job like '%". $this->search ."%' AND no_regiscar LIKE '%". $this->no_regiscar ."%' AND payment_st LIKE '%" . $this->claim_st . "%'")->paginate(5)
         ]);
     }
 }

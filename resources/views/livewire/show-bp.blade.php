@@ -30,7 +30,7 @@
                 </select>
             </div>
             <div class="lg:ml-1">
-                <label for="">เลขที่เครม</label>
+                <label for="">เลข JOB</label>
                 <div class="flex items-center">
                     <input type="text" class="w-full py-1 px-2 bg-gray-200 rounded" style="border: none;" placeholder="search.." wire:model.live="search">
                 </div>
