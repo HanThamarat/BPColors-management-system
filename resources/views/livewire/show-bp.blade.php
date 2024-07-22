@@ -180,29 +180,38 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-x-1">
                                     @php
-                                        $btn_arr_data = [
-                                            [
-                                                'icon' => 'fa-regular fa-user',
-                                                'icon-color' => '',
-                                                'icon-hover-color' => 'blue',
-                                                'active-func' => 'redirects',
-                                            ],
-                                            [
-                                                'icon' => 'fa-solid fa-trash',
-                                                'icon-color' => '',
-                                                'icon-hover-color' => 'red',
-                                                'active-func' => 'deleteRow',
-                                            ],
-                                        ];
+                                        if (auth()->user()->hasRole('superadmin')) {
+                                            $btn_arr_data = [
+                                                [
+                                                    'icon' => 'fa-regular fa-user',
+                                                    'icon-color' => '',
+                                                    'icon-hover-color' => 'blue',
+                                                    'active-func' => 'redirects',
+                                                ],
+                                                [
+                                                    'icon' => 'fa-solid fa-trash',
+                                                    'icon-color' => '',
+                                                    'icon-hover-color' => 'red',
+                                                    'active-func' => 'deleteRow',
+                                                ],
+                                            ];
+                                        } else {
+                                            $btn_arr_data = [
+                                                [
+                                                    'icon' => 'fa-regular fa-user',
+                                                    'icon-color' => '',
+                                                    'icon-hover-color' => 'blue',
+                                                    'active-func' => 'redirects',
+                                                ]
+                                            ];
+                                        }
                                     @endphp
-                                    @hasrole(['superadmin'])
-                                        @component('components.radius-full-btn')
-                                            @slot('data', [
-                                                'btn-data-arr' => $btn_arr_data,
-                                                'claim_id' => $items->id
-                                            ])
-                                        @endcomponent
-                                    @endhasrole
+                                    @component('components.radius-full-btn')
+                                        @slot('data', [
+                                            'btn-data-arr' => $btn_arr_data,
+                                            'claim_id' => $items->id
+                                        ])
+                                    @endcomponent
                                 </div>
                             </td>
                         </tr>
