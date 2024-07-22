@@ -195,12 +195,14 @@
                                             ],
                                         ];
                                     @endphp
-                                    @component('components.radius-full-btn')
-                                        @slot('data', [
-                                            'btn-data-arr' => $btn_arr_data,
-                                            'claim_id' => $items->id
-                                        ])
-                                    @endcomponent
+                                    @hasrole(['superadmin'])
+                                        @component('components.radius-full-btn')
+                                            @slot('data', [
+                                                'btn-data-arr' => $btn_arr_data,
+                                                'claim_id' => $items->id
+                                            ])
+                                        @endcomponent
+                                    @endhasrole
                                 </div>
                             </td>
                         </tr>

@@ -71,12 +71,16 @@ class ShowBp extends Component
     {
         $Fdate = $this->fromdate;
         $Tdate = $this->todate;
+        $searchOnJob = $this->search;
         return view('livewire.show-bp', [
             'GetClaim' => DB::table('tbl_claim')
             ->when($Fdate !== null && $Tdate !== null, function($q) use ($Fdate, $Tdate) {
                 return $q->whereBetween('date_cliam', [$Fdate, $Tdate]);
             })
-            ->whereRaw("no_job like '%". $this->search ."%' AND no_regiscar LIKE '%". $this->no_regiscar ."%' AND payment_st LIKE '%" . $this->claim_st . "%'")->paginate(5)
+            ->when($searchOnJob !== null, function($q) use ($searchOnJob) {
+                return $q->where('no_job', 'LIKE', '%'. $searchOnJob .'%');
+            })
+            ->whereRaw("no_regiscar LIKE '%". $this->no_regiscar ."%' AND payment_st LIKE '%" . $this->claim_st . "%'")->paginate(5)
         ]);
     }
 }
