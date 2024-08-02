@@ -4,9 +4,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 	
- 	 $fromdate = '2024-04-14';
- 	 $todate = '2024-04-20';
+ 	 $fromdate;
+ 	 $todate;
 	
 	$marr[1] = "January";
 	$marr[2] = "February";
@@ -108,7 +109,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:G1')->applyFromArray(
 				$total = 0;
                 $total2 = 0;
 						
-                    $response = DB::table('tbl_claim')->rightJoin('tbl_wip', 'tbl_claim.no_claim', '=' , 'tbl_wip.no_claimex')->whereRaw("SUBSTRING(tbl_claim.payment_st,1,1) in ('G','H','I','J','K') AND tbl_claim.date_dms BETWEEN '2024-04-14' AND '2024-04-22' ORDER BY tbl_claim.date_dms DESC")->get();
+                    $response = DB::table('tbl_claim')->rightJoin('tbl_wip', 'tbl_claim.no_claim', '=' , 'tbl_wip.no_claimex')->whereRaw("SUBSTRING(tbl_claim.payment_st,1,1) in ('G','H','I','J','K') AND tbl_claim.date_dms BETWEEN '". $fromdate ."' AND '". $todate ."' ORDER BY tbl_claim.date_dms DESC")->get();
                     
                     foreach ($response as $res) {
                         $objPHPExcel->getActiveSheet()->setCellValue('A'.($r+2),$no);
@@ -187,23 +188,26 @@ $start = intval(substr($fromdate,8,10));
 $objPHPExcel->getActiveSheet()->setCellValue([ 3, $row ], 'Name');
 
 	 
-
+$res;
 
 for($i=$start;$i<=$num;$i++){
     $objPHPExcel->getActiveSheet()->setCellValue([($row+$t) , (3) ], substr($fromdate,0,7).'-'.sprintf("%02d",$i));
 	$work_n2 = DB::table('tbl_technician')->whereRaw("active ='yes'")->get();
 	$n2 = 1;
     foreach ($work_n2 as $name) {
-        $res = DB::table('tbl_claim')
-		->rightJoin('tbl_wip', 'tbl_claim.no_claim', '=', 'tbl_wip.no_claimex')
-		->selectRaw("tbl_claim.date_dms , SUM(tbl_wip.cal_doit) AS sum")
-		->whereRaw("tbl_wip.respon_name = ? AND tbl_claim.date_dms = ? GROUP BY tbl_claim.date_dms", [
-			$name->name, substr($fromdate,0,7).'-'.sprintf("%02d",$i)
-		])->get();
-        // $objPHPExcel->getActiveSheet()->setCellValue([($row+$t) , (3+$n2) ], $res->date_dms);
+        // $res = DB::table('tbl_claim')
+		// ->rightJoin('tbl_wip', 'tbl_claim.no_claim', '=', 'tbl_wip.no_claimex')
+		// ->selectRaw("tbl_claim.date_dms , SUM(tbl_wip.cal_doit) as s")
+		// ->whereRaw("tbl_wip.respon_name = '". $name->name ."' AND tbl_claim.date_dms = '". substr($fromdate,0,7).'-'.sprintf("%02d",$i) ."' GROUP BY tbl_claim.date_dms")->get();
+        $res = DB::select("
+			SELECT a.date_dms , SUM(b.cal_doit) as s 
+			FROM tbl_claim AS a LEFT JOIN tbl_wip AS b ON a.no_claim = b.no_claimex
+			WHERE b.respon_name ='". $name->name ."' AND a.date_dms = '". substr($fromdate,0,7).'-'.sprintf("%02d",$i) ."' GROUP BY a.date_dms
+		");
+	
+        $objPHPExcel->getActiveSheet()->setCellValue([($row+$t) , (3+$n2)], empty($res) ? 0 : $res[0]->s);
 		$n2++;
     }
-
 	$sumT_col3 = $objPHPExcel->getActiveSheet()->getCell([($row+$t),(3+$n2)])->getColumn();
 	$objPHPExcel->getActiveSheet()->setCellValue([($row+$t),(3+$n2)], '=SUM('.$sumT_col3.'4:'.$sumT_col3.($n2+2).')');
     $t++;
