@@ -323,17 +323,9 @@ class CustomerScreen extends Component
                     // dump($res);
 
                     if($response->firm_doit !== 0.00 || $response->firm_doit !== '') {
-                        $firm_doit = $response->firm_doit;
-                        $cal_job = ((floatval($firm_doit)*floatval($job[$this->type_doit[$i]->type_doit]))/floatval(count(array($this->type_doit, $this->type_doit[$i]))));
-    
                         DB::table('tbl_wip')->where(['no' => intval($this->wipDatas[$i]->no)])->update([
                             'no_claimex' => $response->no_claim,
-                            'type_doit' => $this->type_doit[$i]->type_doit,
                             'respon_name' => $this->respon_name[$i]->respon_name,
-                            'date_start' => $this->date_start[$i]->date_start,
-                            'date_stop' => $this->date_stop[$i]->date_stop,
-                            'cal_doit' => $cal_job,
-                            'date_create' => now(),
                             'user_create' => $user_id
                         ]);
                     }
