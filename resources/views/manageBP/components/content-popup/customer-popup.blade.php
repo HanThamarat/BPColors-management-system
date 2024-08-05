@@ -82,7 +82,7 @@
         </div>
         <div class="w-full mx-2">
                 <label>ผู้รับเคส</label>
-                <select name="clm_recipient" id="" class="{{ auth()->user()->hasRole(['superadmin', 'admin']) ? '' : 'bg-gray-100' }} w-full rounded" wire:model="clm_recipient" {{ auth()->user()->hasRole(['superadmin', 'admin']) ? '' : 'disabled' }}>
+                <select name="clm_recipient" id="" class="{{ auth()->user()->hasRole(['superadmin', 'admin', 'BP']) ? '' : 'bg-gray-100' }} w-full rounded" wire:model="clm_recipient" {{ auth()->user()->hasRole(['superadmin', 'admin', 'BP']) ? '' : 'disabled' }}>
                     <option value="">---เลือกผู้รับเคส---</option>
                     @foreach ($userdata_pa as $item)
                         <option value="{{ $item->name }}">{{ $item->name }}</option>
