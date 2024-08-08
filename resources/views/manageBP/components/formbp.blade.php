@@ -136,7 +136,10 @@
                             <option value="ซ่อมเงินสด">ซ่อมเงินสด</option>
                             <option value="เงินส่วนต่างค่าแรง-ค่าอะไหล่">เงินส่วนต่างค่าแรง-ค่าอะไหล่</option>
                             <option value="เงินค่า Excess">เงินค่า Excess</option>																
-                            <option value="เคลมภายใน">เคลมภายใน</option>			
+                            {{-- <option value="เคลมภายใน">เคลมภายใน</option>			 --}}
+                            <option value="งบฝ่ายขาย">งบฝ่ายขาย</option>			
+                            <option value="ค่าใช้จ่ายฝ่ายขาย">ค่าใช้จ่ายฝ่ายขาย</option>			
+                            <option value="ค่าใช้จ่ายศูนย์บริการ">ค่าใช้จ่ายศูนย์บริการ</option>			
                         </select>
                     </div>
                     <div class="w-full lg:ml-2">
