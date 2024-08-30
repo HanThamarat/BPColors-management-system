@@ -209,10 +209,10 @@ for($i=1;$i<10;$i++){
     $dataA2 = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("SUBSTR(date_cliam,1,7) = DATE_FORMAT('". $todate ."', '%Y-%m')")->get();
 
 
-    $objPHPExcel->getActiveSheet()->setCellValue('B4', empty($dataA->b) ? 0 : $dataA->b);
-    $objPHPExcel->getActiveSheet()->setCellValue('C4', empty($dataA->c) ? 0 : $dataA->c);
-    $objPHPExcel->getActiveSheet()->setCellValue('D4', empty($dataA->d) ? 0 : $dataA->d);
-    $objPHPExcel->getActiveSheet()->setCellValue('E4', empty($dataA->e) ? 0 : $dataA->e);
+    $objPHPExcel->getActiveSheet()->setCellValue('B4', empty($dataA->b) ? 0 : @$dataA->b);
+    $objPHPExcel->getActiveSheet()->setCellValue('C4', empty($dataA->c) ? 0 : @$dataA->c);
+    $objPHPExcel->getActiveSheet()->setCellValue('D4', empty($dataA->d) ? 0 : @$dataA->d);
+    $objPHPExcel->getActiveSheet()->setCellValue('E4', empty($dataA->e) ? 0 : @$dataA->e);
     // $objPHPExcel->getActiveSheet()->setCellValue('J4', $dataA2['b']);
     // $objPHPExcel->getActiveSheet()->setCellValue('K4', $dataA2['c']);
     // $objPHPExcel->getActiveSheet()->setCellValue('L4', $dataA2['d']);
@@ -228,10 +228,12 @@ for($i=1;$i<10;$i++){
     $dataB = DB::table('tbl_claim')->selectRaw("SUBSTRING(payment_st,1,1) as a ,COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("SUBSTRING(payment_st,1,1) IN ('B') GROUP BY payment_st")->get();
     $dataB2 = DB::table('tbl_claim')->selectRaw("SUBSTRING(payment_st,1,1) as a ,COUNT(no_claim) as b,SUM(cost_doit) as c,SUM(cost_sparepart) as d,SUM(cost_totel) as e")->whereRaw("SUBSTRING(payment_st,1,1) IN ('B') AND date_firmins = 0000-00-00 OR date_firmins is null GROUP BY payment_st")->get();
 
-    $objPHPExcel->getActiveSheet()->setCellValue('B5', empty($dataB) ? 0 : $dataB[0]->b);
-    $objPHPExcel->getActiveSheet()->setCellValue('C5', empty($dataB) ? 0 : $dataB[0]->c);
-    $objPHPExcel->getActiveSheet()->setCellValue('D5', empty($dataB) ? 0 : $dataB[0]->d);
-    $objPHPExcel->getActiveSheet()->setCellValue('E5', empty($dataB) ? 0 : $dataB[0]->e);
+    // dd($dataB);
+
+    $objPHPExcel->getActiveSheet()->setCellValue('B5', empty($dataB) ? 0 : @$dataB[0]->b);
+    $objPHPExcel->getActiveSheet()->setCellValue('C5', empty($dataB) ? 0 : @$dataB[0]->c);
+    $objPHPExcel->getActiveSheet()->setCellValue('D5', empty($dataB) ? 0 : @$dataB[0]->d);
+    $objPHPExcel->getActiveSheet()->setCellValue('E5', empty($dataB) ? 0 : @$dataB[0]->e);
     // $objPHPExcel->getActiveSheet()->setCellValue('J5', $dataB2['b']);
     // $objPHPExcel->getActiveSheet()->setCellValue('K5', $dataB2['c']);
     // $objPHPExcel->getActiveSheet()->setCellValue('L5', $dataB2['d']);
@@ -342,10 +344,10 @@ for($i=1;$i<10;$i++){
     // dd($dataI2);
 
    // repor
-    $objPHPExcel->getActiveSheet()->setCellValue('B12', $dataI[0]->b === null ? 0 : $dataI[0]->b);
-    $objPHPExcel->getActiveSheet()->setCellValue('C12', $dataI[0]->c === null ? 0 : $dataI[0]->c);
-    $objPHPExcel->getActiveSheet()->setCellValue('D12',  $dataI[0]->d === null ? 0 : $dataI[0]->d);
-    $objPHPExcel->getActiveSheet()->setCellValue('E12', $dataI[0]->e === null ? 0 : $dataI[0]->e);
+    $objPHPExcel->getActiveSheet()->setCellValue('B12', @$dataI[0]->b === null ? 0 : @$dataI[0]->b);
+    $objPHPExcel->getActiveSheet()->setCellValue('C12', @$dataI[0]->c === null ? 0 : @$dataI[0]->c);
+    $objPHPExcel->getActiveSheet()->setCellValue('D12',  @$dataI[0]->d === null ? 0 : @$dataI[0]->d);
+    $objPHPExcel->getActiveSheet()->setCellValue('E12', @$dataI[0]->e === null ? 0 : @$dataI[0]->e);
     // $objPHPExcel->getActiveSheet()->setCellValue('J12',$dataI2['b']);
     // $objPHPExcel->getActiveSheet()->setCellValue('K12',$dataI2['c']);
     // $objPHPExcel->getActiveSheet()->setCellValue('L12',$dataI2['d']);
@@ -379,10 +381,10 @@ for($i=1;$i<10;$i++){
     // $objPHPExcel->getActiveSheet()->setCellValue('C14',$dataK['c']);
     // $objPHPExcel->getActiveSheet()->setCellValue('D14',$dataK['d']);
     // $objPHPExcel->getActiveSheet()->setCellValue('E14',$dataK['e']);
-    $objPHPExcel->getActiveSheet()->setCellValue('B14', $dataK2[0]->b === null ? 0 : $dataK2[0]->b);
-    $objPHPExcel->getActiveSheet()->setCellValue('C14', $dataK2[0]->c === null ? 0 : $dataK2[0]->c);
-    $objPHPExcel->getActiveSheet()->setCellValue('D14', $dataK2[0]->d === null ? 0 : $dataK2[0]->d);
-    $objPHPExcel->getActiveSheet()->setCellValue('E14', $dataK2[0]->e === null ? 0 : $dataK2[0]->e);
+    $objPHPExcel->getActiveSheet()->setCellValue('B14', @$dataK2[0]->b === null ? 0 : @$dataK2[0]->b);
+    $objPHPExcel->getActiveSheet()->setCellValue('C14', @$dataK2[0]->c === null ? 0 : @$dataK2[0]->c);
+    $objPHPExcel->getActiveSheet()->setCellValue('D14', @$dataK2[0]->d === null ? 0 : @$dataK2[0]->d);
+    $objPHPExcel->getActiveSheet()->setCellValue('E14', @$dataK2[0]->e === null ? 0 : @$dataK2[0]->e);
 
     $dataL = DB::table('tbl_claim')->selectRaw("COUNT(no_claim) as b,SUM(firm_doit) as c,SUM(firm_sparepart) as d,SUM(firm_all) as e")->whereRaw("DATE_FORMAT(date_status, '%Y-%m-%d') = '". $todate ."' AND SUBSTRING(payment_st,1,1) IN ('L') GROUP BY payment_st")->get();
     // dd($dataL);
@@ -394,10 +396,10 @@ for($i=1;$i<10;$i++){
     // $objPHPExcel->getActiveSheet()->setCellValue('C15',$dataL['c']);
     // $objPHPExcel->getActiveSheet()->setCellValue('D15',$dataL['d']);
     // $objPHPExcel->getActiveSheet()->setCellValue('E15',$dataL['e']);
-    $objPHPExcel->getActiveSheet()->setCellValue('B15', empty($dataL->b) ? 0 : $dataL[0]->b);
-    $objPHPExcel->getActiveSheet()->setCellValue('C15', empty($dataL->c) ? 0 : $dataL[0]->c);
-    $objPHPExcel->getActiveSheet()->setCellValue('D15', empty($dataL->d) ? 0 : $dataL[0]->d);
-    $objPHPExcel->getActiveSheet()->setCellValue('E15', empty($dataL->e) ? 0 : $dataL[0]->e);
+    $objPHPExcel->getActiveSheet()->setCellValue('B15', empty($dataL->b) ? 0 : @$dataL[0]->b);
+    $objPHPExcel->getActiveSheet()->setCellValue('C15', empty($dataL->c) ? 0 : @$dataL[0]->c);
+    $objPHPExcel->getActiveSheet()->setCellValue('D15', empty($dataL->d) ? 0 : @$dataL[0]->d);
+    $objPHPExcel->getActiveSheet()->setCellValue('E15', empty($dataL->e) ? 0 : @$dataL[0]->e);
 
 $objPHPExcel->getActiveSheet()->getStyle('A2:M15')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 $objPHPExcel->getActiveSheet()->getStyle('A2:M15')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
