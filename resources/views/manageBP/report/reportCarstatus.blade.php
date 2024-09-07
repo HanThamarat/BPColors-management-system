@@ -211,6 +211,66 @@ $objPHPExcel->getActiveSheet()->getPageMargins()->setTop(0.75); // กำหน�
 $objPHPExcel->getActiveSheet()->getPageMargins()->setRight(0.25); // กำหนดระยะขอบ ขวา
 $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft(0.25); // กำหนดระยะขอบ ซ้าย
 $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom(0.75); // กำหนดระยะขอบ ล่าง
+
+$objPHPExcel->getActiveSheet()->setTitle('Month');
+
+$objPHPExcel->createSheet();    
+$objPHPExcel->setActiveSheetIndex(1);
+
+$objPHPExcel->getActiveSheet()->mergeCells('A1:D1');
+$objPHPExcel->getActiveSheet()->setCellValue('A1', 'รายงานผลรวมของระยะเวลาการซ่อม');
+
+$SA = DB::table('tbl_claim')->selectRaw("user_con")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' GROUP BY user_con")->get();
+
+$saCell = 2;
+
+$objPHPExcel->getActiveSheet()->setCellValue('A2', '#');
+foreach ($SA as $key => $value) {
+	$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+	$objPHPExcel->getActiveSheet()->setCellValue([($saCell), (2)], @$value->user_con);
+	$saCell++;
+}
+
+$lobList = DB::table('tbl_claim')->selectRaw("car_job")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' GROUP BY car_job ")->get();
+
+$r = 3;
+$saRow = 4;
+$saCell = 2;
+
+foreach ($lobList as $key => $value) {
+	$objPHPExcel->getActiveSheet()->setCellValue('A'.($r),$value->car_job);
+	$carList = DB::table('tbl_claim')->selectRaw("no_regiscar, no_claim")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' and car_job = '". $value->car_job ."' GROUP BY no_regiscar, no_claim ,car_job")->get();
+	$r++;
+	foreach ($carList as $key => $value) {
+		$objPHPExcel->getActiveSheet()->setCellValue('A'.($r), @$value->no_regiscar);
+		$no_regis = @$value->no_regiscar;
+		$noClaim =  @$value->no_claim;
+		foreach ($SA as $key => $value) {
+			$recheckPA = DB::table('tbl_claim')->selectRaw("DATEDIFF(CASE WHEN date_dms IS NULL THEN CURRENT_DATE() ELSE date_dms END,date_service) AS dateDelays")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' and user_con = '".  @$value->user_con ."' and no_claim = '". $noClaim ."'")->get();
+			$objPHPExcel->getActiveSheet()->setCellValue([($saCell), ($saRow)], @$recheckPA[0] === null ? '0' : @$recheckPA[0]->dateDelays);
+			$saCell++;
+		}
+		$saRow++;
+		$saCell = 2;
+		$r++;
+	}
+	$saRow++;
+}
+
+$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader('&L&BInvoice&RPrinted on &D');
+$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&L&B' . $objPHPExcel->getProperties()->getTitle() . '&RPage &P of &N');
+
+// Set page orientation and size
+//echo date('H:i:s') . " Set page orientation and size\n";
+$objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+$objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+$objPHPExcel->getActiveSheet()->getPageMargins()->setTop(0.75); // กำหนดระยะขอบ บน
+$objPHPExcel->getActiveSheet()->getPageMargins()->setRight(0.25); // กำหนดระยะขอบ ขวา
+$objPHPExcel->getActiveSheet()->getPageMargins()->setLeft(0.25); // กำหนดระยะขอบ ซ้าย
+$objPHPExcel->getActiveSheet()->getPageMargins()->setBottom(0.75); // กำหนดระยะขอบ ล่าง
 // Rename sheet
 //echo date('H:i:s') . " Rename sheet\n";
 $objPHPExcel->getActiveSheet()->setTitle('StatusAuditDoc');
