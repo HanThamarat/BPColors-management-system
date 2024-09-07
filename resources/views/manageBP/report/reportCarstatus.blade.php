@@ -212,7 +212,7 @@ $objPHPExcel->getActiveSheet()->getPageMargins()->setRight(0.25); // กำห�
 $objPHPExcel->getActiveSheet()->getPageMargins()->setLeft(0.25); // กำหนดระยะขอบ ซ้าย
 $objPHPExcel->getActiveSheet()->getPageMargins()->setBottom(0.75); // กำหนดระยะขอบ ล่าง
 
-$objPHPExcel->getActiveSheet()->setTitle('Month');
+$objPHPExcel->getActiveSheet()->setTitle('repair total day');
 
 $objPHPExcel->createSheet();    
 $objPHPExcel->setActiveSheetIndex(1);
