@@ -76,27 +76,27 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->getAlignment()->setVertical(\
 $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
-		array(
-			'font'    => array(
-				'bold'      => true
+	array(
+		'font'    => array(
+			'bold'      => true
+		),
+		
+		'borders' => array(
+			'allborders' => array(
+					'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
+				)
+		),
+		'fill' => array(
+			'type'       => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+			'rotation'   => 90,
+			'startcolor' => array(
+				'argb' => 'FFA0A0A0'
 			),
-			
-			'borders' => array(
-				'allborders' => array(
-					  'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
-					)
-			),
-			'fill' => array(
-	 			'type'       => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
-	  			'rotation'   => 90,
-	 			'startcolor' => array(
-	 				'argb' => 'FFA0A0A0'
-	 			),
-	 			'endcolor'   => array(
-	 				'argb' => 'FFFFFFFF'
-	 			)
-	 		)
+			'endcolor'   => array(
+				'argb' => 'FFFFFFFF'
+			)
 		)
+	)
 );
 
 				
@@ -109,7 +109,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 						
 
 
-				$response = DB::table('tbl_claim')->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' ORDER BY date_cliam ASC")->get();
+				$response = DB::table('tbl_claim')->selectRaw("*, DATEDIFF(CASE WHEN date_dms IS NULL THEN CURRENT_DATE() ELSE date_dms END,date_service) AS dateDelays")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' ORDER BY date_cliam ASC")->get();
 
 
                 foreach ($response as $res) {
@@ -118,7 +118,8 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
                     	$objPHPExcel->getActiveSheet()->setCellValue('A'.($r+2),$no);
                     	$objPHPExcel->getActiveSheet()->setCellValue('B'.($r+2),$res->date_repair);
                     	$objPHPExcel->getActiveSheet()->setCellValue('C'.($r+2),$res->date_dms == null || $res->date_dms == '' ? "0000-00-00" : $res->date_dms);
-                    	$objPHPExcel->getActiveSheet()->setCellValue('D'.($r+2),'=IF(C'.($r+2).'="0000-00-00",NOW()-B'.($r+2).',C'.($r+2).'-B'.($r+2).')');
+                    	$objPHPExcel->getActiveSheet()->setCellValue('D'.($r+2),$res->dateDelays);
+                    	// $objPHPExcel->getActiveSheet()->setCellValue('D'.($r+2),'=IF(C'.($r+2).'="0000-00-00",NOW()-B'.($r+2).',C'.($r+2).'-B'.($r+2).')');
 
                     	if($res-> date_dms == "0000-00-00" || $res->date_dms == null){
                     		$dateNow=date_create(date('Y-m-d'));
@@ -168,8 +169,6 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
                     	$objPHPExcel->getActiveSheet()->setCellValue('R'.($r+2),$res->note_service);			
                 
                     
-                    
-                        
                     $no++;	
                     $r++;
                 }					
@@ -191,7 +190,6 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 				
 				$objPHPExcel->getActiveSheet()->getStyle('A2:W'.($r+2))->applyFromArray(
 		array(
-			
 			'borders' => array(
 				'allborders' => array(
 					  'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
