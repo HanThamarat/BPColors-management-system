@@ -109,7 +109,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 						
 
 
-				$response = DB::table('tbl_claim')->selectRaw("*, DATEDIFF(CASE WHEN date_dms IS NULL THEN CURRENT_DATE() ELSE date_dms END,date_service) AS dateDelays")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' ORDER BY date_cliam ASC")->get();
+				$response = DB::table('tbl_claim')->selectRaw("*, DATEDIFF(CASE WHEN date_dms IS NULL THEN CURRENT_DATE() ELSE date_dms END,date_repair) AS dateDelays")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' ORDER BY date_cliam ASC")->get();
 
 
                 foreach ($response as $res) {
@@ -247,7 +247,7 @@ foreach ($lobList as $key => $value) {
 		$no_regis = @$value->no_regiscar;
 		$noClaim =  @$value->no_claim;
 		foreach ($SA as $key => $value) {
-			$recheckPA = DB::table('tbl_claim')->selectRaw("DATEDIFF(CASE WHEN date_dms IS NULL THEN CURRENT_DATE() ELSE date_dms END,date_service) AS dateDelays")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' and user_con = '".  @$value->user_con ."' and no_claim = '". $noClaim ."'")->get();
+			$recheckPA = DB::table('tbl_claim')->selectRaw("DATEDIFF(CASE WHEN date_dms IS NULL THEN CURRENT_DATE() ELSE date_dms END,date_repair) AS dateDelays")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' and user_con = '".  @$value->user_con ."' and no_claim = '". $noClaim ."'")->get();
 			$objPHPExcel->getActiveSheet()->setCellValue([($saCell), ($saRow)], @$recheckPA[0] === null ? '0' : @$recheckPA[0]->dateDelays);
 			$saCell++;
 		}
