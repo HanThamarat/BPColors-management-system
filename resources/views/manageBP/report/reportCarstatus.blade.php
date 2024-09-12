@@ -232,14 +232,15 @@ foreach ($SA as $key => $value) {
 	$saCell++;
 }
 
-$lobList = DB::table('tbl_claim')->selectRaw("car_job")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' GROUP BY car_job ")->get();
+$lobList = DB::table('tbl_claim')->selectRaw("car_job, CONCAT(car_job, ' (',SUM(DATEDIFF(CASE WHEN date_dms IS NULL THEN CURRENT_DATE() ELSE date_dms END,date_service)), ')') AS jobTotalService")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' GROUP BY car_job ")->get();
 
 $r = 3;
 $saRow = 4;
 $saCell = 2;
 
 foreach ($lobList as $key => $value) {
-	$objPHPExcel->getActiveSheet()->setCellValue('A'.($r),$value->car_job);
+	$objPHPExcel->getActiveSheet()->getStyle('A'.($r).':'.'C'.($r))->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffb703');
+	$objPHPExcel->getActiveSheet()->setCellValue('A'.($r),$value->jobTotalService);
 	$carList = DB::table('tbl_claim')->selectRaw("no_regiscar, no_claim")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' and car_job = '". $value->car_job ."' GROUP BY no_regiscar, no_claim ,car_job")->get();
 	$r++;
 	foreach ($carList as $key => $value) {
