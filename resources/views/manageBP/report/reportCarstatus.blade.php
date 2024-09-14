@@ -250,9 +250,24 @@ $saCell = 2;
 foreach ($lobList as $key => $value) {
 	$objPHPExcel->getActiveSheet()->getStyle('A'.($r).':'.'C'.($r))->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffb703');
 	$objPHPExcel->getActiveSheet()->setCellValue('A'.($r),"{$value->car_job} ({$value->jobDue})");
-	$carList = DB::table('tbl_claim')->selectRaw("no_regiscar, no_claim")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' and car_job = '". $value->car_job ."' GROUP BY no_regiscar, no_claim ,car_job")->get();
+	$car_job = $value->car_job;
+	$carList = DB::table('tbl_claim')->selectRaw("date_repair ,no_regiscar, no_claim")->whereRaw("SUBSTRING(payment_st,1,1) not in ('G','H','I','J','K','L') and date_repair<>'0000-00-00' and car_job = '". $value->car_job ."' GROUP BY no_regiscar, no_claim ,car_job, date_repair")->get();
 	$r++;
 	foreach ($carList as $key => $value) {
+		$dateCli=date_create($value->date_repair);
+		$diff=date_diff($dateCli,$dateNow);		
+		
+		if($car_job == "H1" && $diff->days > 25){
+			$objPHPExcel->getActiveSheet()->getStyle('A'.($r).':'.'C'.($r))->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('e85d04');
+		} else if ($car_job == "H2" && $diff->days > 35) {
+			$objPHPExcel->getActiveSheet()->getStyle('A'.($r).':'.'C'.($r))->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('e85d04');
+		} else if ($car_job == "H3" && $diff->days > 45) {
+			$objPHPExcel->getActiveSheet()->getStyle('A'.($r).':'.'C'.($r))->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('e85d04');
+		} else if ($car_job == "L-เบา" && $diff->days > 6) {
+			$objPHPExcel->getActiveSheet()->getStyle('A'.($r).':'.'C'.($r))->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('e85d04');
+		} else if ($car_job == "M-กลาง" && $diff->days > 14) {
+			$objPHPExcel->getActiveSheet()->getStyle('A'.($r).':'.'C'.($r))->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('e85d04');
+		}
 		$objPHPExcel->getActiveSheet()->setCellValue('A'.($r), @$value->no_regiscar);
 		$no_regis = @$value->no_regiscar;
 		$noClaim =  @$value->no_claim;
