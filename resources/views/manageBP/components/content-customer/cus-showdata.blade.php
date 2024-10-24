@@ -26,8 +26,8 @@
             </div>
         </div>
         <x-detail>
-            <div class="justify-between flex">
-                <div class="w-full mr-2">
+            <div class="justify-between lg:flex">
+                <div class="w-full lg:mr-2">
                     <div class="flex justify-between border-b my-1">
                         <span>สถานะ: </span>
                         <p>{{ $getUserData->payment_st !== '' && $getUserData->payment_st !== null ? $getUserData->payment_st : 'ไม่มีข้อมูล' }}</p>
@@ -77,7 +77,7 @@
                         <p>{{ $getUserData->job_status !== '' && $getUserData->job_status !== null ? $getUserData->job_status : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                 </div>
-                <div class="w-full ml-2">
+                <div class="w-full lg:ml-2">
                     <div class="flex justify-between border-b my-1">
                         <span>เลขที่ Job (BP) (RO) (SA): </span>
                         <p>{{ $getUserData->no_job !== '' && $getUserData->no_job !== null ? $getUserData->no_job : 'ไม่มีข้อมูล'  }}</p>
@@ -96,7 +96,7 @@
                     </div>
                     <div class="flex justify-between border-b my-1">
                         <span>ที่อยู่รูปภาพ: </span>
-                        <p>{{ $getUserData->imgAddress !== '' && $getUserData->imgAddress !== null ? $getUserData->imgAddress : 'ไม่มีข้อมูล'  }}</p>
+                        <p class="max-w-[450px] overflow-x-auto text-nowrap">{{ $getUserData->imgAddress !== '' && $getUserData->imgAddress !== null ? $getUserData->imgAddress : 'ไม่มีข้อมูล'  }}</p>
                     </div>
                     <div>
                         <span>หมายเหตุ: </span>
