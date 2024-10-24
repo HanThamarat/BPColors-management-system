@@ -183,6 +183,11 @@
             </select>
         </div>
     </div>
+    <div class="w-full">
+        <label>ที่อยู่รูปภาพ</label>
+        <input type="text" placeholder="ที่อยู่รูปภาพ" class="w-full rounded" wire:model="imgAddress">
+        @error('imgAddress') <span class="error text-red-500">{{ $message }}</span> @enderror
+    </div>
     <div class="w-full my-4">
         <label>หมายเหตุ</label>
         <textarea  id="" rows="7" class="w-full rounded" wire:model="note"></textarea>

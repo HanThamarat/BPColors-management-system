@@ -77,6 +77,7 @@ class CustomerScreen extends Component
     public $wipDatas;
 
     public $date_send;
+    public $imgAddress;
 
     public $evaluate_total;
     public $evaluate_job;
@@ -435,6 +436,7 @@ class CustomerScreen extends Component
         $this->insurence_EMCS = $response[0]->emcs;
         $this->note = $response[0]->remark;
         $this->claim_status = $response[0]->payment_st;
+        $this->imgAddress = $response[0]->imgAddress;
     }
 
     public function closeFormCustomer() {
@@ -468,6 +470,7 @@ class CustomerScreen extends Component
                 'remark' => $this->note,
                 'payment_st' => $this->claim_status,
                 'user_con' => $this->clm_recipient,
+                'imgAddress' => $this->imgAddress,
             ]);
         } else {
             // update payment_st 
