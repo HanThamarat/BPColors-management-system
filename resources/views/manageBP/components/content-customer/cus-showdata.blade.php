@@ -107,9 +107,6 @@
                 </div>
             </div>
         </x-detail>
-        <div class="mt-3">
-            sdsdsd
-        </div>
     </div>
     <div class="rounded px-2 py-5 mt-2 bg-white drop-shadow-md animate-fade-up animate-once animate-duration-1000 animate-delay-300 animate-ease-in-out">
         <div class="flex justify-between items-center text-sm" id="tab-bar">
