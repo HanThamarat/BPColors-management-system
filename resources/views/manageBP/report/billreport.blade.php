@@ -147,8 +147,9 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 				//  SELECT * FROM tbl_claim WHERE  ((date_dms <> ''OR date_dms='0000-00-00') AND payment_st='I ขออนุมัติวางบิล' )";
 	            // $q_claim = mysql_query($claim);
 	              
-					$response = DB::table('tbl_claim')->whereRaw("(date_bill BETWEEN '". $fromdate ."' AND '". $todate ."') UNION
-				 	SELECT * FROM tbl_claim WHERE  ((date_dms is null) AND payment_st='I ขออนุมัติวางบิล')")->get();
+					$response = DB::table('tbl_claim')
+					->whereRaw("(date_bill BETWEEN '". $fromdate ."' AND '". $todate ."' or date_transfer BETWEEN '". $fromdate ."' AND '". $todate ."') UNION
+				 	SELECT * FROM tbl_claim WHERE ((date_dms is null) AND payment_st='I ขออนุมัติวางบิล')")->get();
 	                
 					// dd($response);
 
