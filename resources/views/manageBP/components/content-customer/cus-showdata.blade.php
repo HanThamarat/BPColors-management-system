@@ -111,7 +111,7 @@
     <div class="rounded px-2 py-5 mt-2 bg-white drop-shadow-md animate-fade-up animate-once animate-duration-1000 animate-delay-300 animate-ease-in-out">
         <div class="flex justify-between items-center text-sm" id="tab-bar">
             {{-- <button class="btn-detail w-full  py-1 px-2 rounded bg-blue-500 text-white mr-1" onclick="handleDetail()">รายละเอียดอื่นๆ</button>
-            <button class="btn-repaire w-full  py-1 px-2 rounded  ml-1" onclick="handleRepaire()">รายการซ่อม</button> --}}
+            <button class="btn-repaire w-full  py-1 px-2 rounded  ml-1" onclick="handleRepaire()">รายการซ่อม</button>  ddddddd --}}
             <button wire:loading.class="bg-blue-500 text-white" wire:target="handledetail" onclick="handleDetail()" class="btn-detail w-full flex justify-center items-center gap-x-2 py-1 px-2 rounded {{ $cus_tail ? 'bg-blue-500 text-white' : 'hover:bg-blue-400 hover:text-white' }} duration-150 mr-1" wire:click.prevent="handledetail({{ 0 }})" {{ $cus_tail ? 'disabled' : '' }}>
                 <span wire:loading.class="hidden" wire:target="handledetail" class="">รายละเอียดอื่นๆ</span>
                 <svg wire:loading aria-hidden="true" wire:target="handledetail" class="w-5 h-5 text-gray-200 animate-spin fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
