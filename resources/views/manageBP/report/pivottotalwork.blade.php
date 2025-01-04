@@ -5,7 +5,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use Illuminate\Support\Facades\DB;
 	$year;
-	
+
 	$marr[1] = "January";
 	$marr[2] = "February";
 	$marr[3] = "March";
@@ -19,11 +19,11 @@ use Illuminate\Support\Facades\DB;
 	$marr[11] = "November";
 	$marr[12] = "December";
 
-	
 
- 
-	$textTitle ="Pivot Claim ";		
-					
+
+
+	$textTitle ="Pivot Claim ";
+
 
 $objPHPExcel = new Spreadsheet();
 
@@ -64,13 +64,19 @@ for($i=1;$i<13;$i++){
 
 	foreach ($work_n as $res_name2) {
         $work_a = DB::table('tbl_wip')->selectRaw("SUM(cal_doit) as doit")->whereRaw("respon_name = '". $res_name2->name ."' AND no_claimex IN (SELECT no_claim  FROM tbl_claim WHERE SUBSTRING(payment_st,1,1) in ('G','H','I','J','K') AND DATE_FORMAT(date_dms,'%Y-%m')= '". $y_m ."' ) GROUP BY tbl_wip.respon_name")->get();
-		
-		foreach ($work_a as $res) {
-			$objPHPExcel->getActiveSheet()->setCellValue([($i+1),($emp)], $res->doit);
+        // $work_a = DB::table('tbl_wip')->selectRaw("SUM(cal_doit) as doit")->whereRaw("respon_name = 'ไกรสร' AND no_claimex IN (SELECT no_claim  FROM tbl_claim WHERE SUBSTRING(payment_st,1,1) in ('G','H','I','J','K') AND DATE_FORMAT(date_dms,'%Y-%m')= '2025' ) GROUP BY tbl_wip.respon_name")->get();
+
+        if (count($work_a) == 0) {
+            $objPHPExcel->getActiveSheet()->setCellValue([($i+1),($emp)],'');
         	$emp++;
-		}
+        } else {
+            foreach ($work_a as $res) {
+                $objPHPExcel->getActiveSheet()->setCellValue([($i+1),($emp)],  empty($res->doit) ? '0' : $res->doit);
+                $emp++;
+            }
+        }
     }
-	$n_m++;	
+	$n_m++;
 }
 $objPHPExcel->getActiveSheet()->getStyle('A1:K1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 $objPHPExcel->getActiveSheet()->getStyle('A1:K1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
@@ -80,7 +86,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:K1')->applyFromArray(
 			'font'    => array(
 				'bold'      => true
 			),
-			
+
 			'borders' => array(
 				'allborders' => array(
 					  'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
@@ -99,29 +105,29 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:K1')->applyFromArray(
 		)
 );
 
-		
-    
- 			
-					
-				
-					
+
+
+
+
+
+
 	// $objPHPExcel->getActiveSheet()->getStyle('A2'.':H'.($row+1))->getFont()->setName('Arial');
 	// $objPHPExcel->getActiveSheet()->getStyle('A2'.':H'.($row+1))->getFont()->setSize(8);
 	// $objPHPExcel->getActiveSheet()->getStyle('A2:H'.($row+2))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
-	
-								
-	
-	
+
+
+
+
 
 	// $objPHPExcel->getActiveSheet()->getStyle('A'.($row+2).':H'.($row+2))->getFont()->setName('Candara');
 	// $objPHPExcel->getActiveSheet()->getStyle('A'.($row+2).':H'.($row+2))->getFont()->setSize(16);
 	// $objPHPExcel->getActiveSheet()->getStyle('A'.($row+2).':H'.($row+2))->getFont()->setBold(true);
-	
+
 	// $objPHPExcel->getActiveSheet()->getStyle('A'.($row+2).':H'.($row+2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-	
+
 	// $objPHPExcel->getActiveSheet()->getStyle('A2:H'.($row+2))->applyFromArray(
 	// 	array(
-			
+
 	// 		'borders' => array(
 	// 			'allborders' => array(
 	// 				  'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
