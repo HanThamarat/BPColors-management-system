@@ -79,6 +79,11 @@
                         <input type="text" placeholder="รุ่นรถ" class="w-full rounded" wire:model="car_model">
                         @error('car_brand') <span class="error text-red-500">{{ $message }}</span> @enderror
                     </div>
+                    <div class="w-full lg:ml-2">
+                        <label>ปีรถ</label>
+                        <input type="text" placeholder="ปีรถ" class="w-full rounded" wire:model="car_year">
+                        @error('car_year') <span class="error text-red-500">{{ $message }}</span> @enderror
+                    </div>
                 </div>
                 <div class="w-full my-4 lg:flex">
                     <div class="w-full lg:mr-2">
@@ -150,6 +155,18 @@
                                 <option value="{{ $items->insure_name }}">{{ $items->insure_name }}</option>
                             @endforeach
                         </select>
+                    </div>
+                </div>
+                <div class="w-full my-4 lg:flex">
+                    <div class="w-full lg:mr-2">
+                         <label>วันที่คุ้มครอง</label>
+                        <input type="date" placeholder="วันที่คุ้มครอง" class="w-full rounded" wire:model="insurence_start" required>
+                        @error('insurence_start') <span class="error text-red-500">{{ $message }}</span> @enderror
+                    </div>
+                   <div class="w-full lg:mr-2">
+                         <label>วันที่สิ้นสุดคุ้มครอง</label>
+                        <input type="date" placeholder="วันที่คุ้มครอง" class="w-full rounded" wire:model="insurence_end" required>
+                        @error('insurence_end') <span class="error text-red-500">{{ $message }}</span> @enderror
                     </div>
                 </div>
                 <div class="w-full my-4 lg:flex">

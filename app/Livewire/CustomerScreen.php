@@ -54,6 +54,7 @@ class CustomerScreen extends Component
     public $regiscar_number;
     public $car_brand;
     public $car_model;
+    public $car_year;
     public $car_body_number;
     public $clm_recipient;
     public $policy_number;
@@ -61,6 +62,8 @@ class CustomerScreen extends Component
     public $insurence;
     public $insurence_type;
     public $insurence_name;
+    public $insurence_start;
+    public $insurence_end;
     public $insurence_EMCS;
     public $work_type;
     public $status_repair;
@@ -425,11 +428,14 @@ class CustomerScreen extends Component
         $this->regiscar_number = $response[0]->no_regiscar;
         $this->car_brand = $response[0]->car_brand;
         $this->car_model = $response[0]->car_model;
+        $this->car_year = $response[0]->car_year;
         $this->car_body_number = $response[0]->car_chassis;
         $this->except = $response[0]->status_deduct;
         $this->insurence_type = $response[0]->insure_type;
         $this->cus_resource = $response[0]->cus_resource;
         $this->insurence = $response[0]->insure_source;
+        $this->insurence_start = $response[0]->insurence_start;
+        $this->insurence_end = $response[0]->insurence_end;
         $this->color = $response[0]->status_color;
         $this->work_type = $response[0]->car_job;
         $this->insurence_name = $response[0]->insure_name;
@@ -458,6 +464,7 @@ class CustomerScreen extends Component
                 'no_regiscar' => $this->regiscar_number,
                 'car_brand' => $this->car_brand,
                 'car_model' => $this->car_model,
+                'car_year' => $this->car_year,
                 'car_chassis' => $this->car_body_number,
                 'status_deduct' => $this->except,
                 'insure_type' => $this->insurence_type,
@@ -466,6 +473,8 @@ class CustomerScreen extends Component
                 'status_color' => $this->color,
                 'car_job' => $this->work_type,
                 'insure_name' => $this->insurence_name,
+                'insure_start' => $this->insure_start,
+                'insure_end' => $this->insure_end,
                 'emcs' => $this->insurence_EMCS,
                 'remark' => $this->note,
                 'payment_st' => $this->claim_status,
@@ -483,11 +492,14 @@ class CustomerScreen extends Component
                 'no_regiscar' => $this->regiscar_number,
                 'car_brand' => $this->car_brand,
                 'car_model' => $this->car_model,
+                'car_year' => $this->car_year,
                 'car_chassis' => $this->car_body_number,
                 'status_deduct' => $this->except,
                 'insure_type' => $this->insurence_type,
                 'cus_resource' => $this->cus_resource,
                 'insure_source' => $this->insurence,
+                'insure_start' => $this->insure_start,
+                'insure_end' => $this->insure_end,
                 'status_color' => $this->color,
                 'car_job' => $this->work_type,
                 'insure_name' => $this->insurence_name,

@@ -319,23 +319,37 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:W1')->applyFromArray(
 					
 					$dateCli=date_create($res->date_repair);
 					$diff=date_diff($dateCli,$dateNow);		
-					$dateFirm = $diff->format("%a");
+					$dateFirm = $diff->format("%a"); 
 
-					if(substr($res->car_job,0,1) === "H"){
-						if($dateFirm>21){
+					if(substr($res->car_job,0,2) === "H1"){
+						if($dateFirm>25){
 							$timeTxt = "เลยกำหนด";
 						}else{
 							$timeTxt = "ปกติ";
 						}
 
-					}elseif(substr($res->car_job,0,1) === "M"){
-						if($dateFirm>11){
+					}elseif(substr($res->car_job,0,2) === "H2"){
+						if($dateFirm>35){
 							$timeTxt = "เลยกำหนด";
 						}else{
 							$timeTxt = "ปกติ";
 						}
 
-					}elseif(substr($res->car_job,0,1) === "L"){
+					}elseif(substr($res->car_job,0,2) === "H3"){
+						if($dateFirm>45){
+							$timeTxt = "เลยกำหนด";
+						}else{
+							$timeTxt = "ปกติ";
+						}
+
+					}elseif(substr($res->car_job,0,2) === "M-"){
+						if($dateFirm>14){
+							$timeTxt = "เลยกำหนด";
+						}else{
+							$timeTxt = "ปกติ";
+						}
+
+					}elseif(substr($res->car_job,0,2) === "L-"){
 						if($dateFirm>6){
 							$timeTxt = "เลยกำหนด";
 						}else{
